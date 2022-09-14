@@ -1,0 +1,509 @@
+﻿@model Eshop.ViewModels.DesktopViewModel
+@{
+    ViewBag.Title = "BuildYourDesktop";
+}
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h4>Home/Custom Desktop</h4>
+    </div>
+</div>
+
+<div class="mydesktop-wrapper">
+    <div class="mydesktop-wrapper-1">
+        <div class="operations">
+            <div class="operations__tab-container">
+
+                <button class="btn operations__tab operations__tab--1 operations__tab--active" data-tab="1">
+                    My Desktop
+                </button>
+
+                <button class="btn operations__tab operations__tab--2" data-tab="2">
+                    Cpu
+                </button>
+                <button class="btn operations__tab operations__tab--3" data-tab="3">
+                    Ram
+                </button>
+                <button class="btn operations__tab operations__tab--4" data-tab="4">
+                    Graphics
+                </button>
+                <button class="btn operations__tab operations__tab--5" data-tab="5">
+                    Hard Disks
+                </button>
+                <button class="btn operations__tab operations__tab--6" data-tab="6">
+                    Psu
+                </button>
+                <button class="btn operations__tab operations__tab--7" data-tab="7">
+                    Motherboards
+                </button>
+
+            </div>
+            <div class="operations__content operations__content--1 operations__content--active">
+                <!-- start of table -->
+                <div class="my-desktop-table-container product-data">
+                    <div class="custom-desktop-header">
+                        <h3>My <span>Custom</span> Desktop</h3>
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="custom-desktop-td">
+                                <img src="~/Images/Other/cpuuu2u.png" />
+                                <b>Cpu</b>
+
+                            </td>
+                            <td class="giaWidth2">
+                                <h5 class="Titless">@Model.desktop.product.Name</h5>
+                            </td>
+                            <td>
+                                <h4>@Model.desktop.product.price $</h4>
+                            </td>
+                        
+                            <td>
+                                @if (Model.desktop.product.id != 64)
+                                {
+                                    <button style="width:80%;" id="RemoveFromDesktop" data-product-id="@Model.desktop.product.id">
+                                        Remove
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-desktop-td">
+                                <img src="~/Images/Other/motherboard.png" />
+                                <b>Motheboard</b>
+                            </td>
+                            <td class="giaWidth2">
+                                <h5 class="Titless">@Model.desktop.product1.Name</h5>
+                            </td>
+                            <td>
+                                <h4>@Model.desktop.product1.price $</h4>
+                            </td>
+                            <td>
+                                @if (Model.desktop.product1.id != 64)
+                                {
+                                    <button style="width:80%;" id="RemoveFromDesktop" data-product-id="@Model.desktop.product1.id">
+                                        Remove
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-desktop-td">
+                                <img src="~/Images/Other/Gpu.png" />
+                                <b>Graphics Card</b>
+                            </td>
+                            <td class="giaWidth2">
+                                <h5>@Model.desktop.product2.Name</h5>
+                            </td>
+                            <td>
+                                <h4>@Model.desktop.product2.price $</h4>
+                            </td>
+                            <td>
+                                @if (Model.desktop.product2.id != 64)
+                                {
+                                    <button style="width:80%;" id="RemoveFromDesktop" data-product-id="@Model.desktop.product2.id">
+                                        Remove
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-desktop-td">
+                                <img src="~/Images/Other/RamIcon.png" />
+                                <b>Ram</b>
+                            </td>
+                            <td class="giaWidth2">
+                                <h5 class="Titless">@Model.desktop.product5.Name</h5>
+                            </td>
+                            <td>
+                                <h4>@Model.desktop.product5.price $</h4>
+                            </td>
+                            <td class="text-right-td">
+                                @if (Model.desktop.product5.id != 64)
+                                {
+                                    <button style="width:80%;" id="RemoveFromDesktop" data-product-id="@Model.desktop.product5.id">
+                                        Remove
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-desktop-td">
+                                <img src="~/Images/Other/PSUICON.png" />
+                                <b>Psu</b>
+                            </td>
+                            <td class="giaWidth2">
+                                <h5 class="Titless">@Model.desktop.product4.Name</h5>
+                            </td>
+                            <td>
+                                <h4>@Model.desktop.product4.price $</h4>
+                            </td>
+                            <td>
+                                @if (Model.desktop.product4.id != 64)
+                                {
+                                    <button style="width:80%;" id="RemoveFromDesktop" data-product-id="@Model.desktop.product4.id">
+                                        Remove
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="custom-desktop-td">
+                                <img src="~/Images/Other/HardDiscIcon.png" />
+                                <b>Hard Disk</b>
+                            </td>
+                            <td class="giaWidth2">
+                                <h5 class="Titless">@Model.desktop.product3.Name</h5>
+                            </td>
+                            <td>
+                                <h4>@Model.desktop.product3.price $</h4>
+                            </td>
+                            <td>
+                                @if (Model.desktop.product3.id != 64)
+                                {
+                                    <button style="width:80%;" id="RemoveFromDesktop" data-product-id="@Model.desktop.product3.id">
+                                        Remove
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- end of table -->
+
+            </div>
+            <div class="operations__content operations__content--2">
+                <div class="my-desktop-table-container">
+
+                    @if (Model.desktop.product1.id == 64)
+                    {
+                        foreach (var prod in Model.ProdCpus)
+                        {
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Content("~/Images/" + prod.image1)" alt="">
+                                    </td>
+                                    <td class="max-width-my-desktop-td">
+                                        <h5>@prod.Name</h5>
+                                    </td>
+                                    <td>
+                                        <h4>@prod.price</h4>
+                                    </td>
+                                    <td class="my-desktop-stock">
+                                        <h2>@prod.stock</h2>
+                                    </td>
+                                    <td>
+                                        <button class="buttonalex2" data-product-id="@prod.id">
+                                            Add
+                                            <img src="pc-icon.png" alt="">
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+
+                    }
+                    else if (Model.desktop.product1.id != 64)
+                    {
+
+                        motherboard thisMotherBoard = Model.Motherboards.SingleOrDefault(x => x.productId == Model.desktop.product1.id);
+                        var cpusWithSocket = Model.Cpus.Where(y => y.socket == thisMotherBoard.socket);
+                        var ProductsWithSocket = new List<product>();
+
+                        <p>Cpus with socket @thisMotherBoard.socket</p>
+
+                        foreach (product prod in Model.ProdCpus)
+                        {
+                            foreach (cpu cpu in cpusWithSocket)
+                            {
+                                if (prod.id == cpu.productId)
+                                {
+                                    ProductsWithSocket.Add(prod);
+                                }
+                            }
+                        }
+                        foreach (var prodSocket in ProductsWithSocket)
+                        {
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Content("~/Images/" + prodSocket.image1)" alt="">
+                                    </td>
+                                    <td class="max-width-my-desktop-td">
+                                        <h5>@prodSocket.Name</h5>
+                                    </td>
+                                    <td>
+                                        <h4>@prodSocket.price &euro;</h4>
+                                    </td>
+                                    <td class="my-desktop-stock">
+                                        @prodSocket.stock
+                                    </td>
+                                    <td>
+                                        <button class="buttonalex2" data-product-id="@prodSocket.id">
+                                            Add
+                                            <img src="pc-icon.png" alt="">
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    }
+
+                </div>
+            </div>
+            <div class="operations__content operations__content--3">
+                <div class="my-desktop-table-container">
+
+                    @foreach (var prod in Model.ProdRams)
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="@Url.Content("~/Images/" + prod.image1)" alt="">
+                                </td>
+                                <td class="max-width-my-desktop-td">
+                                    <h5>@prod.Name</h5>
+                                </td>
+                                <td>
+                                    <h4>@prod.price &euro;</h4>
+                                </td>
+                                <td class="my-desktop-stock">
+                                    In Stock: @prod.stock
+                                </td>
+                                <td>
+                                    <button class="buttonalex2" data-product-id="@prod.id">
+                                        Add
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="operations__content operations__content--4">
+                <div class="my-desktop-table-container">
+
+                    @foreach (var prod in Model.ProdGpus)
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="@Url.Content("~/Images/" + prod.image1)" alt="">
+                                </td>
+                                <td class="max-width-my-desktop-td">
+                                    <h5>@prod.Name</h5>
+                                </td>
+                                <td>
+                                    <h4>@prod.price &euro;</h4>
+                                </td>
+                                <td class="my-desktop-stock">
+                                    In Stock: @prod.stock
+                                </td>
+                                <td>
+                                    <button class="buttonalex2" data-product-id="@prod.id">
+                                        Add
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="operations__content operations__content--5">
+                <div class="my-desktop-table-container">
+
+                    @foreach (var prod in Model.ProdHardDiscs)
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="@Url.Content("~/Images/" + prod.image1)" alt="">
+                                </td>
+                                <td class="max-width-my-desktop-td">
+                                    <h5>@prod.Name</h5>
+                                </td>
+                                <td>
+                                    <h4>@prod.price &euro;</h4>
+                                </td>
+                                <td class="my-desktop-stock">
+                                    In Stock: @prod.stock
+                                </td>
+                                <td>
+                                    <button class="buttonalex2" data-product-id="@prod.id">
+                                        Add
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="operations__content operations__content--6">
+                <div class="my-desktop-table-container">
+                    @foreach (var prod in Model.ProdPsus)
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="@Url.Content("~/Images/" + prod.image1)" alt="">
+                                </td>
+                                <td class="max-width-my-desktop-td">
+                                    <h5>@prod.Name</h5>
+                                </td>
+                                <td>
+                                    <h4>@prod.price &euro;</h4>
+                                </td>
+                                <td class="my-desktop-stock">
+                                    In Stock: @prod.stock
+                                </td>
+                                <td>
+                                    <button class="buttonalex2" data-product-id="@prod.id">
+                                        Add
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="operations__content operations__content--7">
+                <div class="my-desktop-table-container">
+                    @if (Model.desktop.product.id == 64)
+                    {
+                        foreach (var prod in Model.ProdMotherboards)
+                        {
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Content("~/Images/" + prod.image1)" alt="">
+                                    </td>
+                                    <td class="max-width-my-desktop-td">
+                                        <h5>@prod.Name</h5>
+                                    </td>
+                                    <td>
+                                        <h4>@prod.price &euro;</h4>
+                                    </td>
+                                    <td class="my-desktop-stock">
+                                        <h2>@prod.stock</h2>
+                                    </td>
+                                    <td>
+                                        <button class="buttonalex2" data-product-id="@prod.id">
+                                            Add
+
+                                            <img src="pc-icon.png" alt="">
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+
+                    }
+                    else if (Model.desktop.product.id != 64)
+                    {
+
+                        cpu thisCPU = Model.Cpus.SingleOrDefault(x => x.productId == Model.desktop.product.id);
+                        var motherboardsWithSocket = Model.Motherboards.Where(y => y.socket == thisCPU.socket);
+                        var ProductsWithSocket = new List<product>();
+
+                        <p>MotherBoards with socket @thisCPU.socket</p>
+
+                        foreach (product prod in Model.ProdMotherboards)
+                        {
+                            foreach (motherboard _motheboard in motherboardsWithSocket)
+                            {
+                                if (prod.id == _motheboard.productId)
+                                {
+                                    ProductsWithSocket.Add(prod);
+                                }
+                            }
+                        }
+                        foreach (var prodSocket in ProductsWithSocket)
+                        {
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Content("~/Images/" + prodSocket.image1)" alt="">
+                                    </td>
+                                    <td class="max-width-my-desktop-td">
+                                        <h5>@prodSocket.Name</h5>
+                                    </td>
+                                    <td>
+                                        <h4>@prodSocket.price &euro;</h4>
+                                    </td>
+                                    <td class="my-desktop-stock">
+                                        <h2>@prodSocket.stock</h2>
+                                    </td>
+                                    <td>
+                                        <button class="buttonalex2" data-product-id="@prodSocket.id">
+                                            Add
+                                            <img src="pc-icon.png" alt="">
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-desktop-img-container">
+        <img src="~/Images/Other/YouDefultDesktop.jpg" alt="">
+    </div>
+</div>
+<div class="addDesktopToCartContainer">
+    <button class="add-to-cart-btn" id="AddDesktopToCart_">Add Desktop to cart</button>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.operations__tab');
+    const tabsContainer = document.querySelector('.operations__tab-container');
+    const tabsContent = document.querySelectorAll('.operations__content');
+
+    tabsContainer.addEventListener('click', function (e) {
+        const clicked = e.target.closest('.operations__tab');
+
+        // Guard clause
+        if (!clicked) return;
+
+        // Remove active classes
+        tabs.forEach(t => t.classList.remove('operations__tab--active'));
+        tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+        // Activate tab
+        clicked.classList.add('operations__tab--active');
+
+
+        // Activate content area
+        document
+            .querySelector(`.operations__content--${clicked.dataset.tab}`)
+            .classList.add('operations__content--active');
+
+        tabs.forEach((e) => {
+            if (e.classList.contains('operations__tab--active')) {
+                e.style.color = '#5677fc';
+                e.style.border = '2px solid #999999'
+            } else {
+                e.style.color = '#999999';
+                e.style.border = 'none'
+            }
+        })
+    });
+</script>
+@section scripts{
+
+    <script src="~/Scripts/SendToDesktop.js"></script>
+    <script src="~/Scripts/addDesktopToCart.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script src="~/Scripts/RemoveFromDesktop.js"></script>
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+}

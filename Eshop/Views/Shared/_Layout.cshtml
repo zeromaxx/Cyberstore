@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - CyberStore</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c93712fc6c.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+      <div class="email-sent-notification">
+        <i class="fas fa-times remove-email-sent-notification"></i>
+        <svg width="40" height="40" id="Layer_1" style="enable-background:new 0 0 30 30;" version="1.1" viewBox="0 0 30 30"
+             xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path fill="#5677fc"
+              d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56  c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0  l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z" />
+        </svg>
+        <h4 class="email-sent-text">
+            @if (TempData["emailSentNotification"] != null)
+            {
+                @TempData["emailSentNotification"].ToString()
+            }
+         </h4>
+    </div>
+    <button class="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="navbar sidebar">
+        <div class="navbar-container">
+            <div class="links-container">
+                <ul>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li class="ToAdminNaFenetaiMonoStousAdmins JJJ">@Html.ActionLink("Administrator", "Index", "Admin", new { }, new { @class = "nav-link" })</li>
+                        { string username = User.Identity.Name; }
+                    }
+                    <li>@Html.ActionLink("Shop", "Products", "Home", new { }, new { @class = "nav-link" })</li>
+                   <li> @Html.ActionLink("Insert Monitor", "InsertProduct", "Admin", new { id = 8 }, new { @class = "product-create-link" })</li>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My Orders", "MyOrders", "Orders", new { }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Build your desktop", "YourDesktop", "Home", new { }, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+
+            </div>
+            <div>
+                <ul class="navbar-sub">
+                    <li><a class="location-icon nav-link" target="_blank" href="https://www.google.com/maps/search/peoplecert/37.9801572,23.7322301,17z/data=!3m1!4b1">Store Locator</a></li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>
+                            @using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                            <a style="font-size:12px" class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Logout : @HttpContext.Current.User.Identity.Name</a>
+                            }
+                        </li>
+                    }
+
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My Account", "Login", "User", new { }, new { @class = "nav-link" })</li>
+
+                    }
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+    <section class="white-section">
+        <div class="navbar-search-container">
+            <div class="navbar-brand">
+                <a href="~/"><img class="nav-logo" src="~/Images/Icons/navlogo.png" /></a>
+            </div>
+            <div class="search">
+                <form class="search-form">
+                    <input id="livesearchtags" name="livesearchtags" class="search-input" type="text" placeholder="Search for Product...">
+                    @*<button class="search-form-btn" type="submit">
+                        <img src="~/Images/search3.png" alt="">
+                    </button>*@
+                    <div id="result" class="tag-results"></div>
+                </form>
+               
+                <div class="tooltip">
+                    <a href="@Url.Action("WishList","Home")"> <i class="fa-regular fa-heart nav-heart"></i></a>
+                    <span class="tooltiptext">
+                        <h5>View Wishlist</h5>
+                    </span>
+                </div>
+                <div class="cart-icon-container">
+                    <a href="@Url.Action("Index", "Cart")"><img width="24" class="cart-icon" src="~/Images/Icons/cart-icon.png" alt=""></a><span class="span-price">($0)</span>
+                    <div class="cart-quantity">
+                        <span id="items-to-cart">@TempData["productsInCart"]</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+
+        @*@Html.Partial("_LoginPartial")*@
+
+        <div class="body-content">
+            @RenderBody()
+        </div>
+        <div class="footer">
+            <div class="footer-container">
+                <div class="links-container">
+                    <h4>Shopping</h4>
+                    @Html.ActionLink("Shop", "Products", "Home", new { }, new { @class = "" })
+                </div>
+                <div class="links-container">
+                    <h4>Customer Service</h4>
+                    @Html.ActionLink("My Account", "Login", "User", new { }, new { @class = "" })
+                </div>
+                <div class="links-container">
+                    <h4>Quick Links</h4>
+                    <a href="@Url.Action("Products", "Home", new { categoryId = 2 })">Cpu</a>
+                    <a href="@Url.Action("Products", "Home", new { categoryId = 6 })">Hard Disks</a>
+                    <a href="@Url.Action("Products", "Home", new { categoryId = 1 })">Motherboards</a>
+                    <a href="@Url.Action("Products", "Home", new { categoryId = 5 })">Ram</a>
+                </div>
+                <div class="links-container newsletter-container">
+                    <h4>Sign up to Newsletter</h4>
+                    <div class="email-container">
+                        <form method="post">
+                            <input name="receiver" id="receiverEmail" class="email" type="email" placeholder="Your Email Adress..." />
+
+                            <button type="submit" id="email-submit-btn" class="submit-email">
+                                <img src="~/Images/Icons/email-arrow.png" alt="">
+                            </button>
+                            <p id="emailResult"></p>
+                        </form>
+                    </div>
+                    <h6 class="gray">Stay up to date with all the actions that we are <br>saved for all our customers</h6>
+                </div>
+            </div>
+            <div class="footer-container sub-footer">
+                <p class="gray">2022 All Rights Reserved</p>
+                <div>
+                    <img src="~/Images/Icons/visa.png" alt="visa">
+                    <img src="~/Images/Icons/mastercard.png" alt="mastercard">
+                    <img src="~/Images/Icons/paypal.png" alt="paypal">
+                    <img src="~/Images/Icons/western.png" alt="western">
+                </div>
+            </div>
+            <div class="toast-container">
+                <div class="toast-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <div class="toast-header">
+                    <h3>Success</h3>
+                    <p id="status"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script src="~/Scripts/AlternateNavbar.js"></script>
+    <script src="~/Scripts/sendEmail.js"></script>
+    <script>
+        const emailText = document.querySelector('.email-sent-text');
+        const emailNotify = document.querySelector('.email-sent-notification');
+
+        if (emailText.innerText === "") {
+        } else {
+            emailNotify.classList.add('show-email-notification');
+        }
+
+        $('.remove-email-sent-notification').click(() => {
+            $('.email-sent-notification').removeClass('show-email-notification');
+        })
+    </script>
+
+</body>
+</html>

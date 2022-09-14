@@ -1,0 +1,65 @@
+﻿@model Eshop.ViewModels.RegistrationViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h5>Home/Account</h5>
+    </div>
+</div>
+
+<h1>@TempData["passwordReset"]</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="login-form">
+    <h2>Login</h2>
+    @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "" })
+    @Html.EditorFor(m => m.Username, new { htmlAttributes = new { @class = "" } })
+    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "" })
+
+    @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "" })
+    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "" } })
+    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "" })
+
+    <div class="login-form-remember-me">
+
+        @Html.EditorFor(model => model.RememberMe)
+        @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "" })
+        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "" })
+
+        @Html.HiddenFor(m => m.Email)
+        <input type="submit" value="Log In" class="btn btn-default" />
+         @if(TempData["loginWrongMessage"] != null)
+            {
+                <p style="color:red"><b>Please try again! Wrong user name or password</b></p>
+            }
+            @if(TempData["Unverified Email"] != null)
+            {
+                <p style="color:red"><b>@TempData["Unverified Email"]</b></p>
+            }
+    </div>
+    @Html.ActionLink("Don't have an Account?", "Register", "User")
+<div>
+    @Html.ActionLink("Forgot Password?", "ForgotPassword", "User")
+
+</div>
+
+</div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>src = "~/Scripts/jquery.validate.min.js"</script>
+    <script>src = "~/Scripts/jquery.validate.unobtrusive.min.js"</script>
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+}

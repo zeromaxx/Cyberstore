@@ -1,0 +1,140 @@
+﻿@model Eshop.ViewModels.ProductViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h4>Home/Details</h4>
+    </div>
+</div>
+
+<div class="details-container">
+    <div class="details-img-container">
+        <a href="" class="btn--show-modal">
+            <img id="imgThumbnail" data-target="1" src="@Url.Content("~/Images/"+ @Model.Product.image1)" alt="">
+        </a>
+        <a href="" class="btn--show-modal">
+            <img id="imgThumbnail" data-target="2" src="@Url.Content("~/Images/"+ @Model.Product.image2)" alt="">
+        </a>
+        <a href="" class="btn--show-modal">
+            <img id="imgThumbnail" data-target="3" src="@Url.Content("~/Images/"+ @Model.Product.image3)" alt="">
+        </a>
+    </div>
+    <div class="details-main-img-container">
+        <a href="" class="btn--show-modal">
+            <img id="imgThumbnail" data-target="4" src="@Url.Content("~/Images/" + @Model.Product.thumbnail)" alt="">
+        </a>
+    </div>
+    <div class="details-info-container">
+        <div class="details-header">
+            <h2>@Model.Product.Name</h2>
+            <p>$@Model.Product.price<span>@(Model.Product.stock == 0 ? "Out Of Stock" : Model.Product.stock.ToString() + " " + "In Stock" ) </span></p>
+        </div>
+        <div class="details-center">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            (2 customer reviews)
+            <br />
+            <b>Product Description:</b>
+            <p>@Model.Product.Description</p>
+        </div>
+        @if (Model.Product.stock == 0)
+        {
+
+        }
+        else
+        {
+            <button data-cart-id="@Model.Product.id" class="add-to-cart-btn">Add To Cart</button>
+        }
+    <div class="Compare">
+        <button> <a href="/Home/ProductComparsion/@Model.Product.id">Compare</a></button>
+    </div>
+        <div>
+            <i style="cursor:pointer" data-product-id="@Model.Product.id" class="fa-regular fa-heart   @(ViewBag.Favourites.Contains(Model.Product.id) ? "blue-heart" : "grey-heart") favourite-button">
+            </i>
+            <span>Wishlist</span>
+        </div>
+
+        <div class="details-footer">
+            <p>SKU:<span>061</span></p>
+            <p>Category:<span>@Model.Product.category.name</span></p>
+            <p>Tag:<span>@Model.Product.category.name</span></p>
+        </div>
+    </div>
+</div>
+
+<div class="additional-info-container">
+    <div>
+        <h4>Additional information</h4>
+        <table>
+            @if (Model.Cpu != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_CpuDetails.cshtml", Model)
+            }
+            @if (Model.Gpu != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_GpuDetails.cshtml", Model)
+            }
+            @if (Model.HardDisc != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_HardDiskDetails.cshtml", Model)
+            }
+            @if (Model.Ram != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_RamDetails.cshtml", Model)
+            }
+            @if (Model.Motherboard != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_MotherboardDetails.cshtml", Model)
+            }
+            @if (Model.Psu != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_PsuDetails.cshtml", Model)
+            }   
+            @if (Model.Monitor != null)
+            {
+                @Html.Partial("~/Views/Home/PartialViews/_MonitorDetails.cshtml", Model)
+            }
+
+        </table>
+    </div>
+</div>
+
+
+<div class="modal hidden">
+    <button class="btn--close-modal">&times;</button>
+    <img id="modalImage" src="" />
+</div>
+<div class="overlay hidden"></div>
+
+@section scripts{
+
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/open_modal.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script src="~/Scripts/WishList.js"></script>
+    <script src="~/Scripts/AddToCart.js"></script>
+    <script>
+        let imgThumbnail = document.querySelectorAll('#imgThumbnail');
+        let modalImage = document.querySelector('#modalImage');
+
+        imgThumbnail.forEach(function (e) {
+            e.addEventListener('click', function (t) {
+                var target = t.target.getAttribute("data-target");
+                var imageSrc = t.target.getAttribute("src");
+                for (var i = 0; i <= target; i++) {
+                    if (target == i) {
+                        modalImage.src = imageSrc;
+                    }
+                }
+
+            })
+        })
+    </script>
+}

@@ -1,0 +1,130 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Eshop.product>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="main" class="admin-products-container">
+    <div class="products-heading">
+        <h3>Products</h3>
+        <p>Home - eCommerce - Catalog</p>
+    </div>
+    <div class="admin-products-header">
+        <div class="search">
+            <form class="search-form">
+                <input id="livesearchtags" name="livesearchtags" class="search-input" type="text" placeholder="Search for Product...">
+
+                <div id="result" class="tag-results"></div>
+            </form>
+        </div>
+        <div class="admin-products-filter-container">
+            <span class="dropdown-button">
+                All
+                <i class="fas fa-angle-down"></i>
+            </span>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("ViewAllProducts", "Admin")">All</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 2 })">Cpu</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 6 })">Hard Disks</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 1 })">Motherboards</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 5 })">Ram</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 3 })">Gpu</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 4 })">Psu</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 8 })">Monitors</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "newness" })">Newness</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "Price asc"})">Price: Low to High</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "Price desc" })">Price: High to Low</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "200"})">0 - 200</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "400"})">200 - 400</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "600"})">400 - 600</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "800"})">600-800</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "top"})">800+</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="admin-products-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-left">Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Sales</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-label="Product" class="td-left">
+                        <img class="admin-product-img" src="@Url.Content("~/Images/" + item.image1)" alt="">
+                    </td>
+                    <td data-label="Name">
+                        <span class="span-color">@item.Name</span>
+                    </td>
+                    <td data-label="Price" class="span-color-1">
+                        <span>@item.price &euro;</span>
+                    </td>
+                    <td data-label="Stock" class="span-color-1">
+                        @if (item.stock < 3 && item.stock > 0)
+                        {
+                            <span class="low-stock">low stock</span>
+                        }
+
+                        @if (item.stock == 0)
+                        {
+                            <span class="out-of-stock">out of stock</span>
+                        }
+                        <span>@item.stock</span>
+                    </td>
+                    <td data-label="Sales" class="span-color-1">
+                        <span>@item.sales</span>
+                    </td>
+                    <td data-label="Actions" class="admin-btns-container">
+                        <div class="actions-btn">
+                            Actions
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <ul class="sub-menu-container">
+                            <li><a href="/Admin/Edit/@item.id">Edit</a></li>
+                            <li data-productId="@item.id" class="btn--show-modal">Delete</li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+        @if (!Model.Any())
+        {
+            <h4 class="no-results">Sorry! There is no item matching your criteria</h4>
+        }
+    </div>
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("ViewAllProducts", new { page = page, sortBy = Request["sortBy"], categoryId = Request["categoryId"], livesearchtags = Request["livesearchtags"] }))
+    </div>
+</div>
+
+<div class="modal hidden">
+
+    <img width="60" class="warning-sign" src="~/Images/Icons/warning.png" alt="">
+    <h5>Are you sure your want to delete this product?</h5>
+    <div>
+        <button class="admin-delete-btn">Yes, delete!</button>
+        <button class="btn--close-modal">No, cancel</button>
+    </div>
+</div>
+<div class="overlay hidden"></div>
+@section scripts{
+    <script>
+        /* Filter Products Dropdown */
+        const dropdownBtn = document.querySelector('.dropdown-button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        dropdownBtn.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show-dropdown');
+
+        })
+    </script>
+    }

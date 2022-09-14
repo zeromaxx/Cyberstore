@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Eshop.cart>
+@{
+    ViewBag.Title = "Cart";
+}
+
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Cart</h1>
+        <h4>Home/Cart</h4>
+    </div>
+</div>
+
+<div class="cart-container">
+    <div class="shopping-cart">
+        <h3>Shopping Cart</h3>
+        <table>
+            @foreach (var cart in Model)
+            {
+                if (cart.product != null) // JJJ Allagh an to product den einai null tote einai product
+                {
+                    <tr class="product_data">
+                        <td>
+                            <i data-cart-id="@cart.Id" class="fas fa-times removeFromCart"></i>
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/Images/" + cart.product.image1)" alt="">
+                        </td>
+                        <td>
+                            <h5>@cart.product.Name</h5>
+                        </td>
+                        <td>
+                            <h4>@cart.product.price &euro;</h4>
+                        </td>
+                        <td style="color: #15db00">
+                            In Stock :
+                            <span class="shop-product-stock">@cart.product.stock</span>
+                        </td>
+                        <td>
+                            <div class="quantity-container">
+                                <span>Quantity</span>
+                                <i class="fa fa-angle-left decrement-btn changeQuantity"></i>
+                                <span class="qty-input">@cart.quantity</span>
+                                <i class="fa fa-angle-right increment-btn changeQuantity"></i>
+                            </div>
+                            <input type="hidden" class="prod_id" value="@cart.product.id">
+                        </td>
+
+                    </tr>
+                }
+                else if (cart.Desktop != null) //JJJ allagh alliws an einai to product null tote einai desktop to cart item
+                {
+                    <tr class="product_data">
+                        <td>
+                            <i data-cart-id="@cart.Id" class="fas fa-times removeFromCart"></i>
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/Images/YourDesktop.jpg" )" alt="">
+                        </td>
+                        <td>
+                            <h5>
+                                <a style="text-decoration:none;color:black;" href="/Home/YourDesktop">Custom Desktop</a>
+                            </h5>
+                        </td>
+                        <td>
+                            <h4>@cart.Desktop.price &euro;</h4>
+                        </td>
+                        <td>
+                            <div class="quantity-container">
+                                <span>Quantity</span>
+                                <i class="fa fa-angle-left decrement-btn changeQuantity"></i>
+                                <span class="qty-input">@cart.quantity</span>
+                                <i class="fa fa-angle-right increment-btn changeQuantity"></i>
+                            </div>
+                            <input type="hidden" class="prod_id" value="@cart.Desktop.ID">
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+
+            }
+
+
+
+        </table>
+        <i class="fa fa-angle-left back-to-shopping-link">
+        </i>
+        <a class="back-to-shopping-link" href="@Url.Content("/")">
+            Go Back Shopping
+        </a>
+    </div>
+    <div class="cart-total-container">
+        <div class="cart-shipping">
+            <h2>Cart Totals</h2>
+            <div class="cart-shipping-2">
+                <h3>Subtotal</h3>
+                <h4>@TempData["total"] &euro;</h4>
+            </div>
+            <div class="cart-shipping-1">
+                <h3>Shipping</h3>
+                <ul>
+                    <li>
+                        <input name="rate" type="radio">
+                        <label for="">Flat rate</label>
+                    </li>
+                    <li>
+                        <input name="rate" type="radio">
+                        <label for="">Free shipping</label>
+                    </li>
+                    <li>
+                        <input name="rate" type="radio">
+                        <label for="">Local pickup: $6</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="cart-checkout">
+            <h3>
+                Total
+                <span>@TempData["total"] &euro;</span>
+            </h3>
+            @Html.ActionLink("Proceed To Checkout", "Checkout", "Home")
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script>
+        $('.removeFromCart').click(function (e) {
+            var button = $(e.target);
+            $.ajax({
+                url: `/Cart/RemoveProductFromCart/${button.attr("data-cart-id")}`,
+                method: "DELETE"
+            }).done(function () {
+                button.parents('tr').fadeOut(function () {
+                    $(this).remove();
+                })
+                window.setTimeout(function () {
+                    location.reload();
+                }, 1500);
+            }).fail(function () {
+            });
+        })
+
+        $(".increment-btn").click(function (e) {
+            e.preventDefault();
+            var product_stock = $(this)
+                .closest('.product_data')
+                .find('.shop-product-stock').html();
+            var product_stock_value = parseInt(product_stock);
+
+            var inc_value = $(this)
+                .closest(".product_data")
+                .find(".qty-input").html();
+            var value = parseInt(inc_value, 10);
+
+            value = isNaN(value) ? 0 : value;
+            if (value < 10 && value < product_stock_value) {
+                value++;
+                $(this).closest(".product_data").find(".qty-input").html(value);
+            }
+        });
+
+        $(".decrement-btn").click(function (e) {
+            e.preventDefault();
+            var dec_value = $(this)
+                .closest(".product_data")
+                .find(".qty-input")
+                .html();
+            var value = parseInt(dec_value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                value--;
+                $(this).closest(".product_data").find(".qty-input").html(value);
+            }
+        });
+
+
+        $(".changeQuantity").click(function (e) {
+            e.preventDefault();
+            var prod_id = $(this).closest(".product_data").find(".prod_id").val();
+
+            var qty = $(this).closest(".product_data").find(".qty-input").html();
+
+            data = {
+                prod_id: prod_id,
+                prod_qty: qty,
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "/Cart/UpdateCart/",
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    location.reload();
+
+                },
+            });
+        });
+    </script>
+}
+

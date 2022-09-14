@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c93712fc6c.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/Admin/css")
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="admin-sidebar">
+            <div class="admin-sidebar-logo">
+                <a href="@Url.Content("/")">
+                    <h3>
+                        C
+                        <span>YBERSTORE</span>
+                    </h3>
+                </a>
+            </div>
+            <ul>
+                <li class="navigation-header">@Html.ActionLink("Dashboard", "Index", "Admin", new { }, new { @class = "product-create-link" })</li>
+                <li>
+            </ul>
+            <div data-tab="1" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/ram.png" alt="">
+                </div>
+
+                <div class="sub-header-2">
+                    Ram
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+
+            <ul class="dropdown dropdown--1 ">
+                <li>
+                    @Html.ActionLink("Insert Ram", "InsertProduct", "Admin", new { id = 5 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="2" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/cooler.png" alt="">
+                </div>
+                <div class="sub-header-2">
+                    PSU
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+            <ul class="dropdown dropdown--2 ">
+                <li>
+                    @Html.ActionLink("Insert PSU", "InsertProduct", "Admin", new { id = 4 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="3" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/motherboard.png" alt="">
+                </div>
+                <div class="sub-header-2">
+                    Motherboard
+
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+            <ul class="dropdown dropdown--3 ">
+                <li>
+                    @Html.ActionLink("Insert Motherboard", "InsertProduct", "Admin", new { id = 1 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="4" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/graphics.png" alt="">
+                </div>
+                <div class="sub-header-2">
+                    Graphics
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+            <ul class="dropdown dropdown--4">
+                <li>
+                    @Html.ActionLink("Insert GPU", "InsertProduct", "Admin", new { id = 3 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="5" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/harddisk.png" alt="">
+                </div>
+                <div class="sub-header-2">
+                    HDD
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+            <ul class="dropdown dropdown--5 ">
+                <li>
+                    @Html.ActionLink("Insert Hard Disc", "InsertProduct", "Admin", new { id = 6 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="6" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/cpu.png" alt="">
+                </div>
+                <div class="sub-header-2">
+                    CPU
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+            <ul class="dropdown dropdown--6 ">
+                <li>
+                    @Html.ActionLink("Insert CPU", "InsertProduct", "Admin", new { id = 2 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <ul>
+                <li class="navigation-header-1">@Html.ActionLink("Products", "ViewAllProducts", "Admin", new { }, new { @class = "product-create-link" })</li>
+                <li>
+            </ul>
+            <ul>
+                <li class="navigation-header-2">@Html.ActionLink("Role Assign", "CreateRole", "Admin", new { }, new { @class = "product-create-link" })</li>
+
+            </ul>
+            s
+
+        </div>
+
+        <div class="page2-wrapper">
+            <div class="admin-nav">
+                <div class="admin-nav-end">
+                    <img class="dark-light-mode-icon" src="~/Images/Icons/8665965_sun_icon.png" />
+                    <img class="account-icon" src="~/Images/Other/face.jpg" />
+                </div>
+                <div class="admin-nav-dropdown-menu-container">
+                    <div class="admin-nav-dropdown-header">
+                        <img src="~/Images/Other/face.jpg" />
+                        <div class="admin-nav-dropdown-header-1">
+                            @if (Request.IsAuthenticated)
+                            {
+
+                <h4>
+                    @HttpContext.Current.User.Identity.Name
+                </h4>
+                                <h6>
+                                    @TempData["Username"]
+                                </h6>}
+                        </div>
+                    </div>
+                    <div class="admin-nav-dropdown-footer">
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+            <a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a>}
+                        }
+                    </div>
+                </div>
+            </div>
+            <button class="admin-sidebar-toggle">
+                <i class="fas fa-angle-left"></i>
+            </button>
+            @RenderBody()
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/admin.js"></script>
+</body>
+</html>

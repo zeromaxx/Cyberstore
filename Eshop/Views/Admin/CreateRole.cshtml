@@ -1,0 +1,79 @@
+﻿@model Eshop.ViewModels.UserRoleViewModel
+
+@{
+    ViewBag.Title = "Create Role";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-products-container">
+    <div class="products-heading">
+        <h3>View Role Details</h3>
+        <p>Home - User Management - Roles</p>
+    </div>
+    <div class="admin-products-header">
+        <input type="text" name="" placeholder="Search Role">
+        <div class="admin-products-filter-container">
+            <span class="dropdown-button">
+                All
+                <i class="fas fa-angle-down"></i>
+            </span>
+            <ul class="dropdown-menu">
+                <li>All</li>
+                <li>Published</li>
+                <li>Scheduled</li>
+                <li>Inactive</li>
+            </ul>
+        </div>
+    </div>
+    <div class="admin-products-table">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:left;">Username</th>
+                    <th>Email</th>
+                    <th>Current Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model.UserRoleMappings)
+            {
+                <tr>
+                    <td style="text-align:left;" data-label="Username">
+                        <span class="span-color">@item.User.Username</span>
+                    </td>
+                    <td data-label="Email" class="span-color-1">
+                        <span>@item.User.Email</span>
+                    </td>
+                    <td data-label="Role" class="span-color-1">
+                        <span>@item.Role.RoleName</span>
+                    </td>
+                    <td data-label="Actions" class="admin-btns-container">
+                        <div class="actions-btn">
+                            Actions
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <ul class="sub-menu-container">
+                            <li><a style="" href="/Admin/EditRole/@item.UserId">Edit Role</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        /* Filter Products Dropdown */
+        const dropdownBtn = document.querySelector('.dropdown-button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        dropdownBtn.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show-dropdown');
+
+        })
+    </script>
+
+}
+

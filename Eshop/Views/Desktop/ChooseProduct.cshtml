@@ -1,0 +1,86 @@
+﻿@model Eshop.ViewModels.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="admin-products-container">
+    <div class="products-heading">
+        <h3>@Model.Type</h3>
+        <p>Home - eCommerce - Catalog</p>
+    </div>
+    <div class="admin-products-header">
+        <input type="text" name="" placeholder="Search CPU">
+        <div class="admin-products-filter-container">
+            <span class="dropdown-button">
+                All
+                <i class="fas fa-angle-down"></i>
+            </span>
+            <ul class="dropdown-menu">
+                <li>All</li>
+                <li>Published</li>
+                <li>Scheduled</li>
+                <li>Inactive</li>
+                <li>Type</li>
+            </ul>
+        </div>
+    </div>
+    <div class="admin-products-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-center">Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            @foreach (product product in Model.Products)
+            {
+                <tr>
+                    <td data-label="Product" class="td-left">
+                        <img class="admin-product-img" src="@Url.Content("~/Images/" + product.image1)" alt="">
+                    </td>
+                    <td data-label="Name">
+                        <span class="span-color">@product.Name</span>
+                    </td>
+                    <td data-label="Price" class="span-color-1">
+                        <span>@product.price &euro;</span>
+                    </td>
+
+                    <td data-label="Price" class="span-color-1">
+                        <button class="buttonalex2" data-product-id="@product.id">Add To Your Desktop</button>
+                    </td>
+
+
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div class="modal hidden">
+
+    <img width="60" class="warning-sign" src="~/Images/Icons/warning.png" alt="">
+    <h5>Are you sure your want to delete this product?</h5>
+    <div>
+        <button class="admin-delete-btn">Yes, delete!</button>
+        <button class="btn--close-modal">No, cancel</button>
+    </div>
+</div>
+<div class="overlay hidden"></div>
+
+<button><a href="/Home/YourDesktop"> Back To Your Desktop</a></button>
+@section scripts{
+    <script>
+        /* Filter Products Dropdown */
+        const dropdownBtn = document.querySelector('.dropdown-button');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        dropdownBtn.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show-dropdown');
+
+        })
+    </script>
+   
+    <script src="~/Scripts/SendToDesktop.js"></script>
+}
+

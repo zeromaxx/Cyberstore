@@ -1,0 +1,221 @@
+﻿@model Eshop.ViewModels.OrderViewModel
+@{ ViewBag.Title = "OrderDetails"; }
+
+<div class="order-complete-modal">
+    <svg width="70" height="70" id="Layer_1" style="enable-background:new 0 0 30 30;"
+         version="1.1" viewBox="0 0 30 30" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="#5677fc"
+          d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21.707,12.707l-7.56,7.56  c-0.188,0.188-0.442,0.293-0.707,0.293s-0.52-0.105-0.707-0.293l-3.453-3.453c-0.391-0.391-0.391-1.023,0-1.414s1.023-0.391,1.414,0  l2.746,2.746l6.853-6.853c0.391-0.391,1.023-0.391,1.414,0S22.098,12.316,21.707,12.707z" />
+    </svg>
+    <p class="order-data">@TempData["OrderComplete"]</p>
+    <div>
+        @Html.ActionLink("View Orders", "MyOrders", "Orders" , new { }, new {@class="order-complete-modal-link" })
+        <button class="close-order-complete-modal">Not now</button>
+    </div>
+</div>
+
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h4>Home/Orders</h4>
+    </div>
+</div>
+@using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { id = "checkout-form" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="checkout-container">
+        <div class="checkout-form-container">
+            <h3>Billing details</h3>
+
+            <div class="col-1-checkout">
+                <div class="col-2-checkout">
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.PostalCode)
+                    @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+
+                    @Html.LabelFor(model => model.PhoneNumber)
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+
+                </div>
+                <div class="col-3-checkout">
+                    @Html.LabelFor(model => model.City)
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+
+                    @Html.LabelFor(model => model.Street)
+                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                    <label for="shipping">Shipping</label>
+                    <select class="shippingId" name="ShippingId" id="shipping">
+                        <option value="7">Flat rate: &euro; 7</option>
+                        <option value="3">Local pickup: &euro; 3</option>
+                        <option value="0">Free shipping: &euro; 0</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4-checkout">
+                <button class="checkout-button" id="place-order" type="submit"><span id="paypal-btn"></span></button>
+                @* <input id="place-order" type="submit" value="Place Order">*@
+            </div>
+
+        </div>
+        <div class="order-checkout-container">
+            <h3>Your order</h3>
+            <table>
+                <tr>
+                    <th class="text-left">Product</th>
+                    <th>Name</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+                @foreach (var item in Model.CartItems)
+                {
+                    if (item.Desktop == null)
+                    {
+                        <tr>
+                            <td data-label="Product" class="text-left">
+                                <img width="50" src="@Url.Content("~/Images/" + item.product.image1)" alt="product-image">
+                            </td>
+                            <td data-label="Name" class="">@item.product.Name</td>
+                            <td data-label="Qty" class="order-checkout-qty">@item.quantity</td>
+                            <td class="">@item.product.price &euro;</td>
+                            <td data-label="Total" class="order-checkout-total">
+                                @{ var price = @item.product.price * @item.quantity; }
+                                <span class="span-color-1"> @price  &euro;</span>
+                            </td>
+                        </tr>
+                                        }
+                    else if (item.product==null)
+                    {
+            <tr>
+                <td data-label="Desktop" class="text-left">
+                    <img width="50" src="~/Images/YourDesktop.jpg" alt="product-image">
+                </td>
+                <td>Your Custom Desktop</td>
+                <td>1 </td>               
+                <td class="">@item.Desktop.price &euro;</td>
+                <td data-label="Total" class="order-checkout-total">
+                    @{ var price = @item.Desktop.price; }
+                    <span class="span-color-1"> @price  &euro;</span>
+                </td>
+            </tr>
+
+                    }
+
+                  }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Subtotal</td>
+                    <td id="subTotal" class="order-checkout-total">@Model.TotalPrice &euro;</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Shipping Rate</td>
+                    <td id="shipping-rate" class="order-checkout-total">7 &euro;</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    @{ var grand = Model.TotalPrice + Model.ShippingId; }
+                    <td style="color:black;">Grand Total</td>
+                    <td id="grand-total" style="color:black;" class="order-checkout-total">@grand &euro;</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.TrackingNumber)
+    @Html.HiddenFor(m => m.ShippingId)
+    @Html.HiddenFor(m => m.PaymentType)
+    @Html.HiddenFor(m => m.TotalPrice)
+}
+@section scripts{
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        const orderCompleteModal = document.querySelector('.order-complete-modal');
+        const orderData = document.querySelector('.order-data');
+        const closeOrderModal = document.querySelector('.close-order-complete-modal');
+
+        closeOrderModal.addEventListener('click', function () {
+            orderCompleteModal.classList.remove('show-order-complete-modal');
+        })
+
+        if (orderData.innerText === "") {
+        } else {
+            orderCompleteModal.classList.add('show-order-complete-modal');
+        }
+        let _total = @Html.Raw(Model.TotalPrice)
+
+        paypal.Button.render({
+            env: "sandbox",
+            client: {
+                sandbox: 'ARBj7NBTRc6e-37YskyvarP4AJLgKYy46IIRFGVYYCrdDb3xAfVD0gJgsvmlqdt2RzV9jacoZcM1A8Yn'
+            },
+            // Customize button
+            locale: "en_US",
+            commit: true,
+            // set up payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+
+                });
+            },
+            // Execute payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                    document.getElementById('place-order').click();
+
+                });
+            }
+        }, "#paypal-btn");
+
+        $(document).ready(function () {
+            $('#shipping').change(function () {
+                var s = $('#shipping').val() + '\u20AC';
+                $('#shipping-rate').html(s);
+                var shippingValue = parseFloat(s);
+                var subTotal = parseFloat($('#subTotal').text());
+                var grand = parseFloat(shippingValue + subTotal) + '\u20AC';
+                $('#grand-total').html(grand);
+            })
+
+
+
+        })
+
+    </script>
+}
+
+
+

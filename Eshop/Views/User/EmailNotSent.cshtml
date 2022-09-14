@@ -1,0 +1,39 @@
+﻿<div class="Rectangle">
+    <div class="Group-4">
+        <img alt="Email_verification_allinone" class="envelop-icon" src="https://cloudinary-res.cloudinary.com/image/upload/v1645011792/mail/email_verification_allInOne.svg">
+    </div>
+    <p class="header-verify-your-email">Verify your email address</p>
+    <d></d>
+    <div class="Please-verify-your-e div">
+        <label class="verification-email-has-been-sent">
+            Verification email has been sent to:
+        </label>
+        <span class="current-email">hxo999@yahoo.gr</span>
+        <br>
+        <label class="click-on-the-link-in-email">Click on the link in the email to activate your account.</label>
+    </div>
+    <span class="resent_email_message">
+        Didn’t receive the email?
+        <a href="#" class="Resend-email">Resend email</a>
+    </span>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>src = "~/Scripts/jquery.validate.min.js"</script>
+    <script>src = "~/Scripts/jquery.validate.unobtrusive.min.js"</script>
+    <script src="./jquery-3.4.1.min.js"></script>
+    <script>
+        var buttonClick = function () {
+            $.post("/User/EmailNotSent", function () {
+                $('.resent_email_message').text("Email resent. Please check your inbox.");
+            });
+        };
+        $(function () {
+            $('.Resend-email').click(buttonClick);
+        });
+    </script>
+    <script src="~/Scripts/script.js"></script>
+
+}
