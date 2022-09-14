@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Eshop.order>
+@{ ViewBag.Title = "MyOrders"; }
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h4>Home/Orders</h4>
+    </div>
+</div>
+
+<div class="order-listing-container">
+    <div class="products-heading">
+        <h3>Orders Listing</h3>
+        <p>Home - eCommerce - Sales</p>
+    </div>
+    <div class="order-listing-header">
+        <input type="text" name="" placeholder="Search Order">
+    </div>
+    <div class="order-listing-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="text-left">Order Id</th>
+                    <th>Customer</th>
+                    <th>Tracking Number</th>
+                    <th>Total</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td data-label="Order Id" class="td-left">
+                        @item.id
+                    </td>
+                    <td data-label="Customer">
+                        <span class="span-color">@item.firstName @item.lastName</span>
+                    </td>
+                    <td data-label="Tracking Number">
+                        <span class="span-color">@item.trackingNumber</span>
+                    </td>
+                    <td data-label="Total" class="span-color-1">
+                        <span>@item.price &euro;</span>
+                    </td>
+                    <td data-label="Date Added" class="span-color-1">
+                        <span>@item.createdAt.</span>
+                    </td>
+                    <td data-label="Actions" class="admin-btns-container">
+                        <div class="my-orders-actions-btn">
+                            Actions
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <ul class="sub-menu-container">
+                            <li>
+                                <a href="@Url.Action("MyOrder", "Orders", new { orderId = item.id})">Order Details</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+}
+
+
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script>
+        /* Actions Dropdown */
+
+        $('.my-orders-actions-btn').on('click', function (e) {
+            e.stopPropagation();
+            $(this)
+                .closest('.admin-btns-container')
+                .find('.sub-menu-container')
+                .toggle('show-sub-menu-container');
+        });
+
+
+        /* close menu when clicked outside of div */
+        $('body').on('click', function () {
+            $('.sub-menu-container').hide();
+            $('.admin-nav-dropdown-menu-container')
+                .removeClass('show-admin-nav-dropdown-menu-container');
+        })
+    </script>
+}
+

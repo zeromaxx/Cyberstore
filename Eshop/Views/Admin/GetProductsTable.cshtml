@@ -1,0 +1,163 @@
+﻿@model Eshop.ViewModels.ProductViewModel
+
+
+@{
+    ViewBag.Title = "GetProductsTable";
+}
+
+<h2>Products</h2>
+
+
+<table>
+    <thead>
+        <tr>
+            <td> </td>
+        </tr>
+    </thead>
+    <tbody>
+
+        
+        
+            @foreach (var mod in Model.Cpus)
+            {
+                foreach (var item in Model.Products.ToList())
+                {
+                    if (mod.productId == item.id)
+                    {
+                    <tr>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.price
+                            </td>
+                            <td>
+                                @item.stock
+                            </td>
+                            <td>
+                                @item.sales
+                            </td>
+                            <td>
+                                @item.createdAt
+                            </td>
+
+                            <td>
+                                @mod.model
+                            </td>
+                            <td>
+                                @mod.socket
+                            </td>
+                            <td>
+                                @mod.threads
+                            </td>
+                            <td>
+                                @mod.chipset
+                            </td>
+                            <td>
+                                @mod.cores
+                            </td>
+              
+
+                        </tr>
+          
+                        @*@foreach (var mod in item.gpus)
+                        {
+                            <td>
+                                @mod.chipset
+                            </td>
+                            <td>
+                                @mod.resolution
+                            </td>
+                            <td>
+                                @mod.vram
+                            </td>
+
+                        }
+
+
+                        @foreach (var mod in item.hardDiscs)
+                        {
+                            <td>
+                                @mod.capacity
+                            </td>
+                            <td>
+                                @mod.connector
+                            </td>
+                            <td>
+                                @mod.frequency
+                            </td>
+                            <td>
+                                @mod.type
+                            </td>
+
+                        }
+
+                        @foreach (var it in item.psus)
+                        {
+                            <td>
+                                @it.connector
+                            </td>
+                            <td>
+                                @it.watt
+                            </td>
+
+
+                        }
+
+
+                        @foreach (var it in item.rams)
+                        {
+                            <td>
+                                @it.memory
+                            </td>
+                            <td>
+                                @it.type
+                            </td>
+                            <td>
+                                @it.cash_latency
+                            </td>
+                            <td>
+                                @it.frequency
+                            </td>
+
+                        }
+
+                        @foreach (var it in item.motherboards)
+                        {
+                            <td>
+                                @it.chipset
+                            </td>
+                            <td>
+                                @it.chipset_vendor
+                            </td>
+                            <td>
+                                @it.model
+                            </td>
+                            <td>
+                                @it.pcie_slots
+                            </td>
+                            <td>
+                                @it.ram_slots
+                            </td>
+                            <td>
+                                @it.ram_type
+                            </td>
+                            <td>
+                                @it.socket
+                            </td>*@
+
+
+
+
+
+
+                    }
+                }
+
+            }
+
+
+
+        </tbody>
+
+</table>

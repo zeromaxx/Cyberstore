@@ -1,0 +1,646 @@
+﻿@model Eshop.ViewModels.ConnectionViewModel
+@using Eshop.ViewModels
+@{
+    ViewBag.Title = "AdminSupport";
+    string userNameZor = null;
+    string username = null;
+    var data = @TempData["msg"];
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    using (Entities en = new Entities())
+    {
+        var userEmail = User.Identity.Name;
+        var user = en.Users.Single(u => u.Email == userEmail);
+
+        if (User.IsInRole("Admin"))
+        {
+
+            userNameZor = User.Identity.Name;
+
+            var userDb = en.Users.FirstOrDefault(u => u.Email == userNameZor);
+            int userDbId = userDb.UserId;
+            var conn = en.Connections.FirstOrDefault(u => u.AdminId == userDbId);
+
+            if (conn != null)
+            {
+                var userId = conn.UserId;
+                var userN = en.Users.FirstOrDefault(u => u.UserId == userId);
+                userNameZor = userN.Email;
+                username = userDb.Username;
+            }
+
+
+        }
+        if (User.IsInRole("Customer"))
+        {
+            userNameZor = User.Identity.Name;
+
+            var userDb = en.Users.FirstOrDefault(u => u.Email == userNameZor);
+            int userAdminId = userDb.UserId;
+            var conn = en.Connections.FirstOrDefault(u => u.UserId == userAdminId);
+
+            if (conn != null)
+            {
+                var adminId = conn.AdminId;
+                var admin = en.Users.FirstOrDefault(u => u.UserId == adminId);
+                userNameZor = admin.Email;
+                username = userDb.Username;
+            }
+
+
+        }
+
+        <div class="wallpaper-container">
+            <img src="~/Images/Icons/banner.jpg" alt="wallpaper" />
+            <div class="wallpaper-heading">
+                <h1>Contact</h1>
+                <h4>Home/Contact</h4>
+            </div>
+        </div>
+
+        <div class="contact-us-container">
+            <div class="contact-us-info">
+                <div class="contact-us-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3144.871050687113!2d23.73012505840785!3d37.98013853466675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bd1d0537ed91%3A0xd71dcf7d2b435255!2sPeopleCert!5e0!3m2!1sel!2sgr!4v1662875073045!5m2!1sel!2sgr"
+                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-details">
+                    <h4>Contact Details</h4>
+                    <p>1-677-124-447</p>
+                    <p>184 Main Street West Victoria </p>
+                </div>
+                <div class="contact-us-opening-hours">
+                    <h4>Opening Hours</h4>
+                    <p>Monday to Friday: 9am-9pm</p>
+                    <p>Saturday to Sunday: 9am-10pm</p>
+                </div>
+            </div>
+            <div>
+                <div class="contact-us-form-container">
+                    <h2>Leave Us a Message</h2>
+                    <p>Your email address will not be published. Required fields are marked *</p>
+                    @using (Html.BeginForm("ContactForm", "Home", FormMethod.Post, new { id = "checkout-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(model => model.FirstName)
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(model => model.LastName)
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(model => model.Email)
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                        if (data != null)
+                        {
+                            <span style="color:red;">@TempData["msg"].ToString()</span>
+                        }
+
+                        <label for="Subject">Subject</label>
+                        @Html.EditorFor(model => model.Inquiry, new { htmlAttributes = new { @class = "input-enquiry" } })
+                        @Html.ValidationMessageFor(model => model.Inquiry, "", new { @class = "text-danger" })
+
+                        <input type="submit" value="Send Message" />
+                        @Html.HiddenFor(m => m.UserId)
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div style="z-index:300;" id="detailsDiv" class="@userNameZor">
+            <div id="Notificatio"></div>
+            <div name="CustomerSupportChat">
+
+                <div class="chat-bot">
+
+                    <div class="chat-bot-container">
+                        <form method="post" id="content">
+                        </form>
+                        <div class="chat-bot-container-header">
+                            <img src="~/Images/Other/face.jpg" alt="" />
+                            <div class="chat-bot-container-header-text">
+                                <h4>Wheatley (bot assistant)</h4>
+                                <div class="chat-bot-container-header-text-1">
+                                    <span></span>
+                                    <h5>Active</h5>
+                                    <div class="chat-bubble">
+                                        <div class="typing">
+                                            <div class="dot"></div>
+                                            <div class="dot"></div>
+                                            <div class="dot"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="discussion" class="chatbot-text-area">
+                            @*<div id="discussion">
+                        </div>*@
+                        </div>
+
+                        <div class="sendmsgparent chat-bot-footer">
+
+                            <textarea id="msgarea" class="@username" name="textArea"></textarea>
+
+                            <button id="sendmsg" class="@userNameZor">Send</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <img class="svg-messenger-icon" src="~/Images/Other/face.jpg" />
+        @*<?xml version="1.0" ?>
+
+            <svg class="svg-messenger-icon" fill="#5677fc" height="56.7px" id="Layer_1"
+                 style="enable-background:new 0 0 56 56;" version="1.1" viewBox="0 0 56.7 56.7" width="56.7px"
+                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g>
+            <g>
+            <path d="M28.4342,3.8416c-13.4521,0-24.3571,10.1599-24.3571,22.693c0,7.1415,3.5419,13.5115,9.0772,17.6713v8.6525l8.2934-4.5799    c2.2133,0.6163,4.5581,0.949,6.9866,0.949c13.4521,0,24.3571-10.1599,24.3571-22.693S41.8863,3.8416,28.4342,3.8416z     M30.8548,34.4015l-6.2027-6.6566l-12.1029,6.6566l13.3132-14.2209l6.354,6.6566l11.9516-6.6566L30.8548,34.4015z" />
+                    </g>
+                </g>
+            </svg>*@
+
+
+        @*if (ViewBag.MsgCount > 0)
+            {
+                <span class="glyphicon glyphicon-comment red msgnotif @User.Identity.Name">
+                    <span>
+                        @ViewBag.MsgCount
+                    </span>
+                </span>
+            }
+            else
+            {
+                <span class="glyphicon glyphicon-comment red msgnotif @User.Identity.Name"></span>
+            }
+
+            <ul id="msgnotiful"></ul>*@
+    }
+
+
+}
+
+
+
+@{
+    string email = null;
+    if (User.Identity.IsAuthenticated)
+    {
+
+        email = User.Identity.Name.ToString();
+    }
+
+
+}
+
+
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+ 
+    <script>
+        const openChat = document.querySelector('.svg-messenger-icon');
+        const chatBox = document.querySelector('.chat-bot-container');
+        openChat.addEventListener('click', () => {
+            console.log('hello');
+            chatBox.classList.toggle('show-chat-bot-container');
+
+        })
+
+  
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            document.addEventListener('DOMContentLoaded', function () {
+                if (Notification.permission !== "granted") {
+                    Notification.requestPermission();
+                }
+            });
+
+            /* DISABLING THE CHAT HERE IF USER JUST JOINED*/
+
+            var userNameZor = $('#sendmsg').attr('class');
+
+           /* IF TO REFACTOR HERE ADD EMAIL DIFRNTLY*/
+            if (userNameZor === "hxo999@yahoo.gr" || userNameZor ==="zeromixer2010@yahoo.com" || userNameZor === "thestas@yahoo.com" || userNameZor === "alexmantzaris.kar@gmail.com" || userNameZor === "tasosadam1991@gmail.com") {
+          $('#discussion').append(`<div class="chatbox-message">
+                            <h5>Automated Message</h5><span>@DateTime.Now.ToString()</span>
+                                <p> Please wait. . . While a <br>representative joins <br>the chat</p>
+                        </div>`);
+
+                    $("#msgarea").prop('disabled', true);
+                    $("#sendmsg").prop('disabled', true);
+
+                }
+
+
+                var hub = $.connection.echo;
+
+                 var userNameZor = $('#detailsDiv').attr('class');  /*GETING USER HERE BY DIV NEXT TO SEND MSG DIV*/
+
+
+
+            hub.client.receiveNotification = function (name, message) {
+
+                    var encodedMsg = $('<div/>').text(message).html();
+                    var encodedName = $('<div/>').text(name).html();
+
+                              $('#discussion').append(`<div class="chatbox-message">
+                            <h5>${encodedName}</h5><span>@DateTime.Now.ToString()</span>
+                                <p>${encodedMsg}</p>
+                        </div>`);
+                          $("#msgarea").prop('disabled', false);
+                      $("#sendmsg").prop('disabled', false);
+
+                      $('div.chatbot-text-area').scrollTop($('div.chatbot-text-area')[0].scrollHeight)
+                doSomething();
+
+                 
+                     
+                };
+
+
+
+
+    $("body").on("click", "span.msgnotif.red", function () {
+
+        $("ul#msgnotiful").empty();
+
+        var url = "/Signlr/DisplayUnreadMessages";
+
+        $.post(url, {}, function (data) {
+
+            if (data.length > 0) {
+                $("ul#msgnotiful").append("<li class=close>x</li>");
+            }
+
+            for (var i = 0; i < data.length; i++) {
+                var obj = data[i];
+
+                $("ul#msgnotiful").append('<li class=msgnotifli><a href="/' + obj.FromUsername + '"><img src="uploads/' + obj.FromId + '.jpg" /></a>' + ' ' + obj.Message + '</li>');
+            }
+
+        }).done(function () {
+           /* hub.server.notifyOfMessageOwner();*/
+        });
+
+    });
+
+    $("body").on("click", "ul#msgnotiful li.close", function () {
+        $("ul#msgnotiful").empty();
+    });
+
+
+
+            @*//hub.client.msgcount = function (username, count) {
+
+    //    if (count > 0) {
+    //        $("span.msgnotif." + username + "> span").text(count);
+    //        $("span.msgnotif." + username).addClass("red");
+    //    } else {
+    //        $("span.msgnotif." + username + "> span").text("");
+    //        $("span.msgnotif." + username).removeClass("red");
+    //    }
+
+    //}*@
+
+
+                $.connection.hub
+                            .start()
+                            .done(function () {
+
+
+
+                                $("body").on("click", "button#sendmsg", function (e) {
+                                    e.preventDefault();
+                                    let text_area_data = $('textarea[name="textArea"]').val();
+                                    console.log(text_area_data);
+
+
+
+                                    var $this = $(this);
+                                    var _friend = userNameZor;
+
+
+
+
+                                    var message = text_area_data;
+                                    var url = "/Home/SendMessage";
+
+
+
+
+                                    $.post(url, { friend: _friend, message: message }, function (data) {
+
+                                    }).done(function () {
+                                        console.log('after post');
+                                        hub.server.hello('@username', message);
+
+                                        /*  hub.server.notifyOfMessage(_friend);*/
+                                        $("#msgarea").val("");
+                                        $this.parent().find(".sendmsgnotif").removeClass("hide");
+                                        setTimeout(function () {
+                                            $this.parent().find(".sendmsgnotif").fadeOut("fast", function () {
+                                                $this.parent().find(".sendmsgnotif").addClass("hide");
+                                                console.log('after message append');
+                                            });
+                                        }, 2000);
+                                    });
+
+
+
+
+                                });
+
+                $("body").on("click", "span.msgnotif.red", function () {
+
+                    $("ul#msgnotiful").empty();
+
+                    var url = '@Url.Action("DisplayUnreadMessages", "Home")';
+
+                    $.post(url, {}, function (data) {
+
+                        if (data.length > 0) {
+                            $("ul#msgnotiful").append("<li class=close>x</li>");
+                        }
+
+                        for (var i = 0; i < data.length; i++) {
+                            var obj = data[i];
+
+                            $("ul#msgnotiful").append('<li class=msgnotifli><a href="/' + obj.FromUsername + '"></a>' + ' ' + obj.Message + '</li>');
+                        }
+
+                    }).done(function () {
+                        hub.server.notifyOfMessageOwner();
+                    });
+
+                });
+
+                $("body").on("click", "ul#msgnotiful li.close", function () {
+                    $("ul#msgnotiful").empty();
+                });
+
+            });
+
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }// End ready
+
+
+
+
+        /*     $this.parent().find("img").removeClass("hide");*/
+
+
+
+
+
+                //hub.client.updatechat = function (user, data) {
+                //    var result = JSON.parse(data);
+
+                //    $(".chat." + user + "> ul").empty();
+
+                //    for (var i = 0; i < result.length; i++) {
+                //        var obj = result[i];
+
+                //        $(".chat." + user + "> ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id + '"><img src="uploads/' + obj.id + '.jpg" /> ' + obj.friend + '</li>');
+
+                //        if (!($(".chatboxholder #cb" + obj.id).length)) {
+
+                //            var chatbox = $("body > .chatbox").clone();
+
+                //            chatbox.attr("data-id", obj.id);
+                //            chatbox.attr("id", "cb" + obj.id);
+                //            chatbox.addClass("hidden");
+
+                //            chatbox.find("a.sendchat").attr("data-friend", obj.friend);
+                //            chatbox.find("a.sendchat").attr("data-id", obj.id);
+                //            chatbox.find("div.chatboxtext").attr("id", "cbtext" + obj.id);
+
+                //            $("#chb" + user).append(chatbox);
+                //            $("#chb" + user + " #cb" + obj.id + " h4 > span").html('<img src="uploads/' + obj.id + '.jpg" />');
+
+                //        }
+
+                //    }
+
+                //}
+
+                //hub.client.sendchat = function (userId, user, friendId, friendUsername, message) {
+
+                //    var a = $("#chb" + user + " div#cb" + friendId + " .chatboxtext");
+                //    a.append("<img src=uploads/" + userId + ".jpg /> " + message + "<br />");
+
+                //    a.scrollTop(a.prop("scrollHeight"));
+
+                //    if ($("#chb" + friendUsername + " div#cb" + userId).hasClass("hidden")) {
+                //        $('li.cf' + userId).addClass("msg");
+                //    }
+
+                //    var b = $("#chb" + friendUsername + " div#cb" + userId + " .chatboxtext");
+                //    b.append("<img src=uploads/" + userId + ".jpg /> " + message + "<br />");
+
+                //    b.scrollTop(b.prop("scrollHeight"));
+
+                //}
+
+
+
+                /*
+             / Display unread messages
+             */
+
+                //$("body").on("click", "a.sendchat", function (e) {
+                //    e.preventDefault();
+
+                //    var $this = $(this);
+
+                //    var friendId = $this.data("id");
+                //    var friendUsername = $this.data("friend");
+                //    var message = $this.parent().find("textarea").val();
+
+                //    $this.parent().find("textarea").val("");
+
+                //    hub.server.sendChat(friendId, friendUsername, message);
+
+                //});
+
+
+                //$("body").on("keypress", ".chatbox textarea", function (e) {
+                //    if (e.which == 13) {
+                //        $(this).parent().find("a.sendchat").click();
+                //        setTimeout(function () {
+                //            $(this).parent().find("textarea").focus();
+                //        }, 0);
+                //    }
+
+                //});
+
+            });
+
+
+        /*
+/ Open chat box
+*/
+
+                //$("body").on("click", ".chat ul li", function () {
+
+                //    var $this = $(this);
+
+                //    if ($this.hasClass("msg")) $this.removeClass("msg");
+
+                //    var friend = $this.text().trim();
+
+                //    var chatboxNumber = $(".chatboxholder .chatbox:not(.hidden)").length;
+
+                //    var id = $this.data("id");
+
+                //    var right = 320;
+
+                //    var cb = $(".chatboxholder #cb" + id);
+
+                //    if (!cb.length) {
+                //        cb.css("right", right * chatboxNumber);
+                //    } else if (cb.hasClass("hidden")) {
+                //        cb.removeClass("hidden");
+                //        cb.css("right", right * chatboxNumber);
+                //    } else {
+                //        cb.addClass("hidden");
+                //        cb.css("right", right * chatboxNumber);
+                //    }
+
+                //});
+    </script>
+    <script>
+        // (A) FLAG FOR "ALREADY CLICKED".
+        var clicked = false;
+
+        // (B) FUNCTION - WILL ONLY RUN IF NOT CLICKED
+        function doSomething() {
+
+            if (!clicked) {
+                // (B1) SET CLICKED TO TRUE
+                clicked = true;
+                chatBox.classList.toggle('show-chat-bot-container');
+                // (B2) DO YOUR PROCESSING HERE
+
+                   //$('#Notificatio').append(`<div class="chatbox-message">
+                   //         <h5>${username}</h5><span>You have a message from our support team: </span>
+                   //             <p>${message}</p>
+                   //     </div>`);
+                // (B3) RE-ENABLE AFTER PROCESSING IF YOU WANT
+                // clicked = false;
+            }
+        }
+    </script>
+    @*<script>
+            $(function () {
+                // Reference the auto-generated proxy for the hub.
+                var chat = $.connection.chathub;
+                // Create a function that the hub can call back to display messages.
+                chat.client.addNewMessageToPage = function (name, message) {
+                    // Add the message to the page.
+                    $('#discussion').append('<li><strong>' + htmlEncode(name)
+                        + '</strong>: ' + htmlEncode(message) + '</li>');
+                };
+                // Get the user name and store it to prepend to messages.
+                $('#displayname').val(prompt('Enter your name:', ''));
+                // Set initial focus to message input box.
+                $('#message').focus();
+                // Start the connection.
+                $.connection.hub.start().done(function () {
+                    $('#sendmessage').click(function () {
+                        // Call the Send method on the hub.
+                        chat.server.send($('#displayname').val(), $('#message').val());
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    });
+                });
+            });
+            // This optional function html-encodes messages for display in the page.
+            function htmlEncode(value) {
+                var encodedValue = $('<div />').text(value).html();
+                return encodedValue;
+            }
+        </script>*@
+}
+
+
+
+@*$("body").on("click", "#sendmsg", function (e) {
+                                  e.preventDefault();
+
+                                  var $this = $(this);
+
+                                  $this.parent().find("img").removeClass("hide");
+
+
+
+                        $.post(url, { friend: _friend, message: _message }, function (data) {
+                                  }).done(function () {
+
+                        // Get the user name and store it to prepend to messages.
+
+                        // Set initial focus to message input box.
+                        $('#msgarea').focus();
+                        // Start the connection.
+                        $.connection.hub.start().done(function () {
+                            $('#sendmsg').click(function () {
+                                // Call the Send method on the hub.
+                                hun.server.Hello($('@userName').val(), $('#msgarea').val());
+                                // Clear text box and reset focus for next comment.
+                                $('#msgarea').val('').focus();
+                            });
+                        });
+
+                       });
+
+
+                        // This optional function html-encodes messages for display in the page.
+                        function htmlEncode(value) {
+                            var encodedValue = $('<div />').text(value).html();
+                            return encodedValue;
+                        }
+
+
+                    });
+          });
+    });*@
+
+
+
+
+@*name = @userName;
+    message = _message;
+    $('#chat').append('<div><strong>' + htmlEncode(name)
+        + '</strong>: ' + htmlEncode(message) + '</div>');*@
+
+

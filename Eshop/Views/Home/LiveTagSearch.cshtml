@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Eshop.product>
+
+@foreach (var item in Model)
+{
+    <div class="search-tag" id="@item.id">
+        <div class="search-tag-detail">
+            <a href="@Url.Action("ProductDetails/" + item.id)"> @item.Name</a>
+            <p class="tag-price"> @item.price&euro;</p>
+            <a href="#"> <img src="@Url.Content("~/Images/" + item.image1)" /></a>
+        </div>
+    </div>
+}
+<p class="no-results">@ViewBag.NoResults</p>

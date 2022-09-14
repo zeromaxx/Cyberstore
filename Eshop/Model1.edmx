@@ -1,0 +1,1870 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="carts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="desktopID" Type="int" />
+        </EntityType>
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Connections">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="AdminId" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Contactforms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FirstName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Enquiry" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cpus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="cores" Type="int" />
+          <Property Name="threads" Type="int" />
+          <Property Name="model" Type="varchar" MaxLength="50" />
+          <Property Name="frequency" Type="varchar" MaxLength="20" />
+          <Property Name="chipset" Type="varchar" MaxLength="20" />
+          <Property Name="socket" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Desktop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPU" Type="int" />
+          <Property Name="MOTHERBOARD" Type="int" />
+          <Property Name="GPU" Type="int" />
+          <Property Name="HARDDISC" Type="int" />
+          <Property Name="RAM" Type="int" />
+          <Property Name="PSU" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="favourites">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="dummycolumn" Type="int" />
+        </EntityType>
+        <EntityType Name="gpus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" />
+          <Property Name="vram" Type="varchar" MaxLength="20" />
+          <Property Name="chipset" Type="varchar" MaxLength="20" />
+          <Property Name="resolution" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="hardDiscs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="20" />
+          <Property Name="capacity" Type="varchar" MaxLength="20" />
+          <Property Name="connector" Type="varchar" MaxLength="20" />
+          <Property Name="frequency" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="monitors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScreenSize" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Resolution" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RefreshRate" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AspectRatio" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="motherboards">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="model" Type="varchar" MaxLength="50" />
+          <Property Name="chipset_vendor" Type="varchar" MaxLength="20" />
+          <Property Name="pcie_slots" Type="varchar" MaxLength="20" />
+          <Property Name="ram_slots" Type="varchar" MaxLength="20" />
+          <Property Name="ram_type" Type="varchar" MaxLength="20" />
+          <Property Name="chipset" Type="varchar" MaxLength="20" />
+          <Property Name="socket" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Onlines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ConnId" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="desktopId" Type="int" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Nullable="false" />
+          <Property Name="shippingId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="address" Type="varchar(max)" Nullable="false" />
+          <Property Name="trackingNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="firstName" Type="varchar(max)" Nullable="false" />
+          <Property Name="lastName" Type="varchar(max)" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="paymentId" Type="int" />
+        </EntityType>
+        <EntityType Name="payments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="stock" Type="int" />
+          <Property Name="image1" Type="varchar" MaxLength="50" />
+          <Property Name="image2" Type="varchar" MaxLength="50" />
+          <Property Name="image3" Type="varchar" MaxLength="50" />
+          <Property Name="thumbnail" Type="varchar" MaxLength="50" />
+          <Property Name="sales" Type="int" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="categoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="psus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="watt" Type="int" />
+          <Property Name="connector" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="rams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="memory" Type="varchar" MaxLength="20" />
+          <Property Name="type" Type="varchar" MaxLength="20" />
+          <Property Name="cash_latency" Type="varchar" MaxLength="20" />
+          <Property Name="frequency" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Shippings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SupportMessages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="From" Type="int" />
+          <Property Name="To" Type="int" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="DateSent" Type="datetime2" Precision="7" />
+          <Property Name="Read" Type="bit" />
+          <Property Name="FirstName" Type="varchar" MaxLength="256" />
+          <Property Name="LastName" Type="varchar" MaxLength="256" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" />
+          <Property Name="FromId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserRoleMappings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="256" />
+          <Property Name="LastName" Type="varchar" MaxLength="256" />
+          <Property Name="Username" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Confirmpwd" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsEmailVerified" Type="bit" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" />
+          <Property Name="Phone" Type="varchar" MaxLength="256" />
+          <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="varchar(max)" />
+          <Property Name="MyDesktop" Type="int" />
+        </EntityType>
+        <Association Name="FK_carts_Desktop">
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="0..1" />
+          <End Role="carts" Type="Self.carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desktop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="carts">
+              <PropertyRef Name="desktopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carts_products">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="carts" Type="Self.carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carts">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carts_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="carts" Type="Self.carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="carts">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cpus_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="cpus" Type="Self.cpus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cpus">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="CPU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products1">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="MOTHERBOARD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products2">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="GPU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products3">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="HARDDISC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products4">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="PSU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products5">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="RAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourites_products">
+          <End Role="products" Type="Self.products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="favourites" Type="Self.favourites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="favourites">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourites_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="favourites" Type="Self.favourites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="favourites">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gpu_products">
+          <End Role="products" Type="Self.products" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="gpus" Type="Self.gpus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="gpus">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hardDiscs_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="hardDiscs" Type="Self.hardDiscs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hardDiscs">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_monitors_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="monitors" Type="Self.monitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="monitors">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_motherboards_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="motherboards" Type="Self.motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="motherboards">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Desktop">
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="0..1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desktop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="desktopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_orders">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_products">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_payments">
+          <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="paymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_Shippings">
+          <End Role="Shippings" Type="Self.Shippings" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shippings">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="shippingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_psus_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="psus" Type="Self.psus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="psus">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rams_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="rams" Type="Self.rams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rams">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportMessages_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="SupportMessages" Type="Self.SupportMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SupportMessages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleMapping_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UserRoleMappings" Type="Self.UserRoleMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMappings">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleMapping_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRoleMappings" Type="Self.UserRoleMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoleMappings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Desktop">
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desktop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="MyDesktop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EshopModelStoreContainer">
+          <EntitySet Name="carts" EntityType="Self.carts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Connections" EntityType="Self.Connections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contactforms" EntityType="Self.Contactforms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cpus" EntityType="Self.cpus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Desktop" EntityType="Self.Desktop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="favourites" EntityType="Self.favourites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gpus" EntityType="Self.gpus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hardDiscs" EntityType="Self.hardDiscs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="monitors" EntityType="Self.monitors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="motherboards" EntityType="Self.motherboards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Onlines" EntityType="Self.Onlines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="psus" EntityType="Self.psus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rams" EntityType="Self.rams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shippings" EntityType="Self.Shippings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportMessages" EntityType="Self.SupportMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleMappings" EntityType="Self.UserRoleMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_carts_Desktop" Association="Self.FK_carts_Desktop">
+            <End Role="Desktop" EntitySet="Desktop" />
+            <End Role="carts" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carts_products" Association="Self.FK_carts_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="carts" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carts_User" Association="Self.FK_carts_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="carts" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cpus_products" Association="Self.FK_cpus_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="cpus" EntitySet="cpus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products" Association="Self.FK_Desktop_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products1" Association="Self.FK_Desktop_products1">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products2" Association="Self.FK_Desktop_products2">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products3" Association="Self.FK_Desktop_products3">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products4" Association="Self.FK_Desktop_products4">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products5" Association="Self.FK_Desktop_products5">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourites_products" Association="Self.FK_favourites_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="favourites" EntitySet="favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourites_User" Association="Self.FK_favourites_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="favourites" EntitySet="favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gpu_products" Association="Self.FK_gpu_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="gpus" EntitySet="gpus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hardDiscs_products" Association="Self.FK_hardDiscs_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="hardDiscs" EntitySet="hardDiscs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_monitors_products" Association="Self.FK_monitors_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="monitors" EntitySet="monitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_motherboards_products" Association="Self.FK_motherboards_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="motherboards" EntitySet="motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Desktop" Association="Self.FK_OrderItems_Desktop">
+            <End Role="Desktop" EntitySet="Desktop" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_orders" Association="Self.FK_OrderItems_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_products" Association="Self.FK_OrderItems_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_payments" Association="Self.FK_orders_payments">
+            <End Role="payments" EntitySet="payments" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_Shippings" Association="Self.FK_orders_Shippings">
+            <End Role="Shippings" EntitySet="Shippings" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_Users" Association="Self.FK_orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_categories" Association="Self.FK_products_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_psus_products" Association="Self.FK_psus_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="psus" EntitySet="psus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rams_products" Association="Self.FK_rams_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="rams" EntitySet="rams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportMessages_Users" Association="Self.FK_SupportMessages_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SupportMessages" EntitySet="SupportMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_Roles" Association="Self.FK_UserRoleMapping_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoleMappings" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_Users" Association="Self.FK_UserRoleMapping_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoleMappings" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Desktop" Association="Self.FK_Users_Desktop">
+            <End Role="Desktop" EntitySet="Desktop" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="desktopID" Type="Int32" />
+          <NavigationProperty Name="Desktop" Relationship="Self.FK_carts_Desktop" FromRole="carts" ToRole="Desktop" />
+          <NavigationProperty Name="product" Relationship="Self.FK_carts_products" FromRole="carts" ToRole="products" />
+          <NavigationProperty Name="User" Relationship="Self.FK_carts_User" FromRole="carts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_categories" FromRole="categories" ToRole="products" />
+        </EntityType>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="AdminId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Contactform">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Enquiry" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="cpu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="cores" Type="Int32" />
+          <Property Name="threads" Type="Int32" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chipset" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="socket" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_cpus_products" FromRole="cpus" ToRole="products" />
+        </EntityType>
+        <EntityType Name="Desktop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPU" Type="Int32" />
+          <Property Name="MOTHERBOARD" Type="Int32" />
+          <Property Name="GPU" Type="Int32" />
+          <Property Name="HARDDISC" Type="Int32" />
+          <Property Name="RAM" Type="Int32" />
+          <Property Name="PSU" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="carts" Relationship="Self.FK_carts_Desktop" FromRole="Desktop" ToRole="carts" />
+          <NavigationProperty Name="product" Relationship="Self.FK_Desktop_products" FromRole="Desktop" ToRole="products" />
+          <NavigationProperty Name="product1" Relationship="Self.FK_Desktop_products1" FromRole="Desktop" ToRole="products" />
+          <NavigationProperty Name="product2" Relationship="Self.FK_Desktop_products2" FromRole="Desktop" ToRole="products" />
+          <NavigationProperty Name="product3" Relationship="Self.FK_Desktop_products3" FromRole="Desktop" ToRole="products" />
+          <NavigationProperty Name="product4" Relationship="Self.FK_Desktop_products4" FromRole="Desktop" ToRole="products" />
+          <NavigationProperty Name="product5" Relationship="Self.FK_Desktop_products5" FromRole="Desktop" ToRole="products" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_Desktop" FromRole="Desktop" ToRole="OrderItems" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Desktop" FromRole="Desktop" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="favourite">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="dummycolumn" Type="Int32" />
+          <NavigationProperty Name="product" Relationship="Self.FK_favourites_products" FromRole="favourites" ToRole="products" />
+          <NavigationProperty Name="User" Relationship="Self.FK_favourites_User" FromRole="favourites" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="gpu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="vram" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chipset" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="resolution" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_gpu_products" FromRole="gpus" ToRole="products" />
+        </EntityType>
+        <EntityType Name="hardDisc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="capacity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="connector" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_hardDiscs_products" FromRole="hardDiscs" ToRole="products" />
+        </EntityType>
+        <EntityType Name="monitor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ScreenSize" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Resolution" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefreshRate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AspectRatio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_monitors_products" FromRole="monitors" ToRole="products" />
+        </EntityType>
+        <EntityType Name="motherboard">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="chipset_vendor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="pcie_slots" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ram_slots" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ram_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="chipset" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="socket" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_motherboards_products" FromRole="motherboards" ToRole="products" />
+        </EntityType>
+        <EntityType Name="Online">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ConnId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="desktopId" Type="Int32" />
+          <NavigationProperty Name="Desktop" Relationship="Self.FK_OrderItems_Desktop" FromRole="OrderItems" ToRole="Desktop" />
+          <NavigationProperty Name="order" Relationship="Self.FK_OrderItems_orders" FromRole="OrderItems" ToRole="orders" />
+          <NavigationProperty Name="product" Relationship="Self.FK_OrderItems_products" FromRole="OrderItems" ToRole="products" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="shippingId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="trackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="paymentId" Type="Int32" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_orders" FromRole="orders" ToRole="OrderItems" />
+          <NavigationProperty Name="payment" Relationship="Self.FK_orders_payments" FromRole="orders" ToRole="payments" />
+          <NavigationProperty Name="Shipping" Relationship="Self.FK_orders_Shippings" FromRole="orders" ToRole="Shippings" />
+          <NavigationProperty Name="User" Relationship="Self.FK_orders_Users" FromRole="orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="payment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_payments" FromRole="payments" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="image1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="image2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="image3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="thumbnail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sales" Type="Int32" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="categoryId" Type="Int32" />
+          <NavigationProperty Name="carts" Relationship="Self.FK_carts_products" FromRole="products" ToRole="carts" />
+          <NavigationProperty Name="category" Relationship="Self.FK_products_categories" FromRole="products" ToRole="categories" />
+          <NavigationProperty Name="cpus" Relationship="Self.FK_cpus_products" FromRole="products" ToRole="cpus" />
+          <NavigationProperty Name="Desktops" Relationship="Self.FK_Desktop_products" FromRole="products" ToRole="Desktop" />
+          <NavigationProperty Name="Desktops1" Relationship="Self.FK_Desktop_products1" FromRole="products" ToRole="Desktop" />
+          <NavigationProperty Name="Desktops2" Relationship="Self.FK_Desktop_products2" FromRole="products" ToRole="Desktop" />
+          <NavigationProperty Name="Desktops3" Relationship="Self.FK_Desktop_products3" FromRole="products" ToRole="Desktop" />
+          <NavigationProperty Name="Desktops4" Relationship="Self.FK_Desktop_products4" FromRole="products" ToRole="Desktop" />
+          <NavigationProperty Name="Desktops5" Relationship="Self.FK_Desktop_products5" FromRole="products" ToRole="Desktop" />
+          <NavigationProperty Name="favourites" Relationship="Self.FK_favourites_products" FromRole="products" ToRole="favourites" />
+          <NavigationProperty Name="gpus" Relationship="Self.FK_gpu_products" FromRole="products" ToRole="gpus" />
+          <NavigationProperty Name="hardDiscs" Relationship="Self.FK_hardDiscs_products" FromRole="products" ToRole="hardDiscs" />
+          <NavigationProperty Name="monitors" Relationship="Self.FK_monitors_products" FromRole="products" ToRole="monitors" />
+          <NavigationProperty Name="motherboards" Relationship="Self.FK_motherboards_products" FromRole="products" ToRole="motherboards" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItems_products" FromRole="products" ToRole="OrderItems" />
+          <NavigationProperty Name="psus" Relationship="Self.FK_psus_products" FromRole="products" ToRole="psus" />
+          <NavigationProperty Name="rams" Relationship="Self.FK_rams_products" FromRole="products" ToRole="rams" />
+        </EntityType>
+        <EntityType Name="psu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="watt" Type="Int32" />
+          <Property Name="connector" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_psus_products" FromRole="psus" ToRole="products" />
+        </EntityType>
+        <EntityType Name="ram">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="memory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cash_latency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="frequency" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK_rams_products" FromRole="rams" ToRole="products" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoleMappings" Relationship="Self.FK_UserRoleMapping_Roles" FromRole="Roles" ToRole="UserRoleMappings" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_Shippings" FromRole="Shippings" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="SupportMessage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="From" Type="Int32" />
+          <Property Name="To" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateSent" Type="DateTime" Precision="7" />
+          <Property Name="Read" Type="Boolean" />
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="FromId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_SupportMessages_Users" FromRole="SupportMessages" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_UserRoleMapping_Roles" FromRole="UserRoleMappings" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserRoleMapping_Users" FromRole="UserRoleMappings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Confirmpwd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmailVerified" Type="Boolean" />
+          <Property Name="ActivationCode" Type="Guid" />
+          <Property Name="Phone" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MyDesktop" Type="Int32" />
+          <NavigationProperty Name="carts" Relationship="Self.FK_carts_User" FromRole="Users" ToRole="carts" />
+          <NavigationProperty Name="Desktop" Relationship="Self.FK_Users_Desktop" FromRole="Users" ToRole="Desktop" />
+          <NavigationProperty Name="favourites" Relationship="Self.FK_favourites_User" FromRole="Users" ToRole="favourites" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_Users" FromRole="Users" ToRole="orders" />
+          <NavigationProperty Name="SupportMessages" Relationship="Self.FK_SupportMessages_Users" FromRole="Users" ToRole="SupportMessages" />
+          <NavigationProperty Name="UserRoleMappings" Relationship="Self.FK_UserRoleMapping_Users" FromRole="Users" ToRole="UserRoleMappings" />
+        </EntityType>
+        <Association Name="FK_carts_Desktop">
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="0..1" />
+          <End Role="carts" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desktop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="carts">
+              <PropertyRef Name="desktopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carts_products">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="carts" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="carts">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_carts_User">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="carts" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="carts">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_categories">
+          <End Role="categories" Type="Self.category" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cpus_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="cpus" Type="Self.cpu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cpus">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="CPU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products1">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="MOTHERBOARD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products2">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="GPU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products3">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="HARDDISC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products4">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="PSU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Desktop_products5">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Desktop">
+              <PropertyRef Name="RAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_Desktop">
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="0..1" />
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desktop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="desktopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Desktop">
+          <End Role="Desktop" Type="Self.Desktop" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desktop">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="MyDesktop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourites_products">
+          <End Role="products" Type="Self.product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="favourites" Type="Self.favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="favourites">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_favourites_User">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="favourites" Type="Self.favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="favourites">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gpu_products">
+          <End Role="products" Type="Self.product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="gpus" Type="Self.gpu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="gpus">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hardDiscs_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="hardDiscs" Type="Self.hardDisc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hardDiscs">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_monitors_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="monitors" Type="Self.monitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="monitors">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_motherboards_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="motherboards" Type="Self.motherboard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="motherboards">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_orders">
+          <End Role="orders" Type="Self.order" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItems_products">
+          <End Role="products" Type="Self.product" Multiplicity="0..1" />
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_payments">
+          <End Role="payments" Type="Self.payment" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="paymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_Shippings">
+          <End Role="Shippings" Type="Self.Shipping" Multiplicity="1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shippings">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="shippingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_psus_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="psus" Type="Self.psu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="psus">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rams_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="rams" Type="Self.ram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="rams">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleMapping_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserRoleMappings" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMappings">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportMessages_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="SupportMessages" Type="Self.SupportMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="SupportMessages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleMapping_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRoleMappings" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoleMappings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="carts" EntityType="Self.cart" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="Connections" EntityType="Self.Connection" />
+          <EntitySet Name="Contactforms" EntityType="Self.Contactform" />
+          <EntitySet Name="cpus" EntityType="Self.cpu" />
+          <EntitySet Name="Desktops" EntityType="Self.Desktop" />
+          <EntitySet Name="favourites" EntityType="Self.favourite" />
+          <EntitySet Name="gpus" EntityType="Self.gpu" />
+          <EntitySet Name="hardDiscs" EntityType="Self.hardDisc" />
+          <EntitySet Name="monitors" EntityType="Self.monitor" />
+          <EntitySet Name="motherboards" EntityType="Self.motherboard" />
+          <EntitySet Name="Onlines" EntityType="Self.Online" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="payments" EntityType="Self.payment" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="psus" EntityType="Self.psu" />
+          <EntitySet Name="rams" EntityType="Self.ram" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Shippings" EntityType="Self.Shipping" />
+          <EntitySet Name="SupportMessages" EntityType="Self.SupportMessage" />
+          <EntitySet Name="UserRoleMappings" EntityType="Self.UserRoleMapping" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_carts_Desktop" Association="Self.FK_carts_Desktop">
+            <End Role="Desktop" EntitySet="Desktops" />
+            <End Role="carts" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carts_products" Association="Self.FK_carts_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="carts" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_carts_User" Association="Self.FK_carts_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="carts" EntitySet="carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_categories" Association="Self.FK_products_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cpus_products" Association="Self.FK_cpus_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="cpus" EntitySet="cpus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products" Association="Self.FK_Desktop_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products1" Association="Self.FK_Desktop_products1">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products2" Association="Self.FK_Desktop_products2">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products3" Association="Self.FK_Desktop_products3">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products4" Association="Self.FK_Desktop_products4">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Desktop_products5" Association="Self.FK_Desktop_products5">
+            <End Role="products" EntitySet="products" />
+            <End Role="Desktop" EntitySet="Desktops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_Desktop" Association="Self.FK_OrderItems_Desktop">
+            <End Role="Desktop" EntitySet="Desktops" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Desktop" Association="Self.FK_Users_Desktop">
+            <End Role="Desktop" EntitySet="Desktops" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourites_products" Association="Self.FK_favourites_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="favourites" EntitySet="favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_favourites_User" Association="Self.FK_favourites_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="favourites" EntitySet="favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gpu_products" Association="Self.FK_gpu_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="gpus" EntitySet="gpus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hardDiscs_products" Association="Self.FK_hardDiscs_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="hardDiscs" EntitySet="hardDiscs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_monitors_products" Association="Self.FK_monitors_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="monitors" EntitySet="monitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_motherboards_products" Association="Self.FK_motherboards_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="motherboards" EntitySet="motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_orders" Association="Self.FK_OrderItems_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItems_products" Association="Self.FK_OrderItems_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_payments" Association="Self.FK_orders_payments">
+            <End Role="payments" EntitySet="payments" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_Shippings" Association="Self.FK_orders_Shippings">
+            <End Role="Shippings" EntitySet="Shippings" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_Users" Association="Self.FK_orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_psus_products" Association="Self.FK_psus_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="psus" EntitySet="psus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rams_products" Association="Self.FK_rams_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="rams" EntitySet="rams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_Roles" Association="Self.FK_UserRoleMapping_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoleMappings" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportMessages_Users" Association="Self.FK_SupportMessages_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SupportMessages" EntitySet="SupportMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_Users" Association="Self.FK_UserRoleMapping_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoleMappings" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EshopModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="carts">
+            <EntityTypeMapping TypeName="EshopModel.cart">
+              <MappingFragment StoreEntitySet="carts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="desktopID" ColumnName="desktopID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="EshopModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Connections">
+            <EntityTypeMapping TypeName="EshopModel.Connection">
+              <MappingFragment StoreEntitySet="Connections">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contactforms">
+            <EntityTypeMapping TypeName="EshopModel.Contactform">
+              <MappingFragment StoreEntitySet="Contactforms">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Enquiry" ColumnName="Enquiry" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cpus">
+            <EntityTypeMapping TypeName="EshopModel.cpu">
+              <MappingFragment StoreEntitySet="cpus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="cores" ColumnName="cores" />
+                <ScalarProperty Name="threads" ColumnName="threads" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="frequency" ColumnName="frequency" />
+                <ScalarProperty Name="chipset" ColumnName="chipset" />
+                <ScalarProperty Name="socket" ColumnName="socket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Desktops">
+            <EntityTypeMapping TypeName="EshopModel.Desktop">
+              <MappingFragment StoreEntitySet="Desktop">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CPU" ColumnName="CPU" />
+                <ScalarProperty Name="MOTHERBOARD" ColumnName="MOTHERBOARD" />
+                <ScalarProperty Name="GPU" ColumnName="GPU" />
+                <ScalarProperty Name="HARDDISC" ColumnName="HARDDISC" />
+                <ScalarProperty Name="RAM" ColumnName="RAM" />
+                <ScalarProperty Name="PSU" ColumnName="PSU" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="favourites">
+            <EntityTypeMapping TypeName="EshopModel.favourite">
+              <MappingFragment StoreEntitySet="favourites">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="dummycolumn" ColumnName="dummycolumn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gpus">
+            <EntityTypeMapping TypeName="EshopModel.gpu">
+              <MappingFragment StoreEntitySet="gpus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="vram" ColumnName="vram" />
+                <ScalarProperty Name="chipset" ColumnName="chipset" />
+                <ScalarProperty Name="resolution" ColumnName="resolution" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hardDiscs">
+            <EntityTypeMapping TypeName="EshopModel.hardDisc">
+              <MappingFragment StoreEntitySet="hardDiscs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="connector" ColumnName="connector" />
+                <ScalarProperty Name="frequency" ColumnName="frequency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="monitors">
+            <EntityTypeMapping TypeName="EshopModel.monitor">
+              <MappingFragment StoreEntitySet="monitors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ScreenSize" ColumnName="ScreenSize" />
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+                <ScalarProperty Name="RefreshRate" ColumnName="RefreshRate" />
+                <ScalarProperty Name="AspectRatio" ColumnName="AspectRatio" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="motherboards">
+            <EntityTypeMapping TypeName="EshopModel.motherboard">
+              <MappingFragment StoreEntitySet="motherboards">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="chipset_vendor" ColumnName="chipset_vendor" />
+                <ScalarProperty Name="pcie_slots" ColumnName="pcie_slots" />
+                <ScalarProperty Name="ram_slots" ColumnName="ram_slots" />
+                <ScalarProperty Name="ram_type" ColumnName="ram_type" />
+                <ScalarProperty Name="chipset" ColumnName="chipset" />
+                <ScalarProperty Name="socket" ColumnName="socket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Onlines">
+            <EntityTypeMapping TypeName="EshopModel.Online">
+              <MappingFragment StoreEntitySet="Onlines">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ConnId" ColumnName="ConnId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="EshopModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItems">
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="desktopId" ColumnName="desktopId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="EshopModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="shippingId" ColumnName="shippingId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="trackingNumber" ColumnName="trackingNumber" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="paymentId" ColumnName="paymentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payments">
+            <EntityTypeMapping TypeName="EshopModel.payment">
+              <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="EshopModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="image1" ColumnName="image1" />
+                <ScalarProperty Name="image2" ColumnName="image2" />
+                <ScalarProperty Name="image3" ColumnName="image3" />
+                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
+                <ScalarProperty Name="sales" ColumnName="sales" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="psus">
+            <EntityTypeMapping TypeName="EshopModel.psu">
+              <MappingFragment StoreEntitySet="psus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="watt" ColumnName="watt" />
+                <ScalarProperty Name="connector" ColumnName="connector" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rams">
+            <EntityTypeMapping TypeName="EshopModel.ram">
+              <MappingFragment StoreEntitySet="rams">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="memory" ColumnName="memory" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="cash_latency" ColumnName="cash_latency" />
+                <ScalarProperty Name="frequency" ColumnName="frequency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EshopModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippings">
+            <EntityTypeMapping TypeName="EshopModel.Shipping">
+              <MappingFragment StoreEntitySet="Shippings">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportMessages">
+            <EntityTypeMapping TypeName="EshopModel.SupportMessage">
+              <MappingFragment StoreEntitySet="SupportMessages">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+                <ScalarProperty Name="Read" ColumnName="Read" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FromId" ColumnName="FromId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleMappings">
+            <EntityTypeMapping TypeName="EshopModel.UserRoleMapping">
+              <MappingFragment StoreEntitySet="UserRoleMappings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EshopModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Confirmpwd" ColumnName="Confirmpwd" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="MyDesktop" ColumnName="MyDesktop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

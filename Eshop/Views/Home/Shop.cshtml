@@ -1,0 +1,116 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Eshop.product>
+@{
+    ViewBag.Title = "Shop";
+}
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h4>Home/Shop</h4>
+    </div>
+</div>
+
+<div class="products-shop-container">
+    <div class="products-shop-categories">
+        <div>
+            <h4>Categories</h4>
+            <ul>
+                <li><a href="">Products</a></li>
+                <li><a href="">Laptop & Tablet</a></li>
+                <li><a href="">Computers</a></li>
+                <li><a href="">Cameras&Video</a></li>
+                <li><a href="">Headphones</a></li>
+                <li><a href="">Office</a></li>
+                <li><a href="">Home Appliances</a></li>
+                <li><a href="">Phones</a></li>
+                <li><a href="">Books&Audio</a></li>
+                <li><a href="">Gadgets</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Sort By</h4>
+            <ul>
+                <li><a href="">Default</a></li>
+                <li><a href="">Popularity</a></li>
+                <li><a href="">Average rating</a></li>
+                <li><a href="">Newness</a></li>
+                <li><a href="">Price: Low to High</a></li>
+                <li><a href="">Price: High to Low</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Price Range</h4>
+            <ul>
+                <li><a href="">All</a></li>
+                <li><a href="">0 - 200</a></li>
+                <li><a href="">200 - 400</a></li>
+                <li><a href="">400 - 600</a></li>
+                <li><a href="">600-800</a></li>
+                <li><a href="">800+</a></li>
+            </ul>
+        </div>
+
+
+
+    </div>
+    <div class="products-container">
+        @foreach (var item in Model)
+        {
+            <div class="product-single">
+                <div class="product-single-category">
+                    <h4>Products</h4>
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <a href="@Url.Content("ProductDetails/" + item.id)">
+                    <img src="@Url.Content("~/Images/" + item.image1)" alt="">
+                </a>
+                <div class="product-single-info">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <a href="@Url.Content("ProductDetails/" + item.id)">
+                        <h5>@Html.DisplayFor(modelItem => item.Name)</h5>
+                    </a>
+                    <div>
+                        <h3>&#x20AC @Html.DisplayFor(modelItem => item.price)</h3>
+                        <div class="cart-div">
+                            <svg class="arrow-svg" baseProfile="tiny" height="24px" version="1.2" viewBox="0 0 24 24" width="24px"
+                                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Layer_1">
+                            <path d="M16.707,13.293c-0.391-0.391-1.023-0.391-1.414,0L13,15.586V8c0-0.552-0.447-1-1-1s-1,0.448-1,1v7.586l-2.293-2.293   c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414L12,19.414l4.707-4.707C17.098,14.316,17.098,13.684,16.707,13.293z" />
+                                </g>
+                            </svg>
+                            <svg class="cart-svg" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                <defs>
+                                </defs>
+                                <rect class="cls-1" width="256" height="256" />
+                                <circle class="cls-2" cx="80" cy="216" r="18" />
+                                <circle class="cls-4" cx="184" cy="216" r="18" />
+                                <path class="cls-3"
+                                      d="M42.3,72H221.7l-26.4,92.4A15.91,15.91,0,0,1,179.9,176H84.1a15.91,15.91,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" />
+                            </svg>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="pagination">
+            @Html.PagedListPager(Model, page => Url.Action("Shop", new { page = page }))
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/cart_animation.js"></script>
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script src="~/Scripts/WishList.js"></script>
+}
+

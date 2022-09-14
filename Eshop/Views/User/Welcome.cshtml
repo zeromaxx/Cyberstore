@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Welcome";
+}
+
+<h1>Welcome @HttpContext.Current.User.Identity.Name Here you can find your wishlist</h1>
+
+@if (Request.IsAuthenticated)
+{
+    using(Html.BeginForm("Logout","User", FormMethod.Post, new { id ="logoutForm"}))
+                {
+                    <a href="javascript:document.getElementById('logoutForm')">Logout</a>
+
+                }
+}
+

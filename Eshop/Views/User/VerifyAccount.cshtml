@@ -1,0 +1,24 @@
+﻿@model Eshop.ViewModels.EmailVerifyViewModel
+
+@{
+    ViewBag.Title = "Account Verify";
+}
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h1>Shop</h1>
+        <h5>Home/Account</h5>
+    </div>
+</div>
+
+<div class="login-form">
+    @using (Html.BeginForm("VerifyAccount", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.EmailToken)
+        <h3>Push the button to confirm your email adress and prove that you are not a bot!</h3>
+        <input type="submit" value="Bot Alert" class="btn btn-default" />
+    }
+</div>

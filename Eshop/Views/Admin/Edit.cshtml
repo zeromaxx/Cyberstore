@@ -1,0 +1,90 @@
+﻿@model Eshop.ViewModels.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+   <div class="form-horizontal">
+    <h4>Edit Product</h4>
+    <div class="">
+        @Html.LabelFor(m => m.Product.Name, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.Name, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.Name, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.Description, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.Description, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.Description, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.price, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.price, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.price, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.stock, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.stock, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.stock, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.image1, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.image1, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.image1, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.image2, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.image2, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.image2, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.image3, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.image3, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.image3, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.thumbnail, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.thumbnail, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.thumbnail, "", new { @class = "" })
+    </div>
+
+    <div class="">
+        @Html.LabelFor(m => m.Product.sales, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Product.sales, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Product.sales, "", new { @class = "" })
+    </div>
+    @Html.Partial(Model._string);
+
+    
+   </div>
+   @Html.HiddenFor(m => m.Product.id)
+    @Html.HiddenFor(x => x.Product.categoryId)
+    
+    @Html.Hidden("CategoryID")
+    @Html.Hidden("_string")
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-default" />
+
+        </div>
+    </div>
+ }
+
+
+<div>
+    @Html.ActionLink("Back to Home", "ViewAllProducts", "Admin")
+</div>
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

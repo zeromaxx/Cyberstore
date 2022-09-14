@@ -1,0 +1,659 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C1949B61-084C-46EA-9031-79629879E066}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eshop</RootNamespace>
+    <AssemblyName>Eshop</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <IISExpressSSLPort>44398</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="cart.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatHub.cs" />
+    <Compile Include="Connection.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contactform.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DesktopController.cs" />
+    <Compile Include="Controllers\FavouritesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\SgnlrProfileController.cs" />
+    <Compile Include="Controllers\SignlrController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="cpu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EchoHub.cs" />
+    <Compile Include="favourite.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="gpu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="hardDisc.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Crypto.cs" />
+    <Compile Include="Models\Dtos\UserDTO.cs" />
+    <Compile Include="Models\UserRoleProvider.cs" />
+    <Compile Include="monitor.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="motherboard.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Online.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="order.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderItem.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="payment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="psu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="SupportMessage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoleMapping.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ComparsionViewModel.cs" />
+    <Compile Include="ViewModels\ConnectionViewModel.cs" />
+    <Compile Include="ViewModels\DesktopViewModel.cs" />
+    <Compile Include="ViewModels\EmailVerifyViewModel.cs" />
+    <Compile Include="ViewModels\FavouriteViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\ProductsAndDetails.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\RegisterView.cs" />
+    <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\ResetPasswordModel.cs" />
+    <Compile Include="ViewModels\SupportMessageViewModel.cs" />
+    <Compile Include="ViewModels\UserRoleViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AdminStyling.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\30801.jpg" />
+    <Content Include="Images\30802.jpg" />
+    <Content Include="Images\30803.jpg" />
+    <Content Include="Images\30804.jpg" />
+    <Content Include="Images\3GigabyteMotherboardH410MHD3P_1.jpg" />
+    <Content Include="Images\3GigabyteMotherboardH410MHD3P_2.jpg" />
+    <Content Include="Images\3GigabyteMotherboardH410MHD3P_3.jpg" />
+    <Content Include="Images\3GigabyteMotherboardH410MHD3P_4.jpg" />
+    <Content Include="Images\Admin\arrow_down.png" />
+    <Content Include="Images\Admin\cooler.png" />
+    <Content Include="Images\Admin\cpu.png" />
+    <Content Include="Images\Admin\graphics.png" />
+    <Content Include="Images\Admin\harddisk.png" />
+    <Content Include="Images\Admin\landscape.png" />
+    <Content Include="Images\Admin\motherboard.png" />
+    <Content Include="Images\Admin\navlogo.png" />
+    <Content Include="Images\Admin\product_icon.png" />
+    <Content Include="Images\Admin\ram.png" />
+    <Content Include="Images\Admin\role.png" />
+    <Content Include="Images\AlienWare.png" />
+    <Content Include="Images\AMDCPURyzen55600G.jpg" />
+    <Content Include="Images\AMDCPURyzen55600G_1.jpg" />
+    <Content Include="Images\AMDCPURyzen55600G_2.jpg" />
+    <Content Include="Images\AMDCPUThreadripperPRO3975WX.jpg" />
+    <Content Include="Images\AMDCPUThreadripperPRO3975WX_1.jpg" />
+    <Content Include="Images\AMDCPUThreadripperPRO3975WX_3.jpg" />
+    <Content Include="Images\AMDCPUThreadripperPRO3975WX_4.jpg" />
+    <Content Include="Images\AsuscMotherboardPrimeZ590-A_1.jpg" />
+    <Content Include="Images\AsuscMotherboardPrimeZ590-A_2.jpg" />
+    <Content Include="Images\AsuscMotherboardPrimeZ590-A_3.jpg" />
+    <Content Include="Images\AsuscMotherboardPrimeZ590-A_4.jpg" />
+    <Content Include="Images\AsusVGAGeForceGT10302GBGDDR5LP2GB_1.jpg" />
+    <Content Include="Images\AsusVGAGeForceGT10302GBGDDR5LP2GB_2.jpg" />
+    <Content Include="Images\AsusVGAGeForceGT10302GBGDDR5LP2GB_3.jpg" />
+    <Content Include="Images\AsusVGAGeForceGT10302GBGDDR5LP2GB_4.jpg" />
+    <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_1.jpg" />
+    <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_2.jpg" />
+    <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_3.jpg" />
+    <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_4.jpg" />
+    <Content Include="Images\ChieftecPSUGPE-400S_1.jpg" />
+    <Content Include="Images\ChieftecPSUGPE-400S_2.jpg" />
+    <Content Include="Images\ChieftecPSUGPE-400S_3.jpg" />
+    <Content Include="Images\ChieftecPSUGPE-400S_4.jpg" />
+    <Content Include="Images\CorsairDesktopRAMVengeanceRGB32GB5200MHzDDR5.jpg" />
+    <Content Include="Images\CorsairDesktopRAMVengeanceRGB32GB5200MHzDDR5_1.jpg" />
+    <Content Include="Images\CorsairDesktopRAMVengeanceRGB32GB5200MHzDDR5_2.jpg" />
+    <Content Include="Images\CorsairDesktopRAMVengeanceRGB32GB5200MHzDDR5_3.jpg" />
+    <Content Include="Images\CorsairPSUCVSeries450W80Bronze_1.jpg" />
+    <Content Include="Images\CorsairPSUCVSeries450W80Bronze_2.jpg" />
+    <Content Include="Images\CorsairPSUCVSeries450W80Bronze_3.jpg" />
+    <Content Include="Images\CorsairPSUCXMSeries650W80Bronze_1.jpg" />
+    <Content Include="Images\CorsairPSUCXMSeries650W80Bronze_2.jpg" />
+    <Content Include="Images\CorsairPSUCXMSeries650W80Bronze_3.jpg" />
+    <Content Include="Images\CorsairPSUCXMSeries650W80Bronze_4.jpg" />
+    <Content Include="Images\CrucialDesktopRAMBallistix32GB3200Mhz.jpg" />
+    <Content Include="Images\CrucialDesktopRAMBallistix32GB3200Mhz_1.jpg" />
+    <Content Include="Images\CrucialDesktopRAMBallistix32GB3200Mhz_2.jpg" />
+    <Content Include="Images\CrucialDesktopRAMBallistix32GB3200Mhz_3.jpg" />
+    <Content Include="Images\customer-service-support-svgrepo-com.svg" />
+    <Content Include="Images\FaznSSDSlimPortable250GB_1.jpg" />
+    <Content Include="Images\FaznSSDSlimPortable250GB_2.jpg" />
+    <Content Include="Images\FaznSSDSlimPortable250GB_3.jpg" />
+    <Content Include="Images\FaznSSDSlimPortable250GB_4.jpg" />
+    <Content Include="Images\Front.jpg" />
+    <Content Include="Images\GigabyteMotherboardA520MS2H_1.jpg" />
+    <Content Include="Images\GigabyteMotherboardA520MS2H_2.jpg" />
+    <Content Include="Images\GigabyteMotherboardA520MS2H_3.jpg" />
+    <Content Include="Images\GigabyteMotherboardA520MS2H_4.jpg" />
+    <Content Include="Images\GigabyteVGAGeForceRTX3070GamingOCV28GB_1.jpg" />
+    <Content Include="Images\GigabyteVGAGeForceRTX3070GamingOCV28GB_2.jpg" />
+    <Content Include="Images\GigabyteVGAGeForceRTX3070GamingOCV28GB_3.jpg" />
+    <Content Include="Images\GigabyteVGAGeForceRTX3070GamingOCV28GB_4.jpg" />
+    <Content Include="Images\GoodramDesktopRAMRDMRGB16GB3600MHzDDR4.jpg" />
+    <Content Include="Images\GoodramDesktopRAMRDMRGB16GB3600MHzDDR4_1.jpg" />
+    <Content Include="Images\GoodramDesktopRAMRDMRGB16GB3600MHzDDR4_2.jpg" />
+    <Content Include="Images\GoodramDesktopRAMRDMRGB16GB3600MHzDDR4_3.jpg" />
+    <Content Include="Images\HomeImage.jpg" />
+    <Content Include="Images\i71.jpg" />
+    <Content Include="Images\i72.jpg" />
+    <Content Include="Images\i73.jpg" />
+    <Content Include="Images\i74.jpg" />
+    <Content Include="Images\Icons\8665965_sun_icon.png" />
+    <Content Include="Images\Icons\banner.jpg" />
+    <Content Include="Images\Icons\bundleWhite.png" />
+    <Content Include="Images\Icons\cart-icon.png" />
+    <Content Include="Images\Icons\dark_moon.png" />
+    <Content Include="Images\Icons\email-arrow.png" />
+    <Content Include="Images\Icons\logo-default.png" />
+    <Content Include="Images\Icons\mastercard.png" />
+    <Content Include="Images\Icons\navlogo.png" />
+    <Content Include="Images\Icons\paypal.png" />
+    <Content Include="Images\Icons\pc-icon.png" />
+    <Content Include="Images\Icons\search3.png" />
+    <Content Include="Images\Icons\visa.png" />
+    <Content Include="Images\Icons\warning.png" />
+    <Content Include="Images\Icons\western.png" />
+    <Content Include="Images\Index\desktop1.jpg" />
+    <Content Include="Images\Index\Front.jpg" />
+    <Content Include="Images\Index\front1.jpg" />
+    <Content Include="Images\Index\front2.jpg" />
+    <Content Include="Images\Index\front3.jpg" />
+    <Content Include="Images\Index\front4.jpg" />
+    <Content Include="Images\Index\frontBest.jpg" />
+    <Content Include="Images\Index\frontside1.jpg" />
+    <Content Include="Images\Index\frontside2.jpg" />
+    <Content Include="Images\Index\frontside5.jpeg" />
+    <Content Include="Images\IntelCPUCore i910900X_1.jpg" />
+    <Content Include="Images\IntelCPUCore i910900X_2 .jpg" />
+    <Content Include="Images\IntelCPUCore i910900X_3.jpg" />
+    <Content Include="Images\IntelCPUCore i910900X_4.jpg" />
+    <Content Include="Images\IntelCPUCorei511400.jpg" />
+    <Content Include="Images\IntelCPUCorei511400_2.jpg" />
+    <Content Include="Images\IntelCPUCorei511400_3.jpg" />
+    <Content Include="Images\IntelCPUCorei511400_4.jpg" />
+    <Content Include="Images\LaCiePortableSSDv2USB-C1TB2.5_1.jpg" />
+    <Content Include="Images\LaCiePortableSSDv2USB-C1TB2.5_2.jpg" />
+    <Content Include="Images\LaCiePortableSSDv2USB-C1TB2.5_3.jpg" />
+    <Content Include="Images\LaCiePortableSSDv2USB-C1TB2.5_4.jpg" />
+    <Content Include="Images\monitora1.jpeg" />
+    <Content Include="Images\monitora2.jpeg" />
+    <Content Include="Images\monitora3.jpeg" />
+    <Content Include="Images\monitora4.jpeg" />
+    <Content Include="Images\MSIMotherboardZ490ACE.jpg" />
+    <Content Include="Images\MSIMotherboardZ490ACE_1.jpg" />
+    <Content Include="Images\MSIMotherboardZ490ACE_2.jpg" />
+    <Content Include="Images\MSIMotherboardZ490ACE_3.jpg" />
+    <Content Include="Images\Other\AlienWare.png" />
+    <Content Include="Images\Other\black_cpu.jpg" />
+    <Content Include="Images\Other\bundle.png" />
+    <Content Include="Images\Other\computerNight.png" />
+    <Content Include="Images\Other\contact.png" />
+    <Content Include="Images\Other\cpuuu2u.png" />
+    <Content Include="Images\Other\cpuuuu.png" />
+    <Content Include="Images\Other\CustomDesktopImg.jpg" />
+    <Content Include="Images\Other\face.jpg" />
+    <Content Include="Images\Other\Gpu.png" />
+    <Content Include="Images\Other\HardDiscIcon.png" />
+    <Content Include="Images\Other\main.jpg" />
+    <Content Include="Images\Other\main2.jpg" />
+    <Content Include="Images\Other\main3.jpg" />
+    <Content Include="Images\Other\main4.jpg" />
+    <Content Include="Images\Other\main5.jpg" />
+    <Content Include="Images\Other\MicrosoftTeams-image %281%29.png" />
+    <Content Include="Images\Other\Monitor.png" />
+    <Content Include="Images\Other\motherboard.png" />
+    <Content Include="Images\Other\PSUICON.png" />
+    <Content Include="Images\Other\RamIcon.png" />
+    <Content Include="Images\Other\support-chat.png" />
+    <Content Include="Images\Other\YouDefultDesktop.jpg" />
+    <Content Include="Images\Other\YourDefultDesktop2.jpg" />
+    <Content Include="Images\Other\YourDefultDesktop3.jpg" />
+    <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_1.jpg" />
+    <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_2.jpg" />
+    <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_3.jpg" />
+    <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_4.jpg" />
+    <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB.jpg" />
+    <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB_1.jpg" />
+    <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB_3.jpg" />
+    <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB_4.jpg" />
+    <Content Include="Images\Turbo-XPSURGBSeries800W80BronzeSemiModular_1.jpg" />
+    <Content Include="Images\Turbo-XPSURGBSeries800W80BronzeSemiModular_2.jpg" />
+    <Content Include="Images\Turbo-XPSURGBSeries800W80BronzeSemiModular_3.jpg" />
+    <Content Include="Images\Turbo-XPSURGBSeries800W80BronzeSemiModular_4.jpg" />
+    <Content Include="Images\WDExtSSDWDBlackD30GameDrive500GB_1.jpg" />
+    <Content Include="Images\WDExtSSDWDBlackD30GameDrive500GB_2.jpg" />
+    <Content Include="Images\WDExtSSDWDBlackD30GameDrive500GB_3.jpg" />
+    <Content Include="Images\WDExtSSDWDBlackD30GameDrive500GB_4.jpg" />
+    <Content Include="Images\YourDesktop.jpg" />
+    <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_1.jpg" />
+    <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_2.jpg" />
+    <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_3.jpg" />
+    <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_4.jpg" />
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\addDesktopToCart.js" />
+    <Content Include="Scripts\AddToCart.js" />
+    <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\AlternateNavbar.js" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\cart_animation.js" />
+    <Content Include="Scripts\Compare.js" />
+    <Content Include="Scripts\Dashboard.js" />
+    <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LiveSearch.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Navbar Toggle.js" />
+    <Content Include="Scripts\open_modal.js" />
+    <Content Include="Scripts\RemoveFromDesktop.js" />
+    <Content Include="Scripts\sendEmail.js" />
+    <Content Include="Scripts\SendToDesktop.js" />
+    <Content Include="Scripts\WishList.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\GetProductsTable.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\InsertCPU.cshtml" />
+    <Content Include="Views\Admin\InsertGPU.cshtml" />
+    <Content Include="Views\Admin\InsertHDD.cshtml" />
+    <Content Include="Views\Admin\InsertMotherboard.cshtml" />
+    <Content Include="Views\Admin\InsertPSU.cshtml" />
+    <Content Include="Views\Admin\InsertRam.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_CpuPartial.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_GpuPartial.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_HardDiskPartial.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_MotherboardPartial.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_PsuPartial.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_RamPartial.cshtml" />
+    <Content Include="Views\Admin\ViewAllProducts.cshtml" />
+    <Content Include="Views\Home\LiveTagSearch.cshtml" />
+    <Content Include="Views\Home\PartialViews\_CpuDetails.cshtml" />
+    <Content Include="Views\Home\PartialViews\_GpuDetails.cshtml" />
+    <Content Include="Views\Home\PartialViews\_HardDiskDetails.cshtml" />
+    <Content Include="Views\Home\PartialViews\_MotherboardDetails.cshtml" />
+    <Content Include="Views\Home\PartialViews\_PsuDetails.cshtml" />
+    <Content Include="Views\Home\PartialViews\_RamDetails.cshtml" />
+    <Content Include="Views\Home\ProductDetails.cshtml" />
+    <Content Include="Views\Home\Shop.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Welcome.cshtml" />
+    <Content Include="Views\Home\WishList.cshtml" />
+    <Content Include="Views\Home\Products.cshtml" />
+    <Content Include="Views\User\VerifyEmail.cshtml" />
+    <Content Include="Views\User\VerifyAccount.cshtml" />
+    <Content Include="Views\User\EmailIsVerified.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\Username.cshtml" />
+    <Content Include="Views\Orders\MyOrder.cshtml" />
+    <Content Include="Views\Orders\MyOrders.cshtml" />
+    <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Admin\CreateRole.cshtml" />
+    <Content Include="Views\Home\YourDesktop.cshtml" />
+    <Content Include="Views\Desktop\ChooseProduct.cshtml" />
+    <Content Include="Views\Home\Message.cshtml" />
+    <Content Include="Views\User\EmailNotSent.cshtml" />
+    <Content Include="Views\User\test.cshtml" />
+    <Content Include="Views\Admin\InsertProduct.cshtml" />
+    <Content Include="Views\Home\ProductComparsion.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_MonitorPartial.cshtml" />
+    <Content Include="Views\Home\PartialViews\_MonitorDetails.cshtml" />
+    <Content Include="Views\Home\AdminSupport.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57740/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
