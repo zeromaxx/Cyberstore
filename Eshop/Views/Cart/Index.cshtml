@@ -60,21 +60,13 @@
                         </td>
                         <td>
                             <h5>
-                                <a style="text-decoration:none;color:black;" href="/Home/YourDesktop">Custom Desktop</a>
+                                <a style="text-decoration:none;color:black;" href="/Desktop/YourDesktop">Custom Desktop</a>
                             </h5>
                         </td>
                         <td>
                             <h4>@cart.Desktop.price &euro;</h4>
                         </td>
-                        <td>
-                            <div class="quantity-container">
-                                <span>Quantity</span>
-                                <i class="fa fa-angle-left decrement-btn changeQuantity"></i>
-                                <span class="qty-input">@cart.quantity</span>
-                                <i class="fa fa-angle-right increment-btn changeQuantity"></i>
-                            </div>
-                            <input type="hidden" class="prod_id" value="@cart.Desktop.ID">
-                        </td>
+                      
                         <td></td>
                     </tr>
                 }
@@ -97,23 +89,7 @@
                 <h3>Subtotal</h3>
                 <h4>@TempData["total"] &euro;</h4>
             </div>
-            <div class="cart-shipping-1">
-                <h3>Shipping</h3>
-                <ul>
-                    <li>
-                        <input name="rate" type="radio">
-                        <label for="">Flat rate</label>
-                    </li>
-                    <li>
-                        <input name="rate" type="radio">
-                        <label for="">Free shipping</label>
-                    </li>
-                    <li>
-                        <input name="rate" type="radio">
-                        <label for="">Local pickup: $6</label>
-                    </li>
-                </ul>
-            </div>
+        
         </div>
         <div class="cart-checkout">
             <h3>

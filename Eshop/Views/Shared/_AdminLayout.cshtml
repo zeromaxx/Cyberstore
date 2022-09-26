@@ -30,6 +30,38 @@
             </ul>
             <div data-tab="1" class="sub-header arrow-down">
                 <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/tower.png" alt="">
+                </div>
+
+                <div class="sub-header-2">
+                    Box
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+
+            <ul class="dropdown dropdown--1 ">
+                <li>
+                    @Html.ActionLink("Insert Box", "InsertProduct", "Admin", new { id = 9 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="8" class="sub-header arrow-down">
+                <div class="icon-container">
+                    <img class="icon" src="~/Images/Admin/monitor.png" alt="">
+                </div>
+
+                <div class="sub-header-2">
+                    Monitor
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+
+            <ul class="dropdown dropdown--8 ">
+                <li>
+                    @Html.ActionLink("Insert Monitor", "InsertProduct", "Admin", new { id = 8 }, new { @class = "product-create-link" })
+                </li>
+            </ul>
+            <div data-tab="7" class="sub-header arrow-down">
+                <div class="icon-container">
                     <img class="icon" src="~/Images/Admin/ram.png" alt="">
                 </div>
 
@@ -39,7 +71,7 @@
                 </div>
             </div>
 
-            <ul class="dropdown dropdown--1 ">
+            <ul class="dropdown dropdown--7 ">
                 <li>
                     @Html.ActionLink("Insert Ram", "InsertProduct", "Admin", new { id = 5 }, new { @class = "product-create-link" })
                 </li>
@@ -78,7 +110,7 @@
                     <img class="icon" src="~/Images/Admin/graphics.png" alt="">
                 </div>
                 <div class="sub-header-2">
-                    Graphics
+                    GPU
                     <i class="fas fa-angle-down"></i>
                 </div>
             </div>
@@ -92,7 +124,7 @@
                     <img class="icon" src="~/Images/Admin/harddisk.png" alt="">
                 </div>
                 <div class="sub-header-2">
-                    HDD
+                    Hard Disc
                     <i class="fas fa-angle-down"></i>
                 </div>
             </div>

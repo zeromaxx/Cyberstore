@@ -1,0 +1,149 @@
+﻿@model Eshop.ViewModels.ComparsionViewModel
+@{ ViewBag.Title = "Comparion List"; }
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h2>Shop</h2>
+        <h4>Home/Comparison Table</h4>
+    </div>
+</div>
+
+
+
+<table class="comparison-table">
+    <thead>
+        <tr>
+            <th ></th>
+            <th></th>
+            <th>
+                @if (Model.product2.id == 64)
+                {
+                    @Html.ActionLink("Add", "ProductComparsion", "Home", new { id1 = @Model.id1 }, null)
+                }
+                else if (Model.product2.id != 64 && Model.product3.id == 64)
+                {
+                    @Html.ActionLink("Remove", "ComparisonTable", "Home", new { id1 = @Model.id1, id2 = 0, id3 = 0, id4 = 0 }, null)
+                }
+            </th>
+            <th>
+                @if (Model.product3.id == 64)
+                {
+                    @Html.ActionLink("Add", "ProductComparsion", "Home", new { id1 = @Model.id1, id2 = Model.id2 }, null)
+                }
+                else if (Model.product3.id != 64 && Model.product4.id == 64)
+                {
+                    @Html.ActionLink("Remove", "ComparisonTable", "Home", new { id1 = @Model.id1, id2 = Model.id2, id3 = 0, id4 = 0 }, null)
+                }
+            </th>
+            <th style="text-align:center;">
+                @if (Model.product4.id == 64)
+                {
+                    @Html.ActionLink("Add", "ProductComparsion", "Home", new { id1 = @Model.id1, id2 = Model.id2, id3 = Model.id3 }, null)
+                }
+                else if (Model.product4.id != 64)
+                {
+                    @Html.ActionLink("Remove", "ComparisonTable", "Home", new { id1 = @Model.id1, id2 = Model.id2, id3 = Model.id3, id4 = 0 }, null)
+                }
+            </th>
+        </tr>
+        <tr>
+            <th  style="background-color:white">
+                Product
+            </th>
+            <th style="background-color:white">@Model.product1.Name</th>
+            <th  style="background-color:white">
+                @Model.product2.Name
+             
+            </th>
+            <th  style="background-color:white">
+                @Model.product3.Name
+               
+            </th>
+            <th style="color:black;text-align:center;width:311px;background-color:white">
+                @Model.product4.Name
+              
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td style="padding:15px;">
+                <img src="@Url.Content("~/Images/"+ Model.product1.image1)" />
+            </td>
+
+            @if (Model.product2.id != 64)
+            {
+                <td style="padding:15px;">
+                    <img src="@Url.Content("~/Images/" + Model.product2.image1)" />
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @if (Model.product3.id != 64)
+            {
+                <td style="padding:15px;">
+                    <img src="@Url.Content("~/Images/"+ Model.product3.image1)" />
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+            @if (Model.product4.id != 64)
+            {
+                <td style="padding:15px;">
+                    <img src="@Url.Content("~/Images/"+ Model.product4.image1)" />
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+
+        </tr>
+        @Html.Partial(Model.Partial)
+        <tr>
+            <td class="lalign">Price</td>
+            <td>@Model.product1.price &euro;</td>
+            <td>@Model.product2.price &euro;</td>
+            <td>@Model.product3.price &euro;</td>
+            <td>@Model.product4.price &euro;</td>
+        </tr>
+        <tr>
+            <td class="lalign">Buy</td>
+            <td>
+                <button data-cart-id="@Model.product1.id" class="add-to-cart-btn">Add To Cart</button>
+
+            </td>
+            <td>
+                @if (Model.product2.id != 64)
+                {
+                    <button data-cart-id="@Model.product2.id" class="add-to-cart-btn">Add To Cart</button>
+                }
+            </td>
+            <td>
+                @if (Model.product3.id != 64)
+                {
+                    <button data-cart-id="@Model.product3.id" class="add-to-cart-btn">Add To Cart</button>
+                }
+            </td>
+            <td>
+                @if (Model.product4.id != 64)
+                {
+                    <button data-cart-id="@Model.product4.id" class="add-to-cart-btn">Add To Cart</button>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section scripts
+    {
+    <script src="~/Scripts/AddToCart.js"></script>
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+}

@@ -1,9 +1,17 @@
-﻿@model Eshop.ViewModels.UserRoleViewModel
+﻿@using PagedList;
+@using PagedList.Mvc;
+@*@model PagedList.IPagedList <Eshop.ViewModels.UserRoleViewModel>*@
+@model Eshop.ViewModels.UserRoleViewModel
+
+
+
 
 @{
     ViewBag.Title = "Create Role";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+
 
 <div class="admin-products-container">
     <div class="products-heading">
@@ -11,17 +19,24 @@
         <p>Home - User Management - Roles</p>
     </div>
     <div class="admin-products-header">
-        <input type="text" name="" placeholder="Search Role">
+        <div class="search">
+            <form class="search-form">
+                <input id="livesearchtags" name="livesearchtags" class="search-input" type="text" placeholder="Search for user">
+
+
+
+                <div id="result" class="tag-results"></div>
+            </form>
+        </div>
         <div class="admin-products-filter-container">
             <span class="dropdown-button">
                 All
                 <i class="fas fa-angle-down"></i>
             </span>
             <ul class="dropdown-menu">
-                <li>All</li>
-                <li>Published</li>
-                <li>Scheduled</li>
-                <li>Inactive</li>
+                <li><a href="@Url.Action("CreateRole", "Admin")">All</a></li>
+                <li><a href="@Url.Action("CreateRole", "Admin", new { category = "Admin" })">Administrators</a></li>
+                <li><a href="@Url.Action("CreateRole", "Admin", new { category = "Customer" })">Customers</a></li>
             </ul>
         </div>
     </div>
@@ -35,6 +50,8 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+
+
 
             @foreach (var item in Model.UserRoleMappings)
             {
@@ -54,14 +71,19 @@
                             <i class="fas fa-angle-down"></i>
                         </div>
                         <ul class="sub-menu-container">
-                            <li><a style="" href="/Admin/EditRole/@item.UserId">Edit Role</a></li>
+                            <li><a style="" href="/Admin/EditRole/@item.User.UserId">Change Role</a></li>
                         </ul>
                     </td>
                 </tr>
             }
         </table>
     </div>
+    <div class="pagination">
+        @Html.PagedListPager(Model.UserRoleMappings, page => Url.Action("CreateRole", new { page = page, category = Request["category"], livesearchtags = Request["livesearchtags"] }))
+    </div>
 </div>
+
+
 
 
 @section Scripts {
@@ -72,8 +94,11 @@
         dropdownBtn.addEventListener('click', () => {
             dropdownMenu.classList.toggle('show-dropdown');
 
+
+
         })
     </script>
 
-}
 
+
+}

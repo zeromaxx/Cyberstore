@@ -29,8 +29,10 @@ namespace Eshop.ViewModels
 
         public IEnumerable<hardDisc> HardDiscs { get; set; }
         public IEnumerable<monitor> monitors { get; set; }
+        public IEnumerable<box> boxes { get; set; }
 
         public IEnumerable<product> ProdMonitors { get; set; }
+        public IEnumerable<product> ProdBoxes { get; set; }
         public IEnumerable<product> ProdCpus { get; set; }
         public IEnumerable<product> ProdPsus { get; set; }
 
@@ -45,5 +47,11 @@ namespace Eshop.ViewModels
         public int productID { get; set; }
         public List<product> ListOfDesktopProducts  { get; set; }
         public product NullProduct { get; set; }
+        public double Price { get; set; }
+        public bool IsASuggestion { get; set; }
+        public string SuggestionImage { get; set; }
+        public string SuggestionMessage = "";
+        public string SuggestionDescription { get; set; }
+
     }
 }

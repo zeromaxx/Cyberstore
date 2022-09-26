@@ -29,6 +29,9 @@ namespace Eshop.Controllers
                 userId = db.Users.SingleOrDefault(u => u.Email == User.Identity.Name).UserId;
             }
             var orders = db.orders.Where(u => u.userId == userId).ToList();
+            
+            TempData["productsInCart"] = db.carts.Where(x => x.userId == userId).Count();
+
             return View(orders);
         }
 

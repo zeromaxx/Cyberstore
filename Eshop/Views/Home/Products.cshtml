@@ -22,8 +22,11 @@
         case 6:
             ViewBag.Title = "Hard Disks";
             break;
-            case 8:
+        case 8:
             ViewBag.Title = "Monitors";
+            break;
+        case 9:
+            ViewBag.Title = "Boxes";
             break;
         default:
             ViewBag.Title = "All Products";
@@ -56,8 +59,11 @@
                 case 6:
                     <h2>Hard Disks</h2>
                     break;
-                 case 8:
+                case 8:
                     <h2>Monitors</h2>
+                    break;
+                case 9:
+                    <h2>Boxes</h2>
                     break;
                 default:
                     <h2>All products</h2>
@@ -117,6 +123,7 @@
                 <li><a href="@Url.Action("Products", "Home", new { categoryId = 3 })">Gpu</a></li>
                 <li><a href="@Url.Action("Products", "Home", new { categoryId = 4 })">Psu</a></li>
                 <li><a href="@Url.Action("Products", "Home", new { categoryId = 8 })">Monitors</a></li>
+                <li><a href="@Url.Action("Products", "Home", new { categoryId = 9 })">Boxes</a></li>
             </ul>
         </div>
         <div>
@@ -241,7 +248,7 @@
             </div>
         }
         <div class="pagination">
-            @Html.PagedListPager(Model, page => Url.Action("Products", new { page = page, sortBy = Request["sortBy"], range = Request["range"] }))
+            @Html.PagedListPager(Model, page => Url.Action("Products", new { page = page, sortBy = Request["sortBy"], range = Request["range"], categoryId =Request["categoryId"] }))
         </div>
     </div>
 </div>

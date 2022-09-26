@@ -6,6 +6,5 @@
         }).fail(function () {
         })
 
-        console.log("MPIKE TO DESKTOP");
     })
 })

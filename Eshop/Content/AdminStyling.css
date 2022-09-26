@@ -509,6 +509,10 @@ body {
 .admin-products-table th {
     border-bottom: 1px dashed var(--admin-primary-clr-6);
 }
+.admin-products-table a{
+    text-decoration:none;
+    color:var(--black-clr);
+}
 
 .admin-products-table th,
 .admin-products-table td {
@@ -874,7 +878,7 @@ body {
     font-weight: 600;
 }
 
-.btn-submit {
+.btn-default {
     margin-top: 1rem;
     width: 100px;
     height: 35px;
@@ -891,22 +895,24 @@ body {
     outline: none;
 }
 
-    .btn-submit:hover {
-        background-color: #429bf5;
-        box-shadow: 0px 15px 20px rgba(66, 155, 245, 0.4);
-        color: #fff;
-        transform: translateY(-7px);
-    }
-
-.back-to-home {
-    margin-left: 1rem;
-    background-color: #fff;
-    width: fit-content;
-    padding: 0.3rem 0.5rem;
-    font-weight: bold;
-    border-radius: 5px;
+.btn-default:hover {
+    background-color: #429bf5;
+    color: #fff;
+    transform: translateY(-2px);
 }
 
-    .back-to-home a {
-        text-decoration: none;
-    }
+.back-to-home {
+    padding: 0.3rem 0.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--black-clr);
+}
+.back-to-home-container{
+    width:fit-content;
+    background-color:var(--white-clr);
+    box-shadow: 0px 0px 10px rgba(113, 121, 136, 0.3);
+    border-radius:2em;
+    padding:5px;
+    margin-left:1rem;
+   
+}

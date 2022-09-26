@@ -11,19 +11,48 @@ namespace Eshop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class motherboard
     {
         public int id { get; set; }
         public int productId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string model { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string chipset_vendor { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string pcie_slots { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string ram_slots { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string ram_type { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string chipset { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string socket { get; set; }
-    
+
         public virtual product product { get; set; }
     }
 }

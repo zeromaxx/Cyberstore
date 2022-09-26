@@ -5,7 +5,15 @@
     string userNameZor = null;
     string username = null;
     var data = @TempData["msg"];
+    string notification = null;
+    int customerUserid = 0;
+    int adminid = 0;
+
+    string emailNotified = null;
+    string userNameNotified = null;
+
 }
+
 
 
 @if (User.Identity.IsAuthenticated)
@@ -31,6 +39,7 @@
                 var userN = en.Users.FirstOrDefault(u => u.UserId == userId);
                 userNameZor = userN.Email;
                 username = userDb.Username;
+                adminid = userDb.UserId;
             }
 
 
@@ -49,6 +58,7 @@
                 var admin = en.Users.FirstOrDefault(u => u.UserId == adminId);
                 userNameZor = admin.Email;
                 username = userDb.Username;
+                customerUserid = userDb.UserId;
             }
 
 
@@ -69,6 +79,7 @@
                             width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+
                 <div class="contact-details">
                     <h4>Contact Details</h4>
                     <p>1-677-124-447</p>
@@ -79,8 +90,11 @@
                     <p>Monday to Friday: 9am-9pm</p>
                     <p>Saturday to Sunday: 9am-10pm</p>
                 </div>
+
+
             </div>
             <div>
+
                 <div class="contact-us-form-container">
                     <h2>Leave Us a Message</h2>
                     <p>Your email address will not be published. Required fields are marked *</p>
@@ -115,16 +129,23 @@
                     }
 
                 </div>
+
+                <div id="Botif" class="notificationClass"></div>
+                <div id="Notif" class="notificationClass"></div>
+
+
+
             </div>
         </div>
 
         <div style="z-index:300;" id="detailsDiv" class="@userNameZor">
-            <div id="Notificatio"></div>
+
             <div name="CustomerSupportChat">
 
                 <div class="chat-bot">
 
                     <div class="chat-bot-container">
+
                         <form method="post" id="content">
                         </form>
                         <div class="chat-bot-container-header">
@@ -147,11 +168,10 @@
 
                         <div id="discussion" class="chatbot-text-area">
                             @*<div id="discussion">
-                        </div>*@
+                                </div>*@
                         </div>
 
                         <div class="sendmsgparent chat-bot-footer">
-
                             <textarea id="msgarea" class="@username" name="textArea"></textarea>
 
                             <button id="sendmsg" class="@userNameZor">Send</button>
@@ -163,39 +183,44 @@
             </div>
 
         </div>
-        <img class="svg-messenger-icon" src="~/Images/Other/face.jpg" />
-        @*<?xml version="1.0" ?>
-
-            <svg class="svg-messenger-icon" fill="#5677fc" height="56.7px" id="Layer_1"
-                 style="enable-background:new 0 0 56 56;" version="1.1" viewBox="0 0 56.7 56.7" width="56.7px"
-                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <g>
-            <g>
-            <path d="M28.4342,3.8416c-13.4521,0-24.3571,10.1599-24.3571,22.693c0,7.1415,3.5419,13.5115,9.0772,17.6713v8.6525l8.2934-4.5799    c2.2133,0.6163,4.5581,0.949,6.9866,0.949c13.4521,0,24.3571-10.1599,24.3571-22.693S41.8863,3.8416,28.4342,3.8416z     M30.8548,34.4015l-6.2027-6.6566l-12.1029,6.6566l13.3132-14.2209l6.354,6.6566l11.9516-6.6566L30.8548,34.4015z" />
-                    </g>
-                </g>
-            </svg>*@
-
-
-        @*if (ViewBag.MsgCount > 0)
+        bool toCheck = false;
+        var connections = en.Connections.ToList();
+        var currentConnection = new Connection();
+        foreach (var con in connections)
+        {
+            if ((con.UserId == customerUserid || con.AdminId == adminid) && con.Status == "Pending")
             {
-                <span class="glyphicon glyphicon-comment red msgnotif @User.Identity.Name">
-                    <span>
-                        @ViewBag.MsgCount
-                    </span>
-                </span>
+                toCheck = true;
             }
-            else
-            {
-                <span class="glyphicon glyphicon-comment red msgnotif @User.Identity.Name"></span>
-            }
+        }
+        if (toCheck == true)
+        {
 
-            <ul id="msgnotiful"></ul>*@
+            <div>
+                @*<img class="svg-messenger-icon2" src="~/Images/bubble.png" />*@
+                <h1 style="font-size:small;right:1%;bottom:-3%;" class="message-in-svg-messenger-icon2">
+                    <strong><bolt>All our live representatives </bolt><br />are occupied. </strong>
+                    <em><br /><br />-Please try later<br />&nbsp;&nbsp;&nbsp;or Contact us via email</em>
+                </h1>
+            </div>
+
+        }
+        if (toCheck == false)
+        {
+            <div id="messageOnLoadHide">
+                <img class="svg-messenger-icon2" src="~/Images/bubble.png" />
+                <h1 class="message-in-svg-messenger-icon2">
+                    <strong><bolt>Need Live Support?</bolt><br />Over here! </strong>
+                    <em><br /><br />-Only during<br /> &nbsp;&nbsp;&nbsp;opening hours</em>
+                </h1>
+            </div>
+
+
+            <img class="svg-messenger-icon" id="svg" src="~/Images/Other/face.jpg" />
+        }
+
     }
-
-
 }
-
 
 
 @{
@@ -220,23 +245,24 @@
 
 
 
- 
+
     <script>
         const openChat = document.querySelector('.svg-messenger-icon');
         const chatBox = document.querySelector('.chat-bot-container');
         openChat.addEventListener('click', () => {
-            console.log('hello');
             chatBox.classList.toggle('show-chat-bot-container');
-
+            setTimeout(() => { chatBox.classList.toggle('show-chat-bot-container'); }, 30000);
         })
 
-  
+
     </script>
 
 
 
     <script>
         $(document).ready(function () {
+
+            $('div#messageOnLoadHide').delay(5000).fadeOut();
 
             document.addEventListener('DOMContentLoaded', function () {
                 if (Notification.permission !== "granted") {
@@ -251,8 +277,8 @@
            /* IF TO REFACTOR HERE ADD EMAIL DIFRNTLY*/
             if (userNameZor === "hxo999@yahoo.gr" || userNameZor ==="zeromixer2010@yahoo.com" || userNameZor === "thestas@yahoo.com" || userNameZor === "alexmantzaris.kar@gmail.com" || userNameZor === "tasosadam1991@gmail.com") {
           $('#discussion').append(`<div class="chatbox-message">
-                            <h5>Automated Message</h5><span>@DateTime.Now.ToString()</span>
-                                <p> Please wait. . . While a <br>representative joins <br>the chat</p>
+             <h5>Automated Message</h5><span>@DateTime.Now.ToString()</span>
+             <p> Please wait. . . While a <br>representative joins <br>the chat</p>
                         </div>`);
 
                     $("#msgarea").prop('disabled', true);
@@ -261,10 +287,50 @@
                 }
 
 
-                var hub = $.connection.echo;
+            var hub = $.connection.echo;
 
-                 var userNameZor = $('#detailsDiv').attr('class');  /*GETING USER HERE BY DIV NEXT TO SEND MSG DIV*/
+          /*  var ClassOfOppositeUser = $('#sendmsg').attr('class');*/
+            var userNameZor = $('#detailsDiv').attr('class');  /*GETING USER HERE BY DIV NEXT TO SEND MSG DIV*/
+            @using(Entities en = new Entities())
+            {
+                if (!User.IsInRole("Admin"))
+                {
+                    notification ="Notificatio";
 
+                    emailNotified = User.Identity.Name;
+
+                    var userDb = en.Users.FirstOrDefault(u => u.Email == userNameZor);
+                    int userDbId = userDb.UserId;
+                    var conn = en.Connections.FirstOrDefault(u => u.AdminId == userDbId);
+
+                    if (conn != null)
+                    {
+                        var userId = conn.UserId;
+                        var userN = en.Users.FirstOrDefault(u => u.UserId == userId);
+                        emailNotified = userN.Email;
+                        userNameNotified = userDb.Username;
+                    }
+
+                }
+                if (!User.IsInRole("Customer"))
+                {
+                    notification ="Botificatio";
+
+                    emailNotified = User.Identity.Name;
+
+                    var userDb = en.Users.FirstOrDefault(u => u.Email == userNameZor);
+                    int userAdminId = userDb.UserId;
+                    var conn = en.Connections.FirstOrDefault(u => u.UserId == userAdminId);
+
+                    if (conn != null)
+                    {
+                        var adminId = conn.AdminId;
+                        var admin = en.Users.FirstOrDefault(u => u.UserId == adminId);
+                        emailNotified = admin.Email;
+                        userNameNotified = userDb.Username;
+                    }
+                }
+            }
 
 
             hub.client.receiveNotification = function (name, message) {
@@ -282,9 +348,51 @@
                       $('div.chatbot-text-area').scrollTop($('div.chatbot-text-area')[0].scrollHeight)
                 doSomething();
 
-                 
-                     
-                };
+
+
+                if ('@notification' == "Notificatio") {
+                    if (name == "@userNameNotified") {
+                        $("#Notif").append(`<div id="divInNotif" class="chatbox-message2" style="border:solid;border-color:#e0fbfc!important;border-size:5px;margin-bottom:10px;background-color:#2196F3!important;color:white">
+                       <span>You have a message from our<br> support team.</span>
+                     </div>`);
+                    }
+
+                }
+                if ('@notification' == "Botificatio") {
+                    if (name == "@userNameNotified") {
+                             $("#Botif").append(`<div id="divInNotif" class="chatbox-message2" style="border:solid;border-color:#e0fbfc!important;border-size:5px;margin-bottom:10px;background-color:#2196F3!important;color:white">
+                       <span>You have a message from <br> ${userNameZor}.</span>
+                     </div>`);
+                    }
+
+                }
+
+
+
+
+                setTimeout(function () {
+                    $('#divInNotif').fadeOut(300, function () {
+                        $('#divInNotif').remove();
+                    });
+                }, 6700);
+                /*   $('#Notificatio').remove();*/
+
+
+                document.getElementById('svg').classList.add('redImg');
+                const red = document.querySelector('.redImg');
+
+                red.classList.remove('.svg-messenger-icon');
+                setTimeout(function () {
+
+                    $("#svg").removeClass("redImg");
+                        document.getElementById('svg').classList.add('svg-messenger-icon');
+
+                }, 8000);
+
+
+
+                }
+
 
 
 
@@ -343,19 +451,11 @@
                                     let text_area_data = $('textarea[name="textArea"]').val();
                                     console.log(text_area_data);
 
-
-
                                     var $this = $(this);
                                     var _friend = userNameZor;
 
-
-
-
                                     var message = text_area_data;
                                     var url = "/Home/SendMessage";
-
-
-
 
                                     $.post(url, { friend: _friend, message: message }, function (data) {
 
@@ -373,10 +473,6 @@
                                             });
                                         }, 2000);
                                     });
-
-
-
-
                                 });
 
                 $("body").on("click", "span.msgnotif.red", function () {
@@ -552,13 +648,23 @@
                 chatBox.classList.toggle('show-chat-bot-container');
                 // (B2) DO YOUR PROCESSING HERE
 
-                   //$('#Notificatio').append(`<div class="chatbox-message">
-                   //         <h5>${username}</h5><span>You have a message from our support team: </span>
-                   //             <p>${message}</p>
-                   //     </div>`);
+                //$('#Notificatio').append(`<div class="chatbox-message">
+                //         <h5>${username}</h5><span>You have a message from our support team: </span>
+                //             <p>${message}</p>
+                //     </div>`);
                 // (B3) RE-ENABLE AFTER PROCESSING IF YOU WANT
                 // clicked = false;
             }
+        }
+    </script>
+
+    <script>
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
         }
     </script>
     @*<script>

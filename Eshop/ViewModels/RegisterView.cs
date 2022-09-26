@@ -9,6 +9,7 @@ namespace Eshop.ViewModels
 {
     public class RegisterView
     {
+        public bool EmailExists { get; set; }
 
         public RegisterView()
         {

@@ -11,6 +11,8 @@ using System.Data.Entity.Migrations;
 using System.Collections.Generic;
 using Eshop.Models.Dtos;
 using AutoMapper;
+using Eshop.Models;
+using Eshop.Tools;
 
 namespace Eshop.Controllers
 {
@@ -62,7 +64,7 @@ namespace Eshop.Controllers
             ViewBag.Favourites = favouriteProducts;
 
             var msgs = db.SupportMessages.ToList();
-            TempData["productsInCart"] = db.carts.Where(u => u.userId == userId).Count();
+            TempData["productsInCart"] = db.carts.Where(u => u.userId == userId).Count();          
             var viewmodel = new FavouriteViewModel()
             {
                 Products = db.products.ToList().Take(10),
@@ -73,7 +75,11 @@ namespace Eshop.Controllers
 
         }
 
+        public ActionResult AboutUs()
+        {
 
+            return View();
+        }
 
         [Route("/Home/AdminSupport/{receiver}")] //id equals Email here
         public ActionResult AdminSupport(string receiver = "")
@@ -226,11 +232,8 @@ namespace Eshop.Controllers
 
                 };
             }
-
-
             if (ModelState.IsValid)
-                return View("AdminSupport", viewModel);
-
+            { return View("AdminSupport", viewModel); }
 
             return View("AdminSupport");
         }
@@ -366,61 +369,96 @@ namespace Eshop.Controllers
         }
 
 
-        [Route("/Home/SendEmailToAdmin")] //id equals Email here
-        //[NonAction]
+        [Route("/Home/SendEmailToAdmin")]
         public JsonResult SendEmailToAdmin()
         {
-
-
             //GET THE CURREMT LOGED IN USER
             string id = null; string receiver = null; string receiverName = null; string verifyUrl = null; string link = string.Empty;
-            User user = null; User admin = null;
-
+            User user = null; User admin = null; bool IsTheSameConnection = true; var adminId = 0;
             //GETING SOME ADMIN
             Random random = new Random();
-
             if (!User.IsInRole("Admin"))
             {
                 id = User.Identity.Name;
                 //receiver = emails.ElementAt(random.Next(0, emails.Count)).Value; // COMMENT OUT WHEN DONE CHANGED VALUE FOR TESTING
                 //receiverName = emails.FirstOrDefault(u => u.Value == receiver).Key; // COMMENT OUT WHEN DONE CHANGED VALUE FOR TESTING
                 receiver = "alexmantzaris.kar@gmail.com";
-                receiverName = "z4zAdmin";
-
+                receiverName = "alex";
                 verifyUrl = "/Home/AdminSupport?receiver=" + receiver; //HERE TO SEND ADMIN 
-
                 link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
                 user = db.Users.FirstOrDefault(u => u.Email == id);
-
                 TempData["receiver"] = receiver;
             }
             else
             {
                 id = User.Identity.Name;
                 receiver = db.Users.SingleOrDefault(u => u.Email == id).Email.ToString();
+                adminId = db.Users.SingleOrDefault(u => u.Email == id).UserId;
             }
-
-
-
             admin = db.Users.FirstOrDefault(u => u.Email == receiver);
             //CREATING CONNECTION FOR CHAT SUPPORT
-
             var connection = new Connection();
+            var newConnection = new Connection();
             connection.Active = false;
-
-
             if (!string.IsNullOrEmpty(id) && db.Users.Any(u => u.Email.ToString() == receiver) && user != null && admin != null)
             {
-                connection.UserId = user.UserId;
-                connection.AdminId = admin.UserId;
-                connection.Active = true; //HERE TO CHANGE TO FALSE AND CHANGE IT WHEN THE CONNECTION IS ACTUALLY MADE
-
+                //GET ALL CONNECTIONS
+                var connections = db.Connections.ToList();
+                //CHECK IF A CONNECTION HAS THE ADMINID
+                if (connections.Count == 0)
+                {
+                    connection.UserId = user.UserId;
+                    connection.AdminId = admin.UserId;
+                    connection.Active = true;
+                    connection.Status = "Live";
+                    db.Connections.AddOrUpdate(connection);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    foreach (var con in connections)
+                    {
+                        //CREATE A NEW CONNECTION
+                        //if (con.AdminId == admin.UserId)
+                        //{
+                        //    connection = con;
+                        //}
+                        if (con.AdminId == admin.UserId && con.UserId != user.UserId)
+                        {
+                            IsTheSameConnection = false;
+                        }
+                        if (con.AdminId == admin.UserId && con.UserId == user.UserId)
+                        {
+                            IsTheSameConnection = true;
+                        }
+                        //if (con.AdminId == adminId && con.UserId == adminId)
+                        //{
+                        //    IsTheSameConnection = true;
+                        //}
+                    }
+                    if (!IsTheSameConnection)
+                    {
+                        //if (db.Connections.ToList().Contains(connection))
+                        //{
+                        newConnection.Status = "Pending";
+                        newConnection.Active = true;
+                        newConnection.AdminId = admin.UserId;
+                        newConnection.UserId = user.UserId;
+                        db.Connections.AddOrUpdate(newConnection);
+                        db.SaveChanges();
+                        //}
+                    }
+                    else
+                    {
+                        connection.UserId = user.UserId;
+                        connection.AdminId = admin.UserId;
+                        connection.Active = true;
+                        connection.Status = "Live";
+                        db.Connections.AddOrUpdate(connection);
+                        db.SaveChanges();
+                    }
+                }
             }
-            db.Connections.AddOrUpdate(connection);
-            db.SaveChanges();
-
-
-
             //Sending the email to some admin
             if (ModelState.IsValid && User.IsInRole("Customer"))
             {
@@ -437,8 +475,6 @@ namespace Eshop.Controllers
                     Host = "smtp.gmail.com",
                     Port = 587,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-
-
                 };
                 using (var mess = new MailMessage(senderEmail, receiverEmail)
                 {
@@ -450,8 +486,6 @@ namespace Eshop.Controllers
                 }
                 return Json(new { status = "Thank you very much admin for showing up. Don't forget to send us the email of your feedback on your way out" }, JsonRequestBehavior.AllowGet);
             }
-
-
             return Json(new { status = "Something went wrong, please try again" }, JsonRequestBehavior.AllowGet);
         }
 
@@ -573,6 +607,7 @@ namespace Eshop.Controllers
             var hardDisk = db.hardDiscs.SingleOrDefault(c => c.productId == product.id);
             var ram = db.rams.SingleOrDefault(c => c.productId == product.id);
             var monitor = db.monitors.SingleOrDefault(c => c.productId == product.id);
+            var box = db.boxes.SingleOrDefault(c => c.productId == product.id);
 
             var userId = 0;
             if (User.Identity.Name != "")
@@ -607,7 +642,8 @@ namespace Eshop.Controllers
                 Motherboard = motherboard,
                 HardDisc = hardDisk,
                 Ram = ram,
-                Monitor = monitor
+                Monitor = monitor,
+                Box=box
 
             };
             return View(viewModel);
@@ -717,8 +753,18 @@ namespace Eshop.Controllers
                .Sum() ?? 0;
 
             var thisUser = db.Users.SingleOrDefault(x => x.Email == this.User.Identity.Name);
-            var desktopPrice = thisUser.Desktop.price;
-            var _totalPrice = totalProducts + desktopPrice;
+            decimal? _totalPrice = totalProducts;
+
+            foreach ( cart cartItem in cart)
+            {
+                if(cartItem.productId==null)
+                {
+                    var desktopPrice = thisUser.Desktop.price;
+                     _totalPrice = totalProducts + desktopPrice;
+                }
+            }
+           
+           
 
             var viewModel = new OrderViewModel()
             {
@@ -726,7 +772,9 @@ namespace Eshop.Controllers
                 TotalPrice = (int)_totalPrice,
                 UserId = userId,
                 CreatedAt = DateTime.Now,
-                TrackingNumber = RandomString(14)
+                TrackingNumber = RandomString(14),
+                ShippingId=0
+                
 
             };
             TempData["productsInCart"] = db.carts.Where(u => u.userId == userId).Count();
@@ -737,20 +785,19 @@ namespace Eshop.Controllers
         [HttpPost]
         public ActionResult Checkout(OrderViewModel model)
         {
-           
+          
 
             if (!ModelState.IsValid)
             {
-                User thisUser = Me();
-                
-                var desktopPrice = thisUser.Desktop.price;
+                User thisUser = Me();               
+                var desktopPrice = thisUser.Desktop.price;              
                
                 var totalProducts = db.carts
                 .Where(p => p.userId == thisUser.UserId)
                 .Select(p => p.product.price * p.quantity)
                 .Sum() ?? 0;
                 
-                var _totalPrice = totalProducts + desktopPrice;
+                var _totalPrice = totalProducts + desktopPrice ;
                 
                 var cart = db.carts.Where(u => u.userId == thisUser.UserId);
 
@@ -813,18 +860,21 @@ namespace Eshop.Controllers
                         price = _price,
                         quantity = cartItem.quantity,
                         desktopId = _desktopId
-
-
                     };
+
+
                     var thisUser = db.Users.SingleOrDefault(x => x.Email == this.User.Identity.Name);
                     var _nullProduct = db.products.SingleOrDefault(x => x.categoryId == 7);
-                   
-                    thisUser.Desktop.product = _nullProduct;
-                    thisUser.Desktop.product1 = _nullProduct;
-                    thisUser.Desktop.product2 = _nullProduct;
-                    thisUser.Desktop.product3 = _nullProduct;
-                    thisUser.Desktop.product4 = _nullProduct;
-                    thisUser.Desktop.product5 = _nullProduct;
+
+                    if ( cartItem.Desktop.product.id!=64  ) Tools.Tools.SalesAndStock(cartItem.Desktop.product.id); thisUser.Desktop.product   = _nullProduct;
+                    if (cartItem.Desktop.product1.id != 64) Tools.Tools.SalesAndStock(cartItem.Desktop.product1.id); thisUser.Desktop.product1 = _nullProduct;
+                    if (cartItem.Desktop.product2.id != 64) Tools.Tools.SalesAndStock(cartItem.Desktop.product2.id); thisUser.Desktop.product2 = _nullProduct;
+                    if (cartItem.Desktop.product3.id != 64) Tools.Tools.SalesAndStock(cartItem.Desktop.product3.id); thisUser.Desktop.product3 = _nullProduct;
+                    if (cartItem.Desktop.product4.id != 64) Tools.Tools.SalesAndStock(cartItem.Desktop.product4.id); thisUser.Desktop.product4 = _nullProduct;
+                    if (cartItem.Desktop.product5.id != 64) Tools.Tools.SalesAndStock(cartItem.Desktop.product5.id); thisUser.Desktop.product5 = _nullProduct;
+                    if (cartItem.Desktop.product6.id != 64) Tools.Tools.SalesAndStock(cartItem.Desktop.product6.id); thisUser.Desktop.product6 = _nullProduct;
+                    
+                    thisUser.Desktop.UpdateMyPrice();
 
                     db.Desktops.AddOrUpdate(thisUser.Desktop);
                     db.OrderItems.Add(OrderItem);
@@ -846,9 +896,7 @@ namespace Eshop.Controllers
 
 
                     };
-                    
-                    db.products.SingleOrDefault(p => p.id == cartItem.productId).stock -= cartItem.quantity;
-                    db.products.SingleOrDefault(p => p.id == cartItem.productId).sales += cartItem.quantity;
+                    Tools.Tools.SalesAndStock(cartItem.productId,cartItem.quantity);
                     db.OrderItems.Add(OrderItem);
                     db.carts.Remove(cartItem);
                     db.SaveChanges();
@@ -860,117 +908,164 @@ namespace Eshop.Controllers
            
             return RedirectToAction("Checkout", "Home");
         }
-        [HttpPost]
-        public void SendToDesktop(int id)
+
+         
+        public ActionResult ProductComparsion(int id1, int id2 = 0,int id3=0,int id4=0)
         {
-            var thisUser = Me();
-            var product = db.products.SingleOrDefault(x => x.id == id);
-            var desktop = thisUser.Desktop;
-
-            switch (product.categoryId)
+            var product = db.products.SingleOrDefault(x => x.id == id1);
+            ComparsionViewModel Model = new ComparsionViewModel()
             {
-                case 1: desktop.MOTHERBOARD = product.id; desktop.product1 = product; break;
-                case 2: desktop.CPU = product.id; desktop.product = product; break;
-                case 3: desktop.GPU = product.id; desktop.product2 = product; break;
-                case 4: desktop.PSU = product.id; desktop.product4 = product; break;
-                case 5: desktop.RAM = product.id; desktop.product5 = product; break;
-                case 6: desktop.HARDDISC = product.id; desktop.product3 = product; break;
-            }
-
-            db.Desktops.AddOrUpdate(desktop);
-            db.SaveChanges();
-        }
-        public ActionResult YourDesktop()
-        {
-             
-            var thisUser = Me();
-            double TotalPrice = 0;
-            Desktop thisDesktop = thisUser.Desktop;                             
-            product _nullProduct = db.products.SingleOrDefault(x => x.categoryId == 7);      
-            thisDesktop.price = Convert.ToDecimal(TotalPrice);
-
-            if (thisDesktop.product == null) thisDesktop.product = _nullProduct; else thisDesktop.price += thisDesktop.product.price;
-            if (thisDesktop.product1 == null) thisDesktop.product1 = _nullProduct; else thisDesktop.price += thisDesktop.product1.price;
-            if (thisDesktop.product2 == null) thisDesktop.product2 = _nullProduct; else thisDesktop.price += thisDesktop.product2.price;
-            if (thisDesktop.product3 == null) thisDesktop.product3 = _nullProduct; else thisDesktop.price += thisDesktop.product3.price;
-            if (thisDesktop.product4 == null) thisDesktop.product4 = _nullProduct; else thisDesktop.price += thisDesktop.product4.price;
-            if (thisDesktop.product5 == null) thisDesktop.product5 = _nullProduct; else thisDesktop.price += thisDesktop.product5.price;
-
-
-            db.Desktops.AddOrUpdate(thisDesktop);
-            db.SaveChanges();
-
-            DesktopViewModel deskViewModel = new DesktopViewModel()
-            {
-                desktop = thisDesktop,
-
-                ProdMotherboards = db.products.Where(x => x.categoryId == 1 &&  x.stock>0),
-                ProdCpus = db.products.Where(x => x.categoryId == 2 && x.stock > 0),
-                ProdGpus = db.products.Where(x => x.categoryId == 3 && x.stock > 0),
-                ProdPsus = db.products.Where(x => x.categoryId == 4 && x.stock > 0),
-                ProdRams = db.products.Where(x => x.categoryId == 5 && x.stock > 0),
-                ProdHardDiscs = db.products.Where(x => x.categoryId == 6 && x.stock > 0),
-
-                Cpus = db.cpus,
-                Motherboards = db.motherboards,
-
+                id1 = id1,
+                id2 = id2,
+                id3 = id3,
+                id4 = id4
             };
-
-            return View(deskViewModel);
-        }
-        public ActionResult ProductComparsion(int id, int id2 = 0)
-        {
-            ComparsionViewModel Model = new ComparsionViewModel();
-
-            Model.SelectedProduct = db.products.SingleOrDefault(x => x.id == id);
+            
             if (id2 == 0)
             {
-                switch (Model.SelectedProduct.categoryId)
-                {
-
-                    case 1: Model.SelectedList = db.products.Where(x => x.categoryId == 1 && x.id != Model.SelectedProduct.id); break;
-                    case 2: Model.SelectedList = db.products.Where(x => x.categoryId == 2 && x.id != Model.SelectedProduct.id); break;
-                    case 3: Model.SelectedList = db.products.Where(x => x.categoryId == 3 && x.id != Model.SelectedProduct.id); break;
-                    case 4: Model.SelectedList = db.products.Where(x => x.categoryId == 4 && x.id != Model.SelectedProduct.id); break;
-                    case 5: Model.SelectedList = db.products.Where(x => x.categoryId == 5 && x.id != Model.SelectedProduct.id); break;
-                    case 6: Model.SelectedList = db.products.Where(x => x.categoryId == 6 && x.id != Model.SelectedProduct.id); break;
-                    case 8: Model.SelectedList = db.products.Where(x => x.categoryId == 8 && x.id != Model.SelectedProduct.id); break;
-
-
-
-                }
-                Model.TwoProducts = false;
+                Model.MyList = GetMyList(product.categoryId);              
+                Model.MyList.Remove(product);
+            
                 return View(Model);
+            }
+            if(id3==0)
+            {
+                Model.MyList = GetMyList(product.categoryId);                                     
+                Model.MyList.Remove((db.products.SingleOrDefault(x => x.id == Model.id1)));
+                Model.MyList.Remove((db.products.SingleOrDefault(x => x.id == Model.id2)));   
+               
+                return View(Model);
+            }
+            if (id4 == 0)
+            {
+                Model.MyList = GetMyList(product.categoryId);               
+                Model.MyList.Remove((db.products.SingleOrDefault(x => x.id == Model.id1)));
+                Model.MyList.Remove((db.products.SingleOrDefault(x => x.id == Model.id2)));
+                Model.MyList.Remove((db.products.SingleOrDefault(x => x.id == Model.id3)));
+               
+                return View(Model);
+            }
+
+            return View();
+
+        } // send the proper products list on user in order to choose some of them to compare with the basic
+        public ActionResult ComparisonTable(int id1 ,int id2=0,int id3=0,int id4=0)
+        {
+           
+            var _product = db.products.SingleOrDefault(x => x.id == id1);
+            var nullProduct = Tools.Tools.GetNullProduct();
+                 
+            ComparsionViewModel viewModel = new ComparsionViewModel()
+            {
+                id1=id1,
+                id2=id2,
+                id3=id3,
+                id4=id4,
+                product2 = nullProduct,
+                product3 = nullProduct,
+                product4 = nullProduct
+            };
+            switch (_product.categoryId)
+            {
+                case 1: _product.thisMotherboard = db.motherboards.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonMotherboard.cshtml"; break;
+                case 2: _product.thisCpu = db.cpus.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonCPU.cshtml"; break;
+                case 3: _product.thisGpu = db.gpus.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonGPU.cshtml"; break;
+                case 4: _product.thisPsu = db.psus.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonPSU.cshtml"; break;
+                case 5: _product.thisRam = db.rams.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonRAM.cshtml"; break;
+                case 6: _product.thisHardDisc = db.hardDiscs.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonHardDisc.cshtml"; break;
+                case 8: _product.thisMonitor = db.monitors.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonMonitor.cshtml";  break;
+                case 9: _product.thisBox = db.boxes.SingleOrDefault(x => x.productId == id1); viewModel.Partial = "~/Views/Home/PartialViews/_comparisonBox.cshtml"; break;
 
             }
-            else
+            viewModel.product1 = _product;
+           
+            if (id2!=0)
+            {
+                var _product2 = db.products.SingleOrDefault(x => x.id == id2);
+                switch (_product.categoryId)
+                {
+                    case 1: _product2.thisMotherboard = db.motherboards.SingleOrDefault(x => x.productId == id2); break;
+                    case 2: _product2.thisCpu = db.cpus.SingleOrDefault(x => x.productId == id2); break;
+                    case 3: _product2.thisGpu = db.gpus.SingleOrDefault(x => x.productId == id2); break;
+                    case 4: _product2.thisPsu = db.psus.SingleOrDefault(x => x.productId == id2); break;
+                    case 5: _product2.thisRam = db.rams.SingleOrDefault(x => x.productId == id2); break;
+                    case 6: _product2.thisHardDisc = db.hardDiscs.SingleOrDefault(x => x.productId == id2); break;
+                    case 8: _product2.thisMonitor = db.monitors.SingleOrDefault(x => x.productId == id2); break;
+                    case 9: _product2.thisBox = db.boxes.SingleOrDefault(x => x.productId == id2); break;
+
+                }
+                viewModel.product2 = _product2;
+
+            }
+            if (id3 != 0)
+            {
+                var _product3 = db.products.SingleOrDefault(x => x.id == id3);
+                switch (_product.categoryId)
+                {
+                    case 1: _product3.thisMotherboard = db.motherboards.SingleOrDefault(x => x.productId == id3); break;
+                    case 2: _product3.thisCpu = db.cpus.SingleOrDefault(x => x.productId == id3); break;
+                    case 3: _product3.thisGpu = db.gpus.SingleOrDefault(x => x.productId == id3); break;
+                    case 4: _product3.thisPsu = db.psus.SingleOrDefault(x => x.productId == id3); break;
+                    case 5: _product3.thisRam = db.rams.SingleOrDefault(x => x.productId == id3); break;
+                    case 6: _product3.thisHardDisc = db.hardDiscs.SingleOrDefault(x => x.productId == id3); break;
+                    case 8: _product3.thisMonitor = db.monitors.SingleOrDefault(x => x.productId == id3); break;
+                    case 9: _product3.thisBox = db.boxes.SingleOrDefault(x => x.productId == id3); break;
+
+                }
+                viewModel.product3 = _product3;
+
+            }
+            if (id4 != 0)
+            {
+                var _product4 = db.products.SingleOrDefault(x => x.id == id4);
+                switch (_product.categoryId)
+                {
+                    case 1: _product4.thisMotherboard = db.motherboards.SingleOrDefault(x => x.productId == id4); break;
+                    case 2: _product4.thisCpu = db.cpus.SingleOrDefault(x => x.productId == id4); break;
+                    case 3: _product4.thisGpu = db.gpus.SingleOrDefault(x => x.productId == id4); break;
+                    case 4: _product4.thisPsu = db.psus.SingleOrDefault(x => x.productId == id4); break;
+                    case 5: _product4.thisRam = db.rams.SingleOrDefault(x => x.productId == id4); break;
+                    case 6: _product4.thisHardDisc = db.hardDiscs.SingleOrDefault(x => x.productId == id4); break;
+                    case 8: _product4.thisMonitor = db.monitors.SingleOrDefault(x => x.productId == id4); break;
+                    case 9: _product4.thisBox = db.boxes.SingleOrDefault(x => x.productId == id4); break;
+
+                }
+                viewModel.product4 = _product4;
+
+            }
+            var thisUser = Me();
+            if(this.User.Identity.IsAuthenticated)
+            {
+                TempData["productsInCart"] = db.carts.Where(x => x.userId == thisUser.UserId).Count();
+            }
+           
+            return View(viewModel);
+        }  // Adds Products to the table
+
+
+        public List<product> GetMyList(int? id) // giving back the correct category list (takes as parameter one categoryID
+        {
+            List<product> list = new List<product>();
+            switch (id)
             {
 
-                Model.ProductToCompare = db.products.SingleOrDefault(x => x.id == id2);
-
-                switch (Model.SelectedProduct.categoryId)
-                {
-
-                    case 1: Model.Motherboard1 = db.motherboards.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.Motherboard2 = db.motherboards.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                    case 2: Model.cpu1 = db.cpus.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.cpu2 = db.cpus.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                    case 3: Model.gpu1 = db.gpus.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.gpu2 = db.gpus.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                    case 4: Model.psu1 = db.psus.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.psu2 = db.psus.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                    case 5: Model.ram1 = db.rams.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.ram2 = db.rams.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                    case 6: Model.hardDisc1 = db.hardDiscs.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.hardDisc2 = db.hardDiscs.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                    case 8: Model.monitor1 = db.monitors.SingleOrDefault(x => x.productId == Model.SelectedProduct.id); Model.monitor2 = db.monitors.SingleOrDefault(x => x.productId == Model.ProductToCompare.id); break;
-                }
-                Model.TwoProducts = true;
-                return View(Model);
-
+                case 1: list = db.products.Where(x => x.categoryId == 1).ToList(); break;
+                case 2: list = db.products.Where(x => x.categoryId == 2).ToList(); break;
+                case 3: list = db.products.Where(x => x.categoryId == 3).ToList(); break;
+                case 4: list = db.products.Where(x => x.categoryId == 4).ToList(); break;
+                case 5: list = db.products.Where(x => x.categoryId == 5).ToList(); break;
+                case 6: list = db.products.Where(x => x.categoryId == 6).ToList(); break;
+                case 8: list = db.products.Where(x => x.categoryId == 8).ToList(); break;
+                case 9: list = db.products.Where(x => x.categoryId == 9).ToList(); break;
             }
-
+            return list;
         }
+       
         public User Me()
         {
             var _thisUser = db.Users.SingleOrDefault(x => x.Email == this.User.Identity.Name);
             return _thisUser;
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

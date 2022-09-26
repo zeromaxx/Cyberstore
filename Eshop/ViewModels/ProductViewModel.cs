@@ -21,6 +21,7 @@ namespace Eshop.ViewModels
 
         public IEnumerable<hardDisc> HardDiscs { get; set; }
         public IEnumerable<monitor> monitors { get; set; }
+        public IEnumerable<box> boxes { get; set; }
 
 
         public monitor Monitor { get; set; }
@@ -33,8 +34,9 @@ namespace Eshop.ViewModels
         public motherboard Motherboard { get; set; }
         public hardDisc HardDisc { get; set; }
         public category Category { get; set; }
+        public box Box { get; set; }
 
-      
+
         public HttpPostedFileBase Image1 { get; set; }
         public HttpPostedFileBase Image2 { get; set; }
         public HttpPostedFileBase Image3 { get; set; }
@@ -44,5 +46,8 @@ namespace Eshop.ViewModels
         public string _string { get; set; }
         public string Type { get; set; }
         public string Action { get; set; }
+        public string img { get; set; }
+        public int ProductID { get; set; }
+        public int ItemID { get; set; }
     }
 }

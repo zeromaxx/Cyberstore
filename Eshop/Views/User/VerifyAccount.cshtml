@@ -12,13 +12,13 @@
     </div>
 </div>
 
-<div class="login-form">
+<div class="login-form "style="min-height:300px">
     @using (Html.BeginForm("VerifyAccount", "User", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(m => m.EmailToken)
-        <h3>Push the button to confirm your email adress and prove that you are not a bot!</h3>
-        <input type="submit" value="Bot Alert" class="btn btn-default" />
+        <h3>Press button to verify your email</h3>
+        <input type="submit" value="verify" class="btn btn-default" />
     }
 </div>

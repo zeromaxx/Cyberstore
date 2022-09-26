@@ -53,7 +53,7 @@
             <button data-cart-id="@Model.Product.id" class="add-to-cart-btn">Add To Cart</button>
         }
     <div class="Compare">
-        <button> <a href="/Home/ProductComparsion/@Model.Product.id">Compare</a></button>
+         @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.Product.id, id2 = 0, id3 = 0,id4=0, @class="compare-button" }, null)
     </div>
         <div>
             <i style="cursor:pointer" data-product-id="@Model.Product.id" class="fa-regular fa-heart   @(ViewBag.Favourites.Contains(Model.Product.id) ? "blue-heart" : "grey-heart") favourite-button">
