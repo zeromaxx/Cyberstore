@@ -67,10 +67,6 @@ leftBtn.addEventListener('click', () => {
     setActiveSlide();
 })
 
-
-
-
-
 // Navbar Toggle
 const toggleBtn = document.querySelector(".sidebar-toggle");
 const sideBar = document.querySelector(".sidebar");

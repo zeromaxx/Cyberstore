@@ -40,13 +40,17 @@
                         { string username = User.Identity.Name; }
                     }
                     <li>@Html.ActionLink("Shop", "Products", "Home", new { }, new { @class = "nav-link" })</li>
-                   <li> @Html.ActionLink("Insert Monitor", "InsertProduct", "Admin", new { id = 8 }, new { @class = "product-create-link" })</li>
+
                     @if (this.User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("My Orders", "MyOrders", "Orders", new { }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Build your desktop", "YourDesktop", "Home", new { }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Build your desktop", "YourDesktop", "Desktop", new { }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink(" Suggestions", "Suggestions", "Desktop", new { }, new { @class = "nav-link" })</li>
                     }
+                    <li>@Html.ActionLink(" About us", "AboutUs", "Home", new { }, new { @class = "nav-link" })</li>
+
                 </ul>
+               
 
             </div>
             <div>
@@ -65,7 +69,7 @@
 
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("My Account", "Login", "User", new { }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Login", "Login", "User", new { }, new { @class = "nav-link" })</li>
 
                     }
                 
@@ -94,7 +98,7 @@
                     </span>
                 </div>
                 <div class="cart-icon-container">
-                    <a href="@Url.Action("Index", "Cart")"><img width="24" class="cart-icon" src="~/Images/Icons/cart-icon.png" alt=""></a><span class="span-price">($0)</span>
+                    <a href="@Url.Action("Index", "Cart")"><img width="24" class="cart-icon" src="~/Images/Icons/cart-icon.png" alt=""></a>
                     <div class="cart-quantity">
                         <span id="items-to-cart">@TempData["productsInCart"]</span>
                     </div>

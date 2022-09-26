@@ -49,16 +49,15 @@ namespace Eshop.Controllers
             var viewModel = new RegisterView();
             return View(viewModel);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Exclude = "IsEmailVerified,ActivationCode")] RegisterView reg)
         {
+            reg.EmailExists = false;
             if (!ModelState.IsValid)
             {
                 return View("Register", reg);
             }
-
             bool Status = false;
             string message = "";
             var _nullProduct = db.products.SingleOrDefault(x => x.categoryId == 7);
@@ -67,7 +66,6 @@ namespace Eshop.Controllers
             {
                 var regModel = new User()
                 {
-
                     Username = reg.Username,
                     Password = GetMD5HashData(reg.Password),
                     Confirmpwd = GetMD5HashData(reg.Confirmpwd),
@@ -75,16 +73,14 @@ namespace Eshop.Controllers
                     Desktop = new Desktop()
                     {
                         Name = "MyCustomDesktop",
-                        product=_nullProduct,
+                        product = _nullProduct,
                         product1 = _nullProduct,
                         product2 = _nullProduct,
                         product3 = _nullProduct,
                         product4 = _nullProduct,
                         product5 = _nullProduct,
-
+                        product6=  _nullProduct
                     }
-                    
-                  
                 };
                 regModel.Desktop.price = 0;
                 //CHECKING IF EMAIL EXISTS
@@ -95,16 +91,15 @@ namespace Eshop.Controllers
                     if (doesExist)
                     {
                         ModelState.AddModelError("EmailExist", "Email already exists");
+                        reg.EmailExists = true;
                         return View(reg);
                     }
-
                     if (db.Users.Any(user => user.Username.Equals(reg.Username)))
                     {
                         ModelState.AddModelError("", "Username " + reg.Username + "is taken.");
                         reg.Username = "";
                         return View(reg);
                     }
-
                     #region Generate Activation Code
                     regModel.ActivationCode = Guid.NewGuid();
                     #endregion
@@ -127,9 +122,8 @@ namespace Eshop.Controllers
                 //ADDING DEFAULT CUSTOMER ROLE TO LOGGED IN USER
                 var currentUser = db.Users.First(u => u.Username == regModel.Username);
                 string role = "Customer";
-
                 //FOR REFACTORING ADD EMAILS TO A LIST AND USE IF CONTAINS
-                if (reg.Email == "hxo999@yahoo.gr" || reg.Email == "thestas@yahoo.com" || reg.Email == "zero12@yahoo.com" || reg.Email == "alexmantzaris.kar@gmail.com" || reg.Email=="tasosadam1991@gmail.com")
+                if (reg.Email == "hxo999@yahoo.gr" || reg.Email == "thestas@yahoo.com" || reg.Email == "zero12@yahoo.com" || reg.Email == "alexmantzaris.kar@gmail.com" || reg.Email == "tasosadam1991@gmail.com")
                 {
                     role = "Admin";
                 }

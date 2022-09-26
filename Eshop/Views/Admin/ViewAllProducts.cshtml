@@ -31,6 +31,7 @@
                 <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 3 })">Gpu</a></li>
                 <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 4 })">Psu</a></li>
                 <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 8 })">Monitors</a></li>
+                <li><a href="@Url.Action("ViewAllProducts", "Admin", new { categoryId = 9 })">Boxes</a></li>
                 <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "newness" })">Newness</a></li>
                 <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "Price asc"})">Price: Low to High</a></li>
                 <li><a href="@Url.Action("ViewAllProducts", "Admin", new { sortBy = "Price desc" })">Price: High to Low</a></li>
@@ -62,7 +63,7 @@
                         <img class="admin-product-img" src="@Url.Content("~/Images/" + item.image1)" alt="">
                     </td>
                     <td data-label="Name">
-                        <span class="span-color">@item.Name</span>
+                        <span class="span-color"><a href="@Url.Content("/Home/ProductDetails/" + item.id)">@item.Name</a></span>
                     </td>
                     <td data-label="Price" class="span-color-1">
                         <span>@item.price &euro;</span>

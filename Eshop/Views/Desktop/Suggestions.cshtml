@@ -1,0 +1,105 @@
+﻿@model Eshop.Models.Suggestion
+
+@{
+    ViewBag.Title = "Suggestions";
+    int counter = 0;
+}
+
+
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h2>Suggestions</h2>
+    </div>
+</div>
+
+<div class="suggestions-header">
+    <h1>How do you plan to use your PC?</h1>
+    <p>
+        We can help you make your dream pc
+        <br>with just a few questions.
+    </p>
+    <span>Choose One</span>
+</div>
+<div class="suggestions-container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        foreach (KeyValuePair<string, string> m in Model.UserUsageOptions)
+        {
+            counter++;
+            string imgCounter = counter + ".jpg";
+
+            <div class="suggestions-container-content">
+                <img src="~/Images/Admin/@imgCounter" alt="">
+                <input id="@m.Key" class="suggestion-checkbox" name="Option_@counter" value="@m.Key" type="checkbox">
+                <input type="hidden" value="false" name="@m.Key" />
+                <span>@m.Key.ToString()</span>
+                <p>
+                    @m.Value.ToString()
+                </p>
+            </div>
+        }
+
+        <div class="suggest-pc-button-container">
+            <div>
+                @Html.LabelFor(model => model.money)
+                @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "suggestion-input" } })
+                <p class="suggest-validation" style="color:red"></p>
+                @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
+                <input type="submit" value="Suggest" class="suggestion-btn">
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
+    <script>
+        $('input[type="checkbox"]').on('change', function () {
+            $('input[type="checkbox"]').not(this).prop('checked', false);
+        });
+
+        $('.suggestion-checkbox').on('click', function (e) {
+            $(this)
+                .closest('.suggestions-container-content')
+                .addClass('active-suggestion').siblings('div').removeClass('active-suggestion');
+            if (!$(this).is(':checked')) {
+                $('.suggestions-container-content').removeClass('active-suggestion');
+            }
+
+        });
+
+        $('.suggestions-container form').on("submit", function (e) {
+            if (!$('.suggestion-checkbox').is(':checked')) {
+                e.preventDefault();
+                $('.suggest-validation').text('Please Select an Option');
+            }
+            if (parseInt($('.suggestion-input').val()) == 0) {
+                e.preventDefault();
+                $('.suggest-validation').text('Please insert a value');
+            }
+          
+        });
+
+            $('.suggestions-container form').submit(function (e) {
+
+                if ($('.suggestion-input').val().length == "") {
+                    e.preventDefault();
+                    $('.suggest-validation').text('Field cant be empty');
+                }
+
+            })
+     
+    </script>
+}
+
+
+
+
+
+

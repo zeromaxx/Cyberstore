@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PagedList;
 
 namespace Eshop.ViewModels
 {
@@ -9,7 +10,7 @@ namespace Eshop.ViewModels
     {
         public IEnumerable<User> Users { get; set; }
         public IEnumerable<Role> Roles { get; set; }
-        public IEnumerable<UserRoleMapping> UserRoleMappings { get; set; }
+        public IPagedList<UserRoleMapping> UserRoleMappings { get; set; }
         public User User { get; set; }
 
         public virtual Role Role { get; set; }

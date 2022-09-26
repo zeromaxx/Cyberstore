@@ -18,5 +18,6 @@ namespace Eshop
         public Nullable<int> UserId { get; set; }
         public Nullable<int> AdminId { get; set; }
         public Nullable<bool> Active { get; set; }
+        public string Status { get; set; }
     }
 }

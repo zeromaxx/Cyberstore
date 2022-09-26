@@ -1,388 +1,68 @@
 ﻿@model Eshop.ViewModels.ComparsionViewModel
-@{
-    ViewBag.Title = "ProductComparsion";
-}
 
-@if (Model.TwoProducts == false)
-{
-
-    <h2>Choose Product to compare</h2>
-
-    <div class="admin-products-table">
-        <table>
-            <thead>
-                <tr>
-                    <th class="text-left">Product</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Sales</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            @foreach (var item in Model.SelectedList)
-            {
-                <tr>
-                    <td data-label="Product" class="td-left">
-                        <img class="admin-product-img" src="@Url.Content("~/Images/" + item.image1)" alt="">
-                    </td>
-                    <td data-label="Name">
-                        <span class="span-color">@item.Name</span>
-                    </td>
-                    <td data-label="Price" class="span-color-1">
-                        <span>@item.price &euro;</span>
-                    </td>
-                    <td data-label="Stock" class="span-color-1">
-                        @if (item.stock < 3 && item.stock > 0)
-                        {
-                            <span class="low-stock">low stock</span>}
-
-                        @if (item.stock == 0)
-                        {
-                            <span class="out-of-stock">out of stock</span>}
-                        <span>@item.stock</span>
-                    </td>
-                    <td data-label="Sales" class="span-color-1">
-                        <span>@item.sales</span>
-                    </td>
-                    <td>
-                        <div class="actions-btn">
-
-                            @Html.ActionLink("Compare", "ProductComparsion", "Home", new { id = item.id, id2 = @Model.SelectedProduct.id }, null)
-
-
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-
-                    </td>
-                </tr>
-            }
-
-        </table>
+<div class="wallpaper-container">
+    <img src="~/Images/Icons/banner.jpg" alt="wallpaper">
+    <div class="wallpaper-heading">
+        <h2>Products for compare</h2>
+        <h4>Home/Compare List</h4>
     </div>
+</div>
+
+<div style="text-align:center;margin-top:2rem;text-decoration:underline;text-underline-offset:0.3rem;">
+    <h2>Choose Product to compare</h2>
+</div>
+
+<div style="text-align:center;" class="product-comparison-container">
+    <table>
+        <thead>
+            <tr>
+                <th class="text-left">Product</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th style="color:black;">Actions</th>
+            </tr>
+        </thead>
+
+        @foreach (product item in Model.MyList)
+        {
+            <tr>
+                <td data-label="Product" class="td-left">
+                    <img class="admin-product-img" src="@Url.Content("~/Images/" + item.image1)" alt="">
+                </td>
+                <td data-label="Name">
+                    <span class="span-color">@item.Name</span>
+                </td>
+                <td data-label="Price" class="span-color-1">
+                    <span>@item.price &euro;</span>
+                </td>
+                <td data-label="Stock" class="span-color-1">
+                    <span>@item.stock</span>
+                </td>
+                <td>
+                    <div class="add-product-to-compare">
+                        @if (Model.id2 == 0)
+                        {
+                            @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.id1, id2 = item.id, @class = "add-product-to-compare" }, null)
+                        }
+                        else if (Model.id3 == 0 && Model.id2 != 0)
+                        {
+                            @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.id1, id2 = Model.id2, id3 = item.id }, null)
+                        }
+                        else if (Model.id4 == 0 && Model.id2 != 0 && Model.id3 != 0)
+                        {
+                            @Html.ActionLink("Compare", "ComparisonTable", "Home", new { id1 = Model.id1, id2 = Model.id2, id3 = Model.id3, id4 = item.id }, null)
+                        }
+
+                    </div>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script src="~/Scripts/LiveSearch.js"></script>
 }
-else if (Model.TwoProducts == true)
-{
-
-    if (Model.cpu1 != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Cores</td>
-                    <td>@Model.cpu1.cores</td>
-                    <td>@Model.cpu2.cores</td>
-                </tr>
-                <tr>
-                    <td>Threads</td>
-                    <td>@Model.cpu1.threads</td>
-                    <td>@Model.cpu2.threads</td>
-                </tr>
-                <tr>
-                    <td>Model</td>
-                    <td>@Model.cpu1.model</td>
-                    <td>@Model.cpu2.model</td>
-                </tr>
-                <tr>
-                    <td>Frequency</td>
-                    <td>@Model.cpu1.frequency</td>
-                    <td>@Model.cpu2.frequency</td>
-                </tr>
-                <tr>
-                    <td>Chipset</td>
-                    <td>@Model.cpu1.chipset</td>
-                    <td>@Model.cpu2.chipset</td>
-                </tr>
-                <tr>
-                    <td>Socket</td>
-                    <td>@Model.cpu1.socket</td>
-                    <td>@Model.cpu2.socket</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-            </tbody>
-        </table>
-
-    }
-    else if (Model.gpu1 != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>VRAM</td>
-                    <td>@Model.gpu1.vram</td>
-                    <td>@Model.gpu2.vram</td>
-                </tr>
-                <tr>
-                    <td>Chipset</td>
-                    <td>@Model.gpu1.chipset</td>
-                    <td>@Model.gpu2.chipset</td>
-                </tr>
-                <tr>
-                    <td>Resolution</td>
-                    <td>@Model.gpu1.resolution</td>
-                    <td>@Model.gpu2.resolution</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-    }
-    else if (Model.hardDisc1 != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Type</td>
-                    <td>@Model.hardDisc1.type</td>
-                    <td>@Model.hardDisc2.type</td>
-                </tr>
-                <tr>
-                    <td>Capacity</td>
-                    <td>@Model.hardDisc1.capacity</td>
-                    <td>@Model.hardDisc2.capacity</td>
-                </tr>
-                <tr>
-                    <td>Connector</td>
-                    <td>@Model.hardDisc1.connector</td>
-                    <td>@Model.hardDisc2.connector</td>
-                </tr>
-                <tr>
-                    <td>Frequency</td>
-                    <td>@Model.hardDisc1.frequency</td>
-                    <td>@Model.hardDisc2.frequency</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-    }
-    else if (Model.Motherboard1 != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Model</td>
-                    <td>@Model.Motherboard1.model</td>
-                    <td>@Model.Motherboard2.model</td>
-                </tr>
-                <tr>
-                    <td>Chipset Vendor</td>
-                    <td>@Model.Motherboard1.chipset_vendor</td>
-                    <td>@Model.Motherboard2.chipset_vendor</td>
-                </tr>
-                <tr>
-                    <td>PCIE Slots</td>
-                    <td>@Model.Motherboard1.pcie_slots</td>
-                    <td>@Model.Motherboard2.pcie_slots</td>
-                </tr>
-                <tr>
-                    <td>Ram Type</td>
-                    <td>@Model.Motherboard1.ram_type</td>
-                    <td>@Model.Motherboard2.ram_type</td>
-                </tr>
-                <tr>
-                    <td>Ram Slots</td>
-                    <td>@Model.Motherboard1.ram_slots</td>
-                    <td>@Model.Motherboard2.ram_slots</td>
-                </tr>
-                <tr>
-                    <td>Chipset</td>
-                    <td>@Model.Motherboard1.chipset</td>
-                    <td>@Model.Motherboard2.chipset</td>
-                </tr>
-                <tr>
-                    <td>Socket</td>
-                    <td>@Model.Motherboard1.socket</td>
-                    <td>@Model.Motherboard2.socket</td>
-                </tr>
-                <tr>
-                    <td>Price</td>S
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-    }
-    else if (Model.psu1 != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Watt</td>
-                    <td>@Model.psu1.watt</td>
-                    <td>@Model.psu2.watt</td>
-                </tr>
-                <tr>
-                    <td>Connector</td>
-                    <td>@Model.psu1.connector</td>
-                    <td>@Model.psu2.connector</td>
-                </tr>
-
-                <tr>
-                    <td>Price</td>
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-    }
-    else if (Model.ram1 != null)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Memory</td>
-                    <td>@Model.ram1.memory</td>
-                    <td>@Model.ram2.memory</td>
-                </tr>
-                <tr>
-                    <td>Type</td>
-                    <td>@Model.ram1.type</td>
-                    <td>@Model.ram2.type</td>
-                </tr>
-                <tr>
-                    <td>Cash latency</td>
-                    <td>@Model.ram1.cash_latency</td>
-                    <td>@Model.ram2.cash_latency</td>
-                </tr>
-                <tr>
-                    <td>Frequency</td>
-                    <td>@Model.ram1.frequency</td>
-                    <td>@Model.ram2.frequency</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-    }
-    else if (Model.monitor1 != null)
-    {
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">SPec</th>
-                    <th scope="col">@Model.SelectedProduct.Name</th>
-                    <th scope="col">@Model.ProductToCompare.Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Screen size</td>
-                    <td>@Model.monitor1.ScreenSize</td>
-                    <td>@Model.monitor1.ScreenSize</td>
-                </tr>
-                <tr>
-                    <td>Refresh rate</td>
-                    <td>@Model.monitor1.RefreshRate</td>
-                    <td>@Model.monitor2.RefreshRate</td>
-                </tr>
-                <tr>
-                    <td>Resolution</td>
-                    <td>@Model.monitor1.Resolution</td>
-                    <td>@Model.monitor2.Resolution</td>
-                </tr>
-                <tr>
-                    <td>Aspect Ratio</td>
-                    <td>@Model.monitor1.AspectRatio</td>
-                    <td>@Model.monitor2.AspectRatio</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>@Model.SelectedProduct.price</td>
-                    <td>@Model.ProductToCompare.price</td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-    }
-}
-
-
-
-@section scripts
- {
-
-}
-

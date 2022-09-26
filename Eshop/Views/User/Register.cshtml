@@ -19,48 +19,74 @@
 
 @if (ViewBag.Message != null)
 {
+    using (Entities en = new Entities())
+    {
+        if (Model.EmailExists == false)
+        {
+            <div class="Rectangle">
+                <img alt="Email_verification_allinone" class="envelop-icon"
+                     src="https://cloudinary-res.cloudinary.com/image/upload/v1645011792/mail/email_verification_allInOne.svg">
 
-    <div class="Rectangle">
-        <img alt="Email_verification_allinone" class="envelop-icon"
-             src="https://cloudinary-res.cloudinary.com/image/upload/v1645011792/mail/email_verification_allInOne.svg">
+                <p>Verify your email address</p>
+                Verification email has been sent to: <b>@Model.Email</b>
+                <br>
+                <p>Didn’t receive the email?</p>
+                @using (Html.BeginForm("EmailNotSent", "User", FormMethod.Post, new { id = $"{Model.Email}" }))
+                {
+                    @Html.Hidden("id", $"{Model.Email}");
+                    <button id="submitBtn" @Model.Email=>Resend email</button>
+                }
+                <div>
+                    @Html.ActionLink("Back To Login", "Login", "User", new { }, new { @class = "back-to-login-link" })
 
-        <p>Verify your email address</p>
-        Verification email has been sent to: <b>@Model.Email</b>
-        <br>
-        <p>Didn’t receive the email?</p>
-         @using (Html.BeginForm("EmailNotSent", "User", FormMethod.Post, new { id = $"{Model.Email}" }))
-            {
-                @Html.Hidden("id", $"{Model.Email}");
-                <button id="submitBtn" @Model.Email=>Resend email</button>
-            }
-    </div>
+                </div>
+            </div>
+
+
+        }
+        else
+        {
+            <div class="Rectangle">
+                <img style="width:200px" alt="Email_verification_allinone" class="envelop-icon"
+                     src="https://media.istockphoto.com/vectors/email-vector-flat-icon-vector-id872947326?k=20&m=872947326&s=612x612&w=0&h=FX044XX65C4s9gRw62scRIRAEmTVJtiQ4_eeD35yk0A=">
+
+                <p>Email exists</p>
+                Please try again with a different email
+                <br>
+                @Html.ActionLink("Back to Register Page", "Register", "User", new { model = @Model },
+            new { @class = "register-complete-btn2" })
+            </div>
+
+        }
+
+    }
 
 
 
     @*<div class="Rectangle">
-        <div class="Group-4">
-            <img alt="Email_verification_allinone" class="envelop-icon" src="https://cloudinary-res.cloudinary.com/image/upload/v1645011792/mail/email_verification_allInOne.svg">
-        </div>
-        <p class="header-verify-your-email">Verify your email address</p>
-        <d></d>
-        <div class="Please-verify-your-e div">
-            <label class="verification-email-has-been-sent">
-                Verification email has been sent to:
-            </label>
-            <span class="current-email"> <strong></strong></span>
-            <br>
-            <label class="click-on-the-link-in-email">Click on the link in the email to activate your account.</label>
-        </div>
-        <span class="resent_email_message">
-            Didn’t receive the email?
-            @using (Html.BeginForm("EmailNotSent", "User", FormMethod.Post, new { id = $"{Model.Email}" }))
-            {
-                @Html.Hidden("id", $"{Model.Email}");
-                <button id="submitBtn" @Model.Email=>Resend email</button>
-            }
+            <div class="Group-4">
+                <img alt="Email_verification_allinone" class="envelop-icon" src="https://cloudinary-res.cloudinary.com/image/upload/v1645011792/mail/email_verification_allInOne.svg">
+            </div>
+            <p class="header-verify-your-email">Verify your email address</p>
+            <d></d>
+            <div class="Please-verify-your-e div">
+                <label class="verification-email-has-been-sent">
+                    Verification email has been sent to:
+                </label>
+                <span class="current-email"> <strong></strong></span>
+                <br>
+                <label class="click-on-the-link-in-email">Click on the link in the email to activate your account.</label>
+            </div>
+            <span class="resent_email_message">
+                Didn’t receive the email?
+                @using (Html.BeginForm("EmailNotSent", "User", FormMethod.Post, new { id = $"{Model.Email}" }))
+                {
+                    @Html.Hidden("id", $"{Model.Email}");
+                    <button id="submitBtn" @Model.Email=>Resend email</button>
+                }
 
-        </span>
-    </div>*@
+            </span>
+        </div>*@
 }
 else
 {
@@ -114,14 +140,13 @@ else
 
 
 
-
 <div class="empty-space-2"></div>
 
 
 
 
 @section Scripts {
-    
+
     @Scripts.Render("~/bundles/jqueryval")
     <script>src = "~/Scripts/jquery.validate.min.js"</script>
     <script>src = "~/Scripts/jquery.validate.unobtrusive.min.js"</script>
@@ -137,7 +162,7 @@ else
             $('submitBtn').text("Email resent. Please check your inbox.");
         }
 
-            });
+
 
     </script>
 

@@ -4,30 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bd71cebd84b14ed1949305e1629e2511" Name="Diagram1">
-        <EntityTypeShape EntityType="EshopModel.cart" Width="1.5" PointX="9.75" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.category" Width="1.5" PointX="0.75" PointY="23.375" IsExpanded="true" />
+      <Diagram DiagramId="c1be3033caa94d10a6230f2f7de575a8" Name="Diagram1">
+        <EntityTypeShape EntityType="EshopModel.box" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.cart" Width="1.5" PointX="9.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.category" Width="1.5" PointX="0.75" PointY="24.875" IsExpanded="true" />
         <EntityTypeShape EntityType="EshopModel.Connection" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EshopModel.Contactform" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.cpu" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.Desktop" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.favourite" Width="1.5" PointX="9.75" PointY="25.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.gpu" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.hardDisc" Width="1.5" PointX="5.25" PointY="25.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.monitor" Width="1.5" PointX="5.25" PointY="29" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.motherboard" Width="1.5" PointX="5.25" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.cpu" Width="1.5" PointX="5.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.Desktop" Width="1.5" PointX="5.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.favourite" Width="1.5" PointX="9.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.gpu" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.hardDisc" Width="1.5" PointX="5.25" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.monitor" Width="1.5" PointX="5.25" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.motherboard" Width="1.5" PointX="5.25" PointY="35.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EshopModel.Online" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.OrderItem" Width="1.5" PointX="7.5" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.order" Width="1.5" PointX="12.75" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.payment" Width="1.5" PointX="10.5" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.product" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.psu" Width="1.5" PointX="5.25" PointY="35.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.ram" Width="1.5" PointX="5.25" PointY="38.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.Role" Width="1.5" PointX="7.5" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.Shipping" Width="1.5" PointX="10.5" PointY="33.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.SupportMessage" Width="1.5" PointX="9.75" PointY="29.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.UserRoleMapping" Width="1.5" PointX="9.75" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopModel.User" Width="1.5" PointX="7.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.OrderItem" Width="1.5" PointX="7.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.order" Width="1.5" PointX="12.75" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.payment" Width="1.5" PointX="10.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.product" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.psu" Width="1.5" PointX="5.25" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.ram" Width="1.5" PointX="5.25" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.Role" Width="1.5" PointX="10.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.Shipping" Width="1.5" PointX="10.5" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.SupportMessage" Width="1.5" PointX="9.75" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.sysdiagram" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.UserRoleMapping" Width="1.5" PointX="12.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopModel.User" Width="1.5" PointX="7.5" PointY="23.875" IsExpanded="true" />
+        <AssociationConnector Association="EshopModel.FK_boxes_products" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_carts_Desktop" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_carts_products" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_carts_User" ManuallyRouted="false" />
@@ -39,6 +42,7 @@
         <AssociationConnector Association="EshopModel.FK_Desktop_products3" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_Desktop_products4" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_Desktop_products5" ManuallyRouted="false" />
+        <AssociationConnector Association="EshopModel.FK_Desktop_products6" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_OrderItems_Desktop" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_Users_Desktop" ManuallyRouted="false" />
         <AssociationConnector Association="EshopModel.FK_favourites_products" ManuallyRouted="false" />

@@ -61,12 +61,14 @@
                     @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
                     <label for="shipping">Shipping</label>
                     <select class="shippingId" name="ShippingId" id="shipping">
-                        <option value="7">Flat rate: &euro; 7</option>
-                        <option value="3">Local pickup: &euro; 3</option>
-                        <option value="0">Free shipping: &euro; 0</option>
+                        <option value="0"> Local pickup: &euro; 0</option>
+                        <option value="7"> Flat rate: &euro; 7</option>
+                        
+
                     </select>
                 </div>
             </div>
+          
             <div class="col-4-checkout">
                 <button class="checkout-button" id="place-order" type="submit"><span id="paypal-btn"></span></button>
                 @* <input id="place-order" type="submit" value="Place Order">*@
@@ -125,18 +127,20 @@
                     <td>Subtotal</td>
                     <td id="subTotal" class="order-checkout-total">@Model.TotalPrice &euro;</td>
                 </tr>
+                
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td>Shipping Rate</td>
-                    <td id="shipping-rate" class="order-checkout-total">7 &euro;</td>
+                    <td id="shipping-rate" class="order-checkout-total"> 0  &euro;</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    @{ var grand = Model.TotalPrice + Model.ShippingId; }
+                    @{ var grand = Model.TotalPrice + Model.ShippingId;
+                        Model.TotalPrice = grand;}
                     <td style="color:black;">Grand Total</td>
                     <td id="grand-total" style="color:black;" class="order-checkout-total">@grand &euro;</td>
                 </tr>
@@ -149,6 +153,7 @@
     @Html.HiddenFor(m => m.ShippingId)
     @Html.HiddenFor(m => m.PaymentType)
     @Html.HiddenFor(m => m.TotalPrice)
+ 
 }
 @section scripts{
     <script src="~/Scripts/Navbar Toggle.js"></script>
@@ -169,6 +174,7 @@
         } else {
             orderCompleteModal.classList.add('show-order-complete-modal');
         }
+        let total = parseInt($('#shipping-rate').text());
         let _total = @Html.Raw(Model.TotalPrice)
 
         paypal.Button.render({

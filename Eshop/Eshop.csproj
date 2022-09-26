@@ -171,6 +171,9 @@
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="box.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="cart.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -178,6 +181,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Connection.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -230,6 +234,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Crypto.cs" />
     <Compile Include="Models\Dtos\UserDTO.cs" />
+    <Compile Include="Models\Suggestion.cs" />
     <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="monitor.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -274,12 +279,17 @@
     <Compile Include="SupportMessage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tools.cs" />
     <Compile Include="User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRoleMapping.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddOrUpdateProductViewModel.cs" />
     <Compile Include="ViewModels\ComparsionViewModel.cs" />
     <Compile Include="ViewModels\ConnectionViewModel.cs" />
     <Compile Include="ViewModels\DesktopViewModel.cs" />
@@ -291,6 +301,7 @@
     <Compile Include="ViewModels\RegisterView.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ResetPasswordModel.cs" />
+    <Compile Include="ViewModels\SuggestionViewModel.cs" />
     <Compile Include="ViewModels\SupportMessageViewModel.cs" />
     <Compile Include="ViewModels\UserRoleViewModel.cs" />
   </ItemGroup>
@@ -313,17 +324,26 @@
     <Content Include="Images\3GigabyteMotherboardH410MHD3P_2.jpg" />
     <Content Include="Images\3GigabyteMotherboardH410MHD3P_3.jpg" />
     <Content Include="Images\3GigabyteMotherboardH410MHD3P_4.jpg" />
+    <Content Include="Images\a1.jpeg" />
+    <Content Include="Images\a2.jpeg" />
+    <Content Include="Images\a3.jpeg" />
+    <Content Include="Images\a4.jpeg" />
+    <Content Include="Images\Admin\1.jpg" />
+    <Content Include="Images\Admin\2.jpg" />
+    <Content Include="Images\Admin\3.jpg" />
     <Content Include="Images\Admin\arrow_down.png" />
     <Content Include="Images\Admin\cooler.png" />
     <Content Include="Images\Admin\cpu.png" />
     <Content Include="Images\Admin\graphics.png" />
     <Content Include="Images\Admin\harddisk.png" />
     <Content Include="Images\Admin\landscape.png" />
+    <Content Include="Images\Admin\monitor.png" />
     <Content Include="Images\Admin\motherboard.png" />
     <Content Include="Images\Admin\navlogo.png" />
     <Content Include="Images\Admin\product_icon.png" />
     <Content Include="Images\Admin\ram.png" />
     <Content Include="Images\Admin\role.png" />
+    <Content Include="Images\Admin\tower.png" />
     <Content Include="Images\AlienWare.png" />
     <Content Include="Images\AMDCPURyzen55600G.jpg" />
     <Content Include="Images\AMDCPURyzen55600G_1.jpg" />
@@ -344,6 +364,7 @@
     <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_2.jpg" />
     <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_3.jpg" />
     <Content Include="Images\AsusVGAGeForceRTX3060TiTUFV28GB_4.jpg" />
+    <Content Include="Images\bubble.png" />
     <Content Include="Images\ChieftecPSUGPE-400S_1.jpg" />
     <Content Include="Images\ChieftecPSUGPE-400S_2.jpg" />
     <Content Include="Images\ChieftecPSUGPE-400S_3.jpg" />
@@ -411,6 +432,12 @@
     <Content Include="Images\Index\frontside1.jpg" />
     <Content Include="Images\Index\frontside2.jpg" />
     <Content Include="Images\Index\frontside5.jpeg" />
+    <Content Include="Images\InsertCPU.jpg" />
+    <Content Include="Images\InsertCPU.png" />
+    <Content Include="Images\InsertGPU.jpg" />
+    <Content Include="Images\InsertMother.jpg" />
+    <Content Include="Images\InsertPSU.jpg" />
+    <Content Include="Images\InsertRAM.jpg" />
     <Content Include="Images\IntelCPUCore i910900X_1.jpg" />
     <Content Include="Images\IntelCPUCore i910900X_2 .jpg" />
     <Content Include="Images\IntelCPUCore i910900X_3.jpg" />
@@ -431,28 +458,43 @@
     <Content Include="Images\MSIMotherboardZ490ACE_1.jpg" />
     <Content Include="Images\MSIMotherboardZ490ACE_2.jpg" />
     <Content Include="Images\MSIMotherboardZ490ACE_3.jpg" />
+    <Content Include="Images\Other\about-img-1.jpg" />
+    <Content Include="Images\Other\about-img-2.jpg" />
+    <Content Include="Images\Other\about-img-3.jpg" />
+    <Content Include="Images\Other\alex.jpg" />
     <Content Include="Images\Other\AlienWare.png" />
+    <Content Include="Images\Other\aris.jpg" />
     <Content Include="Images\Other\black_cpu.jpg" />
+    <Content Include="Images\Other\boxIcon.png" />
     <Content Include="Images\Other\bundle.png" />
     <Content Include="Images\Other\computerNight.png" />
     <Content Include="Images\Other\contact.png" />
     <Content Include="Images\Other\cpuuu2u.png" />
     <Content Include="Images\Other\cpuuuu.png" />
     <Content Include="Images\Other\CustomDesktopImg.jpg" />
+    <Content Include="Images\Other\desktopTOp.jpg" />
     <Content Include="Images\Other\face.jpg" />
     <Content Include="Images\Other\Gpu.png" />
     <Content Include="Images\Other\HardDiscIcon.png" />
+    <Content Include="Images\Other\linkedin.png" />
     <Content Include="Images\Other\main.jpg" />
     <Content Include="Images\Other\main2.jpg" />
     <Content Include="Images\Other\main3.jpg" />
     <Content Include="Images\Other\main4.jpg" />
     <Content Include="Images\Other\main5.jpg" />
     <Content Include="Images\Other\MicrosoftTeams-image %281%29.png" />
+    <Content Include="Images\Other\monastioriotis.jfif" />
     <Content Include="Images\Other\Monitor.png" />
     <Content Include="Images\Other\motherboard.png" />
     <Content Include="Images\Other\PSUICON.png" />
     <Content Include="Images\Other\RamIcon.png" />
+    <Content Include="Images\Other\stasinos.png" />
     <Content Include="Images\Other\support-chat.png" />
+    <Content Include="Images\Other\tasos.jpg" />
+    <Content Include="Images\Other\wk3m1.jpeg" />
+    <Content Include="Images\Other\wk3m2.jpeg" />
+    <Content Include="Images\Other\wk3m3.jpeg" />
+    <Content Include="Images\Other\wk3m4.jpeg" />
     <Content Include="Images\Other\YouDefultDesktop.jpg" />
     <Content Include="Images\Other\YourDefultDesktop2.jpg" />
     <Content Include="Images\Other\YourDefultDesktop3.jpg" />
@@ -460,6 +502,15 @@
     <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_2.jpg" />
     <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_3.jpg" />
     <Content Include="Images\SamsungExtSSD2.5T5Portable500GB_4.jpg" />
+    <Content Include="Images\sd8.jpeg" />
+    <Content Include="Images\Suggestions\sd1.jpeg" />
+    <Content Include="Images\Suggestions\sd2.jpeg" />
+    <Content Include="Images\Suggestions\sd4.jpeg" />
+    <Content Include="Images\Suggestions\sd5.jpeg" />
+    <Content Include="Images\Suggestions\sd6.jpeg" />
+    <Content Include="Images\Suggestions\sd7.jpeg" />
+    <Content Include="Images\Suggestions\sd8.jpeg" />
+    <Content Include="Images\Suggestions\sd9.jpeg" />
     <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB.jpg" />
     <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB_1.jpg" />
     <Content Include="Images\TeamGroupDesktopRAMT-ForceDelta32GB_3.jpg" />
@@ -473,6 +524,7 @@
     <Content Include="Images\WDExtSSDWDBlackD30GameDrive500GB_3.jpg" />
     <Content Include="Images\WDExtSSDWDBlackD30GameDrive500GB_4.jpg" />
     <Content Include="Images\YourDesktop.jpg" />
+    <Content Include="Images\YourDesktop2.jpg" />
     <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_1.jpg" />
     <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_2.jpg" />
     <Content Include="Images\ZotacVGAGeForceRTX3060TwinEdgeOC12GB_3.jpg" />
@@ -544,12 +596,6 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\GetProductsTable.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\InsertCPU.cshtml" />
-    <Content Include="Views\Admin\InsertGPU.cshtml" />
-    <Content Include="Views\Admin\InsertHDD.cshtml" />
-    <Content Include="Views\Admin\InsertMotherboard.cshtml" />
-    <Content Include="Views\Admin\InsertPSU.cshtml" />
-    <Content Include="Views\Admin\InsertRam.cshtml" />
     <Content Include="Views\Admin\PartialViews\_CpuPartial.cshtml" />
     <Content Include="Views\Admin\PartialViews\_GpuPartial.cshtml" />
     <Content Include="Views\Admin\PartialViews\_HardDiskPartial.cshtml" />
@@ -586,7 +632,7 @@
     <Content Include="Views\Orders\MyOrders.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
     <Content Include="Views\Admin\CreateRole.cshtml" />
-    <Content Include="Views\Home\YourDesktop.cshtml" />
+    <Content Include="Views\Desktop\YourDesktop.cshtml" />
     <Content Include="Views\Desktop\ChooseProduct.cshtml" />
     <Content Include="Views\Home\Message.cshtml" />
     <Content Include="Views\User\EmailNotSent.cshtml" />
@@ -595,7 +641,21 @@
     <Content Include="Views\Home\ProductComparsion.cshtml" />
     <Content Include="Views\Admin\PartialViews\_MonitorPartial.cshtml" />
     <Content Include="Views\Home\PartialViews\_MonitorDetails.cshtml" />
+    <Content Include="Views\Home\test.cshtml" />
+    <Content Include="Views\Home\ComparisonTable.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonMotherboard.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonMonitor.cshtml" />
     <Content Include="Views\Home\AdminSupport.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonCPU.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonGPU.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonHardDisc.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonRAM.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonPSU.cshtml" />
+    <Content Include="Views\Desktop\Suggestions.cshtml" />
+    <Content Include="Views\Admin\PartialViews\_BoxPartial.cshtml" />
+    <Content Include="Views\Home\PartialViews\_comparisonBox.cshtml" />
+    <Content Include="Views\Home\PartialViews\_BoxDetails.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,6 +31,7 @@ namespace Eshop
         public Nullable<int> PSU { get; set; }
         public Nullable<int> ProductID { get; set; }
         public string Name { get; set; }
+        public Nullable<int> Box { get; set; }
         public Nullable<decimal> price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -41,9 +42,19 @@ namespace Eshop
         public virtual product product3 { get; set; }
         public virtual product product4 { get; set; }
         public virtual product product5 { get; set; }
+        public virtual product product6 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        
+        
+               
+        public void UpdateMyPrice()
+        {
+            price = 0;
+            price = product.price + product1.price + product2.price + product3.price + product4.price + product5.price +product6.price;
+
+        }
     }
 }

@@ -11,13 +11,26 @@ namespace Eshop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class gpu
     {
         public int id { get; set; }
         public Nullable<int> productId { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string vram { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string chipset { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string resolution { get; set; }
     
         public virtual product product { get; set; }

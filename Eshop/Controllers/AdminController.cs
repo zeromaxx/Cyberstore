@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.IO;
 
+
 namespace Eshop.Controllers
 {
     [Authorize(Roles="Admin")]
@@ -21,13 +22,7 @@ namespace Eshop.Controllers
         {
             _context = new Entities();
         }
-        // GET: Admin
 
-        //public ActionResult ViewAllProducts()
-        //{
-        //    List<product> product = _context.products.ToList();
-        //    return View(product);
-        //}
         static int ProductID;
         public ActionResult ViewAllProducts(int? page, string sortBy, int? categoryId, string livesearchtags)
         {
@@ -44,54 +39,24 @@ namespace Eshop.Controllers
                                                               p.Name.Contains(w)
                                           ));
             }
-
-
             switch (sortBy)
             {
-                case "Price asc":
-                    products = products.OrderBy(x => x.price);
-                    break;
-                case "Price desc":
-                    products = products.OrderByDescending(x => x.price);
-                    break;
-                case "newness":
-                    products = products.OrderByDescending(x => x.createdAt);
-                    break;
-                case "name":
-                    products = products.OrderBy(x => x.Name);
-                    break;
-                case "200":
-                    products = products.OrderBy(x => x.Name);
-                    products = products.Where(x => x.price <= 200);
-                    break;
-                case "400":
-                    products = products.OrderBy(x => x.Name);
-                    products = products.Where(x => x.price > 200 && x.price <= 400);
-                    break;
-                case "600":
-                    products = products.OrderBy(x => x.Name);
-                    products = products.Where(x => x.price > 400 && x.price <= 600);
-                    break;
-                case "800":
-                    products = products.OrderBy(x => x.Name);
-                    products = products.Where(x => x.price > 600 && x.price <= 800);
-                    break;
-                case "top":
-                    products = products.OrderBy(x => x.Name);
-                    products = products.Where(x => x.price > 800);
-                    break;
-                default:
-                    products = products.OrderBy(x => x.Name);
-                    break;
+                case "Price asc": products = products.OrderBy(x => x.price); break;
+                case "Price desc":products = products.OrderByDescending(x => x.price); break;
+                case "newness": products = products.OrderByDescending(x => x.createdAt); break;
+                case "name": products = products.OrderBy(x => x.Name); break;
+                case "200":  products = products.OrderBy(x => x.Name); products = products.Where(x => x.price <= 200); break;
+                case "400": products = products.OrderBy(x => x.Name); products = products.Where(x => x.price > 200 && x.price <= 400); break;
+                case "600": products = products.OrderBy(x => x.Name); products = products.Where(x => x.price > 400 && x.price <= 600); break;
+                case "800": products = products.OrderBy(x => x.Name); products = products.Where(x => x.price > 600 && x.price <= 800); break;
+                case "top": products = products.OrderBy(x => x.Name); products = products.Where(x => x.price > 800); break;
+                default: products = products.OrderBy(x => x.Name); break;
             }
 
             ViewBag.categoryId = categoryId;
             ViewBag.sortBy = sortBy;
-
             return View("ViewAllProducts", products.ToPagedList(page ?? 1, 6));
         }
-
-
         public ActionResult Index()
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
@@ -117,8 +82,7 @@ namespace Eshop.Controllers
                 _productsover600 = productsover600
             };
            
-            return Json(products, JsonRequestBehavior.AllowGet);
-            
+            return Json(products, JsonRequestBehavior.AllowGet);            
         }
 
         public ActionResult GetProductSaleRate()
@@ -139,8 +103,7 @@ namespace Eshop.Controllers
                 Top5ProductSales = top5ProductSales
             };
 
-            return Json(products, JsonRequestBehavior.AllowGet);
-            
+            return Json(products, JsonRequestBehavior.AllowGet);         
         }
 
         public ActionResult GetFrequentCustomers()
@@ -171,37 +134,29 @@ namespace Eshop.Controllers
         }
         public ActionResult InsertProduct(int id)
         {
-
-
             ProductViewModel viewModel = new ProductViewModel();
 
             switch (id)
             {
-                case 1: viewModel._string = "~/Views/Admin/PartialViews/_MotherboardPartial.cshtml"; viewModel.CategoryID = 1;viewModel.Type = "Insert a new Motherboard "; break;
-                case 2: viewModel._string = "~/Views/Admin/PartialViews/_CpuPartial.cshtml"; viewModel.CategoryID = 2; viewModel.Type = "Insert a new CPU "; break;
-                case 3: viewModel._string = "~/Views/Admin/PartialViews/_GpuPartial.cshtml"; viewModel.CategoryID = 3; viewModel.Type = "Insert a new GPU (Graphic card) "; break;
-                case 4: viewModel._string = "~/Views/Admin/PartialViews/_PsuPartial.cshtml"; viewModel.CategoryID = 4; viewModel.Type = "Insert a new PSU "; break;
-                case 5: viewModel._string = "~/Views/Admin/PartialViews/_RamPartial.cshtml"; viewModel.CategoryID = 5; viewModel.Type = "Insert a new RAM "; break;
+                case 1: viewModel._string = "~/Views/Admin/PartialViews/_MotherboardPartial.cshtml"; viewModel.CategoryID = 1;viewModel.Type = "Insert a new Motherboard ";viewModel.img = "MSIMotherboardZ490ACE_3.jpg"; break;
+                case 2: viewModel._string = "~/Views/Admin/PartialViews/_CpuPartial.cshtml"; viewModel.CategoryID = 2; viewModel.Type = "Insert a new CPU "; viewModel.img ="InsertCPU.jpg"; break;
+                case 3: viewModel._string = "~/Views/Admin/PartialViews/_GpuPartial.cshtml"; viewModel.CategoryID = 3; viewModel.Type = "Insert a new GPU (Graphic card) "; viewModel.img = "g4.jpeg"; break;
+                case 4: viewModel._string = "~/Views/Admin/PartialViews/_PsuPartial.cshtml"; viewModel.CategoryID = 4; viewModel.Type = "Insert a new PSU "; viewModel.img = "ps1.jpeg"; break;
+                case 5: viewModel._string = "~/Views/Admin/PartialViews/_RamPartial.cshtml"; viewModel.CategoryID = 5; viewModel.Type = "Insert a new RAM "; viewModel.img ="InsertRAM.jpg";break;
                 case 6: viewModel._string = "~/Views/Admin/PartialViews/_HardDiskPartial.cshtml"; viewModel.CategoryID = 6; viewModel.Type = "Insert a new Hard Disc "; break;
                 case 8: viewModel._string = "~/Views/Admin/PartialViews/_MonitorPartial.cshtml";viewModel.CategoryID = 8;viewModel.Type = "Insert a new monitor";break;
+                case 9: viewModel._string = "~/Views/Admin/PartialViews/_BoxPartial.cshtml"; viewModel.CategoryID = 9; viewModel.Type = "Insert a new box"; break; //GGGGG partial
             }
-
             return View(viewModel);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult InsertProduct(ProductViewModel viewModel)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(viewModel);
-            //}
+        {        
             if (viewModel.Image1 != null) { viewModel.Product.image1 = Path.GetFileName(viewModel.Image1.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image1); viewModel.Image1.SaveAs(fullPath); }
             if (viewModel.Image2 != null) { viewModel.Product.image2 = Path.GetFileName(viewModel.Image2.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image2); viewModel.Image2.SaveAs(fullPath); }
             if (viewModel.Image3 != null) { viewModel.Product.image3 = Path.GetFileName(viewModel.Image3.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image3); viewModel.Image3.SaveAs(fullPath); }
             if (viewModel.Thumbnail != null) { viewModel.Product.thumbnail = Path.GetFileName(viewModel.Thumbnail.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.thumbnail); viewModel.Thumbnail.SaveAs(fullPath); }
-
 
             var _product = viewModel.Product;
             _product.categoryId = viewModel.CategoryID;
@@ -266,17 +221,21 @@ namespace Eshop.Controllers
 
                     _context.monitors.AddOrUpdate(_monitor);
                     _context.SaveChanges(); break;
+                case 9:
+                    var _box = viewModel.Box;
+                    ProductID = _context.products.SingleOrDefault(p => p.id == viewModel.Product.id).id;
+                    _box.productId = ProductID;
+
+                    _context.boxes.AddOrUpdate(_box);
+                    _context.SaveChanges(); break;
             }
 
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+           
             ProductViewModel viewModel = new ProductViewModel()
             {
                 Product = _context.products.SingleOrDefault(p => p.id == id)
@@ -284,16 +243,18 @@ namespace Eshop.Controllers
 
             switch (viewModel.Product.categoryId)
             {
-                case 1: viewModel._string = "~/Views/Admin/PartialViews/_MotherboardPartial.cshtml"; viewModel.Motherboard = _context.motherboards.SingleOrDefault(x => x.productId == id); break;
-                case 2: viewModel._string = "~/Views/Admin/PartialViews/_CpuPartial.cshtml"; viewModel.Cpu = _context.cpus.SingleOrDefault(x => x.productId == id); break;
-                case 3: viewModel._string = "~/Views/Admin/PartialViews/_GpuPartial.cshtml"; viewModel.Gpu = _context.gpus.SingleOrDefault(x => x.productId == id); break;
-                case 4: viewModel._string = "~/Views/Admin/PartialViews/_PsuPartial.cshtml"; viewModel.Psu = _context.psus.SingleOrDefault(x => x.productId == id); break;
-                case 5: viewModel._string = "~/Views/Admin/PartialViews/_RamPartial.cshtml"; viewModel.Ram = _context.rams.SingleOrDefault(x => x.productId == id); break;
-                case 6: viewModel._string = "~/Views/Admin/PartialViews/_HardDiskPartial.cshtml"; viewModel.HardDisc = _context.hardDiscs.SingleOrDefault(x => x.productId == id); break;
-                case 8: viewModel._string = "~/Views/Admin/PartialViews/_MonitorPartial.cshtml"; viewModel.Monitor = _context.monitors.SingleOrDefault(x => x.productId == id); break;
-
+                case 1: viewModel._string = "~/Views/Admin/PartialViews/_MotherboardPartial.cshtml"; viewModel.Motherboard = _context.motherboards.SingleOrDefault(x => x.productId == id);viewModel.CategoryID = 1;viewModel.ItemID = viewModel.Motherboard.id; break;
+                case 2: viewModel._string = "~/Views/Admin/PartialViews/_CpuPartial.cshtml"; viewModel.Cpu = _context.cpus.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 2; viewModel.ItemID = viewModel.Cpu.id; break;
+                case 3: viewModel._string = "~/Views/Admin/PartialViews/_GpuPartial.cshtml"; viewModel.Gpu = _context.gpus.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 3; viewModel.ItemID = viewModel.Gpu.id; break;
+                case 4: viewModel._string = "~/Views/Admin/PartialViews/_PsuPartial.cshtml"; viewModel.Psu = _context.psus.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 4; viewModel.ItemID = viewModel.Psu.id; break;
+                case 5: viewModel._string = "~/Views/Admin/PartialViews/_RamPartial.cshtml"; viewModel.Ram = _context.rams.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 5; viewModel.ItemID = viewModel.Ram.id; break;
+                case 6: viewModel._string = "~/Views/Admin/PartialViews/_HardDiskPartial.cshtml"; viewModel.HardDisc = _context.hardDiscs.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 6; viewModel.ItemID = viewModel.HardDisc.id; break;
+                case 8: viewModel._string = "~/Views/Admin/PartialViews/_MonitorPartial.cshtml"; viewModel.Monitor = _context.monitors.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 8; viewModel.ItemID = viewModel.Monitor.ID; break;
+                case 9: viewModel._string = "~/Views/Admin/PartialViews/_BoxPartial.cshtml"; viewModel.Box = _context.boxes.SingleOrDefault(x => x.productId == id); viewModel.CategoryID = 9; viewModel.ItemID = viewModel.Box.id; break;
             }
-
+            
+            viewModel.ProductID = id;
+            
             return View("Edit", viewModel);
         }
 
@@ -306,20 +267,32 @@ namespace Eshop.Controllers
 
                 return View("Edit", viewModel);
             }
-            switch (viewModel.Product.categoryId)
-            {
-                case 1: viewModel.Motherboard.productId = viewModel.Product.id; _context.motherboards.AddOrUpdate(viewModel.Motherboard); _context.SaveChanges(); break;
-                case 2: viewModel.Cpu.productId = viewModel.Product.id; _context.cpus.AddOrUpdate(viewModel.Cpu); _context.SaveChanges(); break;
-                case 3: viewModel.Gpu.productId = viewModel.Product.id; _context.gpus.AddOrUpdate(viewModel.Gpu); _context.SaveChanges(); break;
-                case 4: viewModel.Psu.productId = viewModel.Product.id; _context.psus.AddOrUpdate(viewModel.Psu); _context.SaveChanges(); break;
-                case 5: viewModel.Ram.productId = viewModel.Product.id; _context.rams.AddOrUpdate(viewModel.Ram); _context.SaveChanges(); break;
-                case 6: viewModel.HardDisc.productId = viewModel.Product.id; _context.hardDiscs.AddOrUpdate(viewModel.HardDisc); _context.SaveChanges(); break;
-                case 8: viewModel.Monitor.productId = viewModel.Product.id; _context.monitors.AddOrUpdate(viewModel.Monitor); _context.SaveChanges(); break;
-            }
+            if (viewModel.Image1 != null) { viewModel.Product.image1 = Path.GetFileName(viewModel.Image1.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image1); viewModel.Image1.SaveAs(fullPath); }
+            if (viewModel.Image2 != null) { viewModel.Product.image2 = Path.GetFileName(viewModel.Image2.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image2); viewModel.Image2.SaveAs(fullPath); }
+            if (viewModel.Image3 != null) { viewModel.Product.image3 = Path.GetFileName(viewModel.Image3.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image3); viewModel.Image3.SaveAs(fullPath); }
+            if (viewModel.Thumbnail != null) { viewModel.Product.thumbnail = Path.GetFileName(viewModel.Thumbnail.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.thumbnail); viewModel.Thumbnail.SaveAs(fullPath); }
+
+
             var product = viewModel.Product;
+            product.id = viewModel.ProductID;
+            product.categoryId = viewModel.CategoryID;
             product.createdAt = DateTime.Now;
+          
             _context.products.AddOrUpdate(product);
             _context.SaveChanges();
+
+            switch (viewModel.Product.categoryId)
+            {
+                case 1: viewModel.Motherboard.productId = viewModel.Product.id;viewModel.Motherboard.id=viewModel.ItemID ; _context.motherboards.AddOrUpdate(viewModel.Motherboard); _context.SaveChanges(); break;
+                case 2: viewModel.Cpu.productId = viewModel.Product.id; viewModel.Cpu.id = viewModel.ItemID; _context.cpus.AddOrUpdate(viewModel.Cpu); _context.SaveChanges(); break;
+                case 3: viewModel.Gpu.productId = viewModel.Product.id; viewModel.Gpu.id = viewModel.ItemID; _context.gpus.AddOrUpdate(viewModel.Gpu); _context.SaveChanges(); break;
+                case 4: viewModel.Psu.productId = viewModel.Product.id; viewModel.Psu.id = viewModel.ItemID; _context.psus.AddOrUpdate(viewModel.Psu); _context.SaveChanges(); break;
+                case 5: viewModel.Ram.productId = viewModel.Product.id; viewModel.Ram.id = viewModel.ItemID; _context.rams.AddOrUpdate(viewModel.Ram); _context.SaveChanges(); break;
+                case 6: viewModel.HardDisc.productId = viewModel.Product.id; viewModel.HardDisc.id = viewModel.ItemID; _context.hardDiscs.AddOrUpdate(viewModel.HardDisc); _context.SaveChanges(); break;
+                case 8: viewModel.Monitor.productId = viewModel.Product.id; viewModel.Monitor.ID = viewModel.ItemID; _context.monitors.AddOrUpdate(viewModel.Monitor); _context.SaveChanges(); break;
+                case 9: viewModel.Box.productId = viewModel.Product.id; viewModel.Box.id = viewModel.ItemID; _context.boxes.AddOrUpdate(viewModel.Box); _context.SaveChanges(); break;
+            }
+           
 
             return RedirectToAction("Index");
         }
@@ -338,13 +311,13 @@ namespace Eshop.Controllers
                 case 5: _context.rams.Remove(_context.rams.SingleOrDefault(x => x.productId == product.id)); _context.SaveChanges(); break;
                 case 6: _context.hardDiscs.Remove(_context.hardDiscs.SingleOrDefault(x => x.productId == product.id)); _context.SaveChanges(); break;
                 case 8: _context.monitors.Remove(_context.monitors.SingleOrDefault(x => x.productId == product.id)); _context.SaveChanges(); break;
+                case 9: _context.boxes.Remove(_context.boxes.SingleOrDefault(x => x.productId == product.id)); _context.SaveChanges(); break;
 
             }
             _context.products.Remove(product);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
 
         public ActionResult EditRole(int? id)
         {
@@ -362,27 +335,51 @@ namespace Eshop.Controllers
                     _context.SaveChanges();
                     break;
             }
-
-
-
             return RedirectToAction("CreateRole");
         }
-        public ActionResult CreateRole()
+        public ActionResult CreateRole(int?page,string category,string livesearchtags)
         {
-
             var userRoles = _context.UserRoleMappings
                 .Include(u => u.User)
                 .Include(u => u.Role)
-                .ToList();
+                .AsQueryable();
 
+
+            if (!string.IsNullOrEmpty(livesearchtags))
+            {
+                char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
+                string[] words = livesearchtags.Split(delimiterChars);
+                userRoles = userRoles.Where(u => words.Any(w => u.User.address.Contains(w) ||
+                                                              u.User.Email.Contains(w) ||
+                                                              u.User.LastName.Contains(w) ||
+                                                              u.User.FirstName.Contains(w) ||
+                                                              u.User.Phone.Contains(w) ||
+                                                              u.User.Username.Contains(w) ||
+                                                              u.Role.RoleName.Contains(w)
+                                          ));
+            }
+
+
+
+            switch (category)
+            {
+                case "Admin":
+                    userRoles = userRoles.Where(u => u.RoleId == 1);
+                    break;
+                case "Customer":
+                    userRoles = userRoles.Where(u => u.RoleId == 2);
+                    break;
+            }
+
+
+
+            userRoles = userRoles.OrderBy(x => x.User.LastName);
             var userViewModel = new UserRoleViewModel()
             {
-                UserRoleMappings = userRoles
+                UserRoleMappings = userRoles.ToPagedList(page ?? 1, 6)
             };
-            return View(userViewModel);
-        }
-
-       
+            return View("CreateRole", userViewModel);
+        }          
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -391,5 +388,6 @@ namespace Eshop.Controllers
             }
             base.Dispose(disposing);
         }
+     
     }
 }

@@ -11,16 +11,39 @@ namespace Eshop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class cpu
     {
         public int id { get; set; }
         public int productId { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public Nullable<int> cores { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public Nullable<int> threads { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string model { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string frequency { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string chipset { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string socket { get; set; }
     
         public virtual product product { get; set; }

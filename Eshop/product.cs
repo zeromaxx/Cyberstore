@@ -17,6 +17,7 @@ namespace Eshop
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public product()
         {
+            this.boxes = new HashSet<box>();
             this.carts = new HashSet<cart>();
             this.cpus = new HashSet<cpu>();
             this.Desktops = new HashSet<Desktop>();
@@ -25,6 +26,7 @@ namespace Eshop
             this.Desktops3 = new HashSet<Desktop>();
             this.Desktops4 = new HashSet<Desktop>();
             this.Desktops5 = new HashSet<Desktop>();
+            this.Desktops6 = new HashSet<Desktop>();
             this.favourites = new HashSet<favourite>();
             this.gpus = new HashSet<gpu>();
             this.hardDiscs = new HashSet<hardDisc>();
@@ -49,6 +51,8 @@ namespace Eshop
         public Nullable<int> categoryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<box> boxes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cart> carts { get; set; }
         public virtual category category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -66,6 +70,8 @@ namespace Eshop
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Desktop> Desktops5 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Desktop> Desktops6 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<favourite> favourites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<gpu> gpus { get; set; }
@@ -81,5 +87,14 @@ namespace Eshop
         public virtual ICollection<psu> psus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ram> rams { get; set; }
+        public motherboard thisMotherboard { get; set; }
+        public cpu thisCpu { get; set; }
+        public gpu thisGpu { get; set; }
+        public ram thisRam { get; set; }
+        public hardDisc thisHardDisc { get; set; }
+        public box thisBox { get; set; }
+
+        public psu thisPsu { get; set; }
+        public monitor thisMonitor { get; set; }
     }
 }
