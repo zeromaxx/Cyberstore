@@ -138,6 +138,14 @@
             </div>
         </div>
 
+        if (User.IsInRole("Admin"))
+        {
+            <div class="svg-messenger-icon3" id="svg3">
+                @Html.ActionLink("Complete Support", "CompleteConnection", "Home", null,
+            new { @class = "register-complete-btn2" })
+            </div>
+        }
+
         <div style="z-index:300;" id="detailsDiv" class="@userNameZor">
 
             <div name="CustomerSupportChat">

@@ -47,7 +47,6 @@ namespace Eshop
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Shipping> Shippings { get; set; }
         public virtual DbSet<SupportMessage> SupportMessages { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserRoleMapping> UserRoleMappings { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }

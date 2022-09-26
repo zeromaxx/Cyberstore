@@ -133,7 +133,7 @@
                     <td></td>
                     <td></td>
                     <td>Shipping Rate</td>
-                    <td id="shipping-rate" class="order-checkout-total"> 0  &euro;</td>
+                    <td id="shipping-rate" class="order-checkout-total">0</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -174,8 +174,10 @@
         } else {
             orderCompleteModal.classList.add('show-order-complete-modal');
         }
+
         let total = parseInt($('#shipping-rate').text());
-        let _total = @Html.Raw(Model.TotalPrice)
+        console.log(total)
+        let _total = @Html.Raw(Model.TotalPrice) + total
 
         paypal.Button.render({
             env: "sandbox",
@@ -208,11 +210,11 @@
 
         $(document).ready(function () {
             $('#shipping').change(function () {
-                var s = $('#shipping').val() + '\u20AC';
+                var s = $('#shipping').val();
                 $('#shipping-rate').html(s);
                 var shippingValue = parseFloat(s);
                 var subTotal = parseFloat($('#subTotal').text());
-                var grand = parseFloat(shippingValue + subTotal) + '\u20AC';
+                var grand = parseFloat(shippingValue + subTotal);
                 $('#grand-total').html(grand);
             })
 

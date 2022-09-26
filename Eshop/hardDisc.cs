@@ -11,31 +11,14 @@ namespace Eshop
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class hardDisc
     {
         public int id { get; set; }
         public int productId { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string type { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string capacity { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string connector { get; set; }
-
-        [Required]
-        [StringLength(20)]
-        [RegularExpression(@"^[^,:*?""<>\|]*$")]
         public string frequency { get; set; }
     
         public virtual product product { get; set; }

@@ -4182,3 +4182,14 @@ REGISTER*/
             margin: auto;
         }
 }
+
+.svg-messenger-icon3 {
+    /*cursor: pointer;*/
+    position: fixed;
+    bottom: -70%;
+    right: 1.8%;
+    z-index: 200;
+    width: 300px;
+    height: 500px;
+    /*  border-radius:100%;*/
+}

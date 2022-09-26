@@ -382,7 +382,7 @@ namespace Eshop.Controllers
                 id = User.Identity.Name;
                 //receiver = emails.ElementAt(random.Next(0, emails.Count)).Value; // COMMENT OUT WHEN DONE CHANGED VALUE FOR TESTING
                 //receiverName = emails.FirstOrDefault(u => u.Value == receiver).Key; // COMMENT OUT WHEN DONE CHANGED VALUE FOR TESTING
-                receiver = "alexmantzaris.kar@gmail.com";
+                receiver = "zeromixer2010@yahoo.com";
                 receiverName = "alex";
                 verifyUrl = "/Home/AdminSupport?receiver=" + receiver; //HERE TO SEND ADMIN 
                 link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
@@ -463,7 +463,7 @@ namespace Eshop.Controllers
             if (ModelState.IsValid && User.IsInRole("Customer"))
             {
                 var senderEmail = new MailAddress("zeromixer2000@gmail.com", "CyberStore");
-                var receiverEmail = new MailAddress("alexmantzaris.kar@gmail.com", "Receiver");  //ADD receiver  HERE - FIRST VARIABLE!
+                var receiverEmail = new MailAddress("zeromixer2010@yahoo.com", "Receiver");  //ADD receiver  HERE - FIRST VARIABLE!
                 var password = "xiezsjucrmgpoxug";
                 var subject = "Help is needed";
                 var body = $"Hey , {receiverName} please join the support chat {link}";
@@ -1060,7 +1060,38 @@ namespace Eshop.Controllers
             }
             return list;
         }
-       
+
+        public ActionResult CompleteConnection()
+        {
+
+            var adminEmail = User.Identity.Name;
+
+
+
+            var adminId = db.Users.SingleOrDefault(u => u.Email == adminEmail).UserId;
+            var connection = db.Connections.ToList().Where(con => con.AdminId == adminId);
+            foreach (var con in connection)
+            {
+                db.Connections.Remove(con);
+            }
+
+            db.SaveChanges();
+            var viewModel = new FavouriteViewModel()
+            {
+                Admin = db.Users.SingleOrDefault(u => u.Email == adminEmail),
+                Products = db.products.ToList(),
+                Users = db.Users.ToList(),
+                IsActive = false
+            };
+
+
+
+            return RedirectToAction("Index", viewModel);
+
+
+
+        }
+
         public User Me()
         {
             var _thisUser = db.Users.SingleOrDefault(x => x.Email == this.User.Identity.Name);
