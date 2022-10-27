@@ -1,3 +1,3 @@
 # Cyberstore
-An Ecommerce Application , where you can add products to your cart and pay with Paypal.
+An Ecommerce Website , where you can add products to your cart and pay with Paypal.
 
