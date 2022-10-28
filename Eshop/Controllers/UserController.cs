@@ -193,7 +193,7 @@ namespace Eshop.Controllers
             return View(viewmodel);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Exclude = "User,Email,Users")] RegistrationViewModel reg, string ReturnUrl = "")
         {
             string message = "";

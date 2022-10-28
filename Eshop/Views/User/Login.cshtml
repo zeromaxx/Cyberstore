@@ -18,40 +18,48 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="login-form">
-    <h2>Login</h2>
-    @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "" })
-    @Html.EditorFor(m => m.Username, new { htmlAttributes = new { @class = "" } })
-    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "" })
+    <div class="login-form">
+        <h2>Login</h2>
+        @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Username, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "" })
 
-    @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "" })
-    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "" } })
-    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "" })
+        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "" })
+        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "" })
 
-    <div class="login-form-remember-me">
+        <div class="login-form-remember-me">
 
-        @Html.EditorFor(model => model.RememberMe)
-        @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "" })
-        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "" })
+            @Html.EditorFor(model => model.RememberMe)
+            @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "" })
+            @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "" })
 
-        @Html.HiddenFor(m => m.Email)
-        <input type="submit" value="Log In" class="btn btn-default" />
-         @if(TempData["loginWrongMessage"] != null)
+            @Html.HiddenFor(m => m.Email)
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <input type="submit" value="Log In" class="btn btn-default" />
+                <button class="admin-login-btn" id="admin-login">Login as Admin</button>
+                <button class="demo-login-btn" id="user-demo-login">Login as User</button>
+            </div>
+            @if (TempData["loginWrongMessage"] != null)
             {
-                <p style="color:red"><b>Please try again! Wrong user name or password</b></p>
+                <p style="color:red">
+                    <b>Please try again! Wrong user name or password</b>
+                </p>
             }
-            @if(TempData["Unverified Email"] != null)
+            @if (TempData["Unverified Email"] != null)
             {
-                <p style="color:red"><b>@TempData["Unverified Email"]</b></p>
+                <p style="color:red">
+                    <b>@TempData["Unverified Email"]</b>
+                </p>
             }
+        </div>
+        @Html.ActionLink("Don't have an Account?", "Register", "User")
+        <div>
+            @Html.ActionLink("Forgot Password?", "ForgotPassword", "User")
+
+        </div>
+
     </div>
-    @Html.ActionLink("Don't have an Account?", "Register", "User")
-<div>
-    @Html.ActionLink("Forgot Password?", "ForgotPassword", "User")
-
-</div>
-
-</div>
 }
 
 
@@ -62,4 +70,36 @@
     <script>src = "~/Scripts/jquery.validate.unobtrusive.min.js"</script>
     <script src="~/Scripts/Navbar Toggle.js"></script>
     <script src="~/Scripts/LiveSearch.js"></script>
+    <script>
+        $('#admin-login').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/User/Login",
+                data: { Username: 'admin', Password: 'admin1!' },
+                success: function (data) {
+                    window.location.href = "/";
+                },
+                fail: function () {
+                }
+            });
+        })
+
+        $('#user-demo-login').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/User/Login",
+                data: { Username: 'demoUser', Password: 'Fruizele1!' },
+                success: function (data) {
+                    window.location.href = "/";
+                },
+                fail: function () {
+                }
+            });
+        })
+
+    </script>
 }

@@ -2473,7 +2473,7 @@ textarea {
 }
 
 .login-form input[type=submit] {
-    width: 15%;
+    width: 165px;
     outline: 0;
     line-height: 20px;
     font-weight: 500;
@@ -4192,4 +4192,25 @@ REGISTER*/
     width: 300px;
     height: 500px;
     /*  border-radius:100%;*/
+}
+
+.admin-login-btn, .demo-login-btn {
+    /*width:25%;*/
+    width: 165px;
+    outline: 0;
+    line-height: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0074D9;
+    border: 2px solid transparent;
+    padding: 13px 31px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.demo-login-btn {
+    background: #7FDBFF;
 }

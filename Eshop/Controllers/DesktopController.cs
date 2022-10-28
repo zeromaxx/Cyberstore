@@ -222,7 +222,7 @@ namespace Eshop.Controllers
                     
                     if(Money < 800)
                     {
-                        _msg = "We couldnt find a composition with " + Money + " $ in This Category.This is an option with 980 $ which is the cheepest one";
+                        _msg = "We couldnt find a composition with " + Money + " $ in This Category.This is an option with 980 $ which is the cheapest one";
                         _id = 1031;
                     }
 
