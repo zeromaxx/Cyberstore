@@ -4116,7 +4116,7 @@ REGISTER*/
         height: 220px;
         border-radius: 50%;
         transition: .5s ease;
-        backface-visibility: hidden;
+        /*backface-visibility: hidden;*/
     }
 
 .about-us-img-container {

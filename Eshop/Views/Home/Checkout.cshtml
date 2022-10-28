@@ -183,7 +183,8 @@
             env: "sandbox",
             client: {
                 sandbox: 'ARBj7NBTRc6e-37YskyvarP4AJLgKYy46IIRFGVYYCrdDb3xAfVD0gJgsvmlqdt2RzV9jacoZcM1A8Yn'
-            },
+            }           
+            
             // Customize button
             locale: "en_US",
             commit: true,
@@ -206,8 +207,9 @@
 
                 });
             }
+            
         }, "#paypal-btn");
-
+        console.log(paypal)
         $(document).ready(function () {
             $('#shipping').change(function () {
                 var s = $('#shipping').val();
