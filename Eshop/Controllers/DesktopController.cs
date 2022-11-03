@@ -267,7 +267,7 @@ namespace Eshop.Controllers
                     }break;
                     
                 case "Workstation":
-                    if (Money < 550 && Money <650)
+                    if (Money < 650)
                     {
                         price = 590;
                         _msg = Tools.Tools.MsgBuilder(price, Money);
