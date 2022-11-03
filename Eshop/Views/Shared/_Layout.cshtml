@@ -42,7 +42,6 @@
             </div>
             <div>
                 <ul class="navbar-sub">
-                    <li><a class="location-icon nav-link" target="_blank" href="https://www.google.com/maps/search/peoplecert/37.9801572,23.7322301,17z/data=!3m1!4b1">Store Locator</a></li>
 
                     @if (Request.IsAuthenticated)
                     {
@@ -68,7 +67,7 @@
     <section class="white-section">
         <div class="navbar-search-container">
             <div class="navbar-brand">
-                <a href="~/"><img class="nav-logo" src="~/Images/Icons/navlogo.png" /></a>
+                <a href="@Url.Action("Index","Home")"><img class="nav-logo" src="~/Images/Icons/navlogo.png" /></a>
             </div>
             <div class="search">
                 <form class="search-form">

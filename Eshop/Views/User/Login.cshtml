@@ -35,10 +35,9 @@
             @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "" })
 
             @Html.HiddenFor(m => m.Email)
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <input type="submit" value="Log In" class="btn btn-default" />
+            <div style="display:flex;flex-direction:column;justify-content:flex-start;">
                 <button class="admin-login-btn" id="admin-login">Login as Admin</button>
-                <button class="demo-login-btn" id="user-demo-login">Login as User</button>
+                <input style="margin-top:0.5rem" type="submit" value="Log In" class="btn btn-default" />
             </div>
             @if (TempData["loginWrongMessage"] != null)
             {
@@ -79,22 +78,7 @@
                 url: "/User/Login",
                 data: { Username: 'admin', Password: 'admin1!' },
                 success: function (data) {
-                    window.location.href = "/";
-                },
-                fail: function () {
-                }
-            });
-        })
-
-        $('#user-demo-login').click(function (e) {
-            e.preventDefault();
-
-            $.ajax({
-                type: "POST",
-                url: "/User/Login",
-                data: { Username: 'demoUser', Password: 'Fruizele1!' },
-                success: function (data) {
-                    window.location.href = "/";
+                    window.location.href = "/Home/Index";
                 },
                 fail: function () {
                 }

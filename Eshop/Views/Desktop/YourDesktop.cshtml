@@ -662,12 +662,12 @@
     @if (Model.IsASuggestion == false)
     {
         <div class="my-desktop-img-container">
-            <img src="~/Images/Other/YouDefultDesktop.jpg" alt="">
+            <img src="~/Images/Suggestions/sd8.jpeg" alt="">
             <div class="addDesktopToCartContainer">
-                    <h3>
-                        Total :
-                        <span>  @Model.desktop.price &euro;</span>
-                    </h3>
+                <h3>
+                    Total :
+                    <span>  @Model.desktop.price &euro;</span>
+                </h3>
 
                 <a href="@Url.Action("Index", "Cart")" class="add-to-cart-btn" id="AddDesktopToCart_">Add To Cart</a>
             </div>
@@ -678,12 +678,7 @@
     else
     {
         <div class="my-desktop-img-container">
-            <div>
-                <h5 style="text-align:center">
-                  @Model.SuggestionDescription
-                </h5>
-            </div>
-            <img  src="@Url.Content("~/Images/Suggestions/"+ @Model.SuggestionImage)" alt="">
+            <img src="@Url.Content("~/Images/Suggestions/"+ @Model.SuggestionImage)" alt="">
             <div class="addDesktopToCartContainer">
                 <div>
                     <h3>
@@ -691,7 +686,7 @@
                         <span>  @Model.desktop.price &euro;</span>
                     </h3>
                 </div>
-                <button class="add-to-cart-btn" id="AddDesktopToCart_">Add Desktop to cart</button>
+                <a href="@Url.Action("Index", "Cart")" class="add-to-cart-btn" id="AddDesktopToCart_">Add To Cart</a>
             </div>
 
         </div>
@@ -699,8 +694,19 @@
 
 </div>
 
-<div class="suggestion-message-container">
-    <h3 class="suggestion-message">@Model.SuggestionMessage</h3>
+<div class="suggest-modal modal-hidden">
+
+    <img width="60" class="warning-sign" src="~/Images/Icons/warning.png" alt="">
+    
+        @if (Model.IsASuggestion == true)
+        {
+            <h5 class="suggestion-text" style="text-align:center">
+                @Model.SuggestionDescription
+            </h5>
+        }
+<div>
+    <button class="btn-suggest-close-modal">Got it</button>
+</div>
 </div>
 
 <script>
@@ -737,6 +743,8 @@
             }
         })
     });
+
+   
 </script>
 @section scripts{
 
@@ -745,4 +753,16 @@
     <script src="~/Scripts/LiveSearch.js"></script>
 
     <script src="~/Scripts/Navbar Toggle.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.suggest-modal').hide();
+            if (!$.trim($(".suggestion-text").html()) == '') {
+                $('.suggest-modal').show();
+            }
+
+            $('.btn-suggest-close-modal').click(() => {
+                $('.suggest-modal').hide();
+            })
+        })
+    </script>
 }
