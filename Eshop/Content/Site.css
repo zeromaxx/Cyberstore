@@ -1947,18 +1947,20 @@ textarea {
 .toast-container {
     background: white;
     border-left: 5px solid #5677fc;
-    width: 450px;
-    height: 85px;
+    text-align:center;
+    width: auto;
+    padding:0.5rem;
+    /*height: 85px;*/
     position: fixed;
-    bottom: 0;
-    right: 0;
-    transform: translateX(100%);
+    bottom: 1%;
+    right: 1%;
     transition: all linear 0.3s;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     display: flex;
     z-index: 100;
-    visibility:hidden;
+    opacity: 0;
+    transition: opacity 250ms 700ms ease;
 }
 
     .toast-container i {
@@ -1967,8 +1969,8 @@ textarea {
     }
 
 .show-toast.toast-container {
-    visibility:visible;
-    transform: translateX(0);
+    opacity:1;
+
 }
 
 .toast-icon {

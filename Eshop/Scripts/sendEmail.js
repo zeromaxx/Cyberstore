@@ -15,7 +15,6 @@ $(document).ready(function () {
             data: { receiver: $('#receiverEmail').val() },
             success: function (data) {
                 $('#receiverEmail').val("");
-                $("#receiverEmail").removeClass('emptyInput');
                 $('#status').text(`${data.status}`);
                 $('.toast-container').addClass('show-toast');
                 setTimeout(function () {
