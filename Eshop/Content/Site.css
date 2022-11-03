@@ -1341,16 +1341,6 @@ td .fa-times {
     fill: none;
 }
 
-.cart-div {
-    height: 43px;
-    width: 43px;
-    border-radius: 50%;
-    background-color: #f9f9f9;
-    position: relative;
-    transition: var(--transition);
-    cursor: pointer;
-    border: none;
-}
 
 .svg-container {
     display: flex;
@@ -1693,15 +1683,6 @@ textarea {
         font-weight: bold;
     }
 
-.details-info-container button {
-    font-size: 14px;
-    color: #fff;
-    background-color: var(--blue-primary-clr);
-    border: 2px solid transparent;
-    padding: 13px 31px;
-    cursor: pointer;
-    width: 150px;
-}
 
     .details-info-container button:hover {
         transition: var(--transition);
@@ -1781,10 +1762,10 @@ textarea {
         color: #b1b1b1;
     }
 
-.hidden {
+/*.hidden {
     visibility: hidden;
     opacity: 0;
-}
+}*/
 
 @media (max-width: 1200px) {
     .details-container {
@@ -1977,6 +1958,7 @@ textarea {
     border-radius: 3px;
     display: flex;
     z-index: 100;
+    visibility:hidden;
 }
 
     .toast-container i {
@@ -1985,6 +1967,7 @@ textarea {
     }
 
 .show-toast.toast-container {
+    visibility:visible;
     transform: translateX(0);
 }
 
@@ -2889,33 +2872,63 @@ textarea {
     }
 
 .addDesktopToCartContainer {
-    width: fit-content;
+    /*width: fit-content;*/
     margin: auto;
-    padding: 15px;
+    padding: 2rem;
     border: 1px solid #e5e7f2;
     font-weight: 600;
     text-align: center;
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
 }
 
-    .addDesktopToCartContainer button {
-        color: white;
-        background-color: #5677fc;
-        border: 2px solid transparent;
-        font-weight: 500;
-        padding: 16px 80px;
-        font-size: 12px;
-        cursor: pointer;
-        width: auto;
-        outline: 0;
-        transition: all linear 0.3s;
-        text-transform: capitalize;
-        margin-top: 1.5rem;
-    }
+.add-to-cart-btn {
+    color: white;
+    background-color: #5677fc;
+    border: 2px solid transparent;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 2em;
+    padding: 4px 25px;
+    font-size: 12px;
+    width: 120px;
+    cursor: pointer;
+    /*width: auto;*/
+    outline: 0;
+    transition: all linear 0.3s;
+    text-transform: capitalize;
+    /*margin-top: 1.5rem;*/
+}
 
-        .addDesktopToCartContainer button:hover {
-            transition: var(--transition);
-            background-color: #3e71fa;
-        }
+.cart-div {
+    height: 43px;
+    width: 43px;
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    position: relative;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+}
+
+.details-info-container button {
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--blue-primary-clr);
+    border: none;
+    border-radius:unset;
+    padding: 13px 31px;
+    cursor: pointer;
+    height:48px;
+    width: 150px;
+}
+
+.addDesktopToCartContainer button:hover {
+    transition: var(--transition);
+    background-color: #3e71fa;
+}
 
 @media (max-width: 1200px) {
     .mydesktop-wrapper {
@@ -3657,7 +3670,8 @@ REGISTER*/
     width: 300px;
     border-radius: 5px;
     position: fixed;
-    right: calc(50% - 150px);
+    right: 0;
+    bottom:0;
     z-index: 10;
     background-color: white;
     text-align: center;
@@ -3669,22 +3683,20 @@ REGISTER*/
     transition: transform ease-in 0.3s;
     border: none;
     box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.10);
-    transform: translateY(-105%);
+    /*transform: translateY(-105%);*/
 }
 
-    .email-sent-notification i {
-        position: absolute;
-        top: 3%;
-        cursor: pointer;
-        right: 3%;
-    }
-
-        .email-sent-notification i:hover {
-            color: #5677fc;
-        }
+.email-sent-notification p {
+    position: absolute;
+    top: 3%;
+    cursor: pointer;
+    right: 3%;
+    font-size:1.5rem;
+    font-weight:bold;
+}
 
 .show-email-notification.email-sent-notification {
-    transform: translateY(0);
+    /*display:block !important;*/
 }
 
 /* Product Comparison List */

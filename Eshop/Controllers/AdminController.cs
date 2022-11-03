@@ -267,10 +267,45 @@ namespace Eshop.Controllers
 
                 return View("Edit", viewModel);
             }
-            if (viewModel.Image1 != null) { viewModel.Product.image1 = Path.GetFileName(viewModel.Image1.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image1); viewModel.Image1.SaveAs(fullPath); }
-            if (viewModel.Image2 != null) { viewModel.Product.image2 = Path.GetFileName(viewModel.Image2.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image2); viewModel.Image2.SaveAs(fullPath); }
-            if (viewModel.Image3 != null) { viewModel.Product.image3 = Path.GetFileName(viewModel.Image3.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image3); viewModel.Image3.SaveAs(fullPath); }
-            if (viewModel.Thumbnail != null) { viewModel.Product.thumbnail = Path.GetFileName(viewModel.Thumbnail.FileName); string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.thumbnail); viewModel.Thumbnail.SaveAs(fullPath); }
+            if (viewModel.Image1 != null) 
+            { 
+                viewModel.Product.image1 = Path.GetFileName(viewModel.Image1.FileName); 
+                string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image1);
+                viewModel.Image1.SaveAs(fullPath);
+            }
+            else
+            {
+                viewModel.Product.image1 = "na_image.jpg";
+            }
+            if (viewModel.Image2 != null) 
+            { 
+                viewModel.Product.image2 = Path.GetFileName(viewModel.Image2.FileName); 
+                string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image2);
+                viewModel.Image2.SaveAs(fullPath); 
+            }
+            else
+            {
+                viewModel.Product.image2 = "na_image.jpg";
+            }
+            if (viewModel.Image3 != null) 
+            { viewModel.Product.image3 = Path.GetFileName(viewModel.Image3.FileName); 
+                string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.image3);
+                viewModel.Image3.SaveAs(fullPath); 
+            }
+            else
+            {
+                viewModel.Product.image3 = "na_image.jpg";
+            }
+            if (viewModel.Thumbnail != null) 
+            { 
+                viewModel.Product.thumbnail = Path.GetFileName(viewModel.Thumbnail.FileName); 
+                string fullPath = Path.Combine(Server.MapPath("~/Images/"), viewModel.Product.thumbnail); 
+                viewModel.Thumbnail.SaveAs(fullPath); 
+            }
+            else
+            {
+                viewModel.Product.thumbnail = "na_image.jpg";
+            }
 
 
             var product = viewModel.Product;

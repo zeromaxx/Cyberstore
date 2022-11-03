@@ -181,7 +181,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Connection.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -455,6 +454,7 @@
     <Content Include="Images\MSIMotherboardZ490ACE_1.jpg" />
     <Content Include="Images\MSIMotherboardZ490ACE_2.jpg" />
     <Content Include="Images\MSIMotherboardZ490ACE_3.jpg" />
+    <Content Include="Images\na_image.jpg" />
     <Content Include="Images\Other\about-img-1.jpg" />
     <Content Include="Images\Other\about-img-2.jpg" />
     <Content Include="Images\Other\about-img-3.jpg" />
@@ -638,11 +638,9 @@
     <Content Include="Views\Home\ProductComparsion.cshtml" />
     <Content Include="Views\Admin\PartialViews\_MonitorPartial.cshtml" />
     <Content Include="Views\Home\PartialViews\_MonitorDetails.cshtml" />
-    <Content Include="Views\Home\test.cshtml" />
     <Content Include="Views\Home\ComparisonTable.cshtml" />
     <Content Include="Views\Home\PartialViews\_comparisonMotherboard.cshtml" />
     <Content Include="Views\Home\PartialViews\_comparisonMonitor.cshtml" />
-    <Content Include="Views\Home\AdminSupport.cshtml" />
     <Content Include="Views\Home\PartialViews\_comparisonCPU.cshtml" />
     <Content Include="Views\Home\PartialViews\_comparisonGPU.cshtml" />
     <Content Include="Views\Home\PartialViews\_comparisonHardDisc.cshtml" />
@@ -653,6 +651,7 @@
     <Content Include="Views\Home\PartialViews\_comparisonBox.cshtml" />
     <Content Include="Views\Home\PartialViews\_BoxDetails.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,7 +16,7 @@ namespace Eshop.Tools
         }
         public static string MsgOverRun(int price, double Money)
         {
-            var msg = $"{Money} $ for the specific category is too high. Try again by choose another category of usage or you can choose this composition above with {price} $";
+            var msg = $"{Money} $ for the specific category is too high. Try again choosing another category, or you can choose this composition with {price} $";
             return msg;
         }
 

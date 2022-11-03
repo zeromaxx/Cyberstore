@@ -169,20 +169,20 @@ namespace Eshop.Controllers
             var _id = 0;
             var _desc = "";
 
-            if (Money < 300)
-            {
-                Suggestion sug = new Suggestion()
-                {
-                    money = Money,
+            //if (Money < 300)
+            //{
+            //    Suggestion sug = new Suggestion()
+            //    {
+            //        money = Money,
 
-                };
-                return View(sug);
-            }
+            //    };
+            //    return View(sug);
+            //}
 
             switch (option)
             {
                 case "Simple use or future upgrade":
-                    if (Money >= 300 && Money <= 400)  // id 2027 price 356 (300 - 400)
+                    if (Money >= 0 && Money <= 400)  // id 2027 price 356 (300 - 400)
                     {
                         price = 356;
                         if (Money < 340)
@@ -222,7 +222,7 @@ namespace Eshop.Controllers
                     
                     if(Money < 800)
                     {
-                        _msg = "We couldnt find a composition with " + Money + " $ in This Category.This is an option with 980 $ which is the cheapest one";
+                        _msg = "We couldn't find a composition with " + Money + " $. This is an option with 980 $ which is the cheapest one";
                         _id = 1031;
                     }
 

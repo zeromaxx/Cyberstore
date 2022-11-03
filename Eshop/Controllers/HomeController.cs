@@ -22,7 +22,6 @@ namespace Eshop.Controllers
         static int _productId = 0;
         static int _desktopId = 0;
         static decimal _price = 0;
-        static User ThisUser;
         public Dictionary<string, string> emails;
 
         private readonly Entities db = new Entities(); //Readonly allagh JJJ
@@ -31,12 +30,10 @@ namespace Eshop.Controllers
         {
             db = new Entities();    //Constructor 
             connection = new Connection();
-            emails = new Dictionary<string, string>();
-            emails.Add("Yannis", "hxo999@yahoo.gr");
-            emails.Add("Thodoris", "thestas@yahoo.com");
-            emails.Add("Aris", "zeromixer2010@yahoo.com");
-            emails.Add("Alex", "alexmantzaris.kar@gmail.com");
-            emails.Add("Tasos", "tasosadam1991@gmail.com");
+            emails = new Dictionary<string, string>
+            {
+                { "Aris", "zeromixer2010@yahoo.com" }
+            };
         }
 
         public ActionResult Index()
@@ -81,164 +78,14 @@ namespace Eshop.Controllers
             return View();
         }
 
-        [Route("/Home/AdminSupport/{receiver}")] //id equals Email here
-        public ActionResult AdminSupport(string receiver = "")
+        public ActionResult Contact()
         {
 
-            int UserId = 0;
-            int AdminId = 0;
-            int UserIdjoiningSup = 0;
-            ConnectionViewModel viewModel = null;
-
-
-            ViewBag.NoConnection = "pending";
-
-            if (!db.Users.Any(u => u.Email.Equals(receiver)))
-                return Redirect("~/");
-
-            //Getting USER from DB
-            var userLoggedIn = db.Users.FirstOrDefault(u => u.Email.Equals(User.Identity.Name));
-            var userJoiningSupport = db.Users.FirstOrDefault(u => u.Email.Equals(receiver));
-            if (userLoggedIn.orders != null || User.IsInRole("Admin"))
-            {
-
-                UserDTO userDTOLoggedIn = new UserDTO();
-                var dtoUser = Mapper.Map(userLoggedIn, userDTOLoggedIn);
-                if (dtoUser != null)
-                {
-                    UserId = dtoUser.UserId;
-                }
-                UserDTO userDToJoiningSupport = new UserDTO();
-                var dtoUserJoiningSupport = Mapper.Map(userJoiningSupport, userDToJoiningSupport);
-
-                UserIdjoiningSup = dtoUserJoiningSupport.UserId;
-
-                //Viewbag the bag out of em
-                ViewBag.FullName = dtoUser.FirstName + " " + dtoUser.LastName;
-                ViewBag.FullNameSupport = dtoUserJoiningSupport.FirstName + " " + dtoUserJoiningSupport.LastName;
-                ViewBag.Username = dtoUserJoiningSupport.Username;
-
-
-                //TempData["User"] = dtoUserJoiningSupport.Username;
-
-
-                string userType = "admin"; //guest
-                if (User.IsInRole("Customer"))
-                    userType = "customer"; //owner
-
-
-
-                //IF ADMIN IS CONNECTED CHECK IF THE CONNECTION USER-ADMIN DONE
-                if (userType == "admin")
-                {
-                    ViewBag.UserType = "admin";
-
-                    var userAdmin = db.Users.FirstOrDefault(u => u.Email.Equals(receiver)); //FOR TESTING PURPOSES ADD HERE THE EMAIL - FOR SECURITY PURPOSES HERE ADD IDENTITY NAME
-
-                    UserDTO userDTOAdmin = new UserDTO();
-                    var dtoAdmin = Mapper.Map(userAdmin, userDTOAdmin);
-
-                    AdminId = userDTOAdmin.UserId;
-
-
-                    connection = db.Connections.Where(con => con.AdminId == AdminId).FirstOrDefault(); // TO GET FROM CONNECTION ! - CHECK IF ALSO USERID IN CONNECTIONS TO ADD LATER
-                    if (connection == null)
-                    {
-                        ViewBag.NoConnection = "True";
-                    }
-
-                    else if (connection.UserId != null)
-                    {
-                        ViewBag.NoConnection = "Pending";
-                    }
-                    else if (connection != null)
-                    {
-                        ViewBag.NoConnection = "Pending";
-                    }
-
-                }
-                else
-                {
-
-                    ViewBag.NoConnection = "False";
-                    ViewBag.UserType = userType;
-
-                }
-
-            }
-            else
-            {
-                return Content("<script language='javascript' type='text/javascript'>alert('You need some orders first to contact our Support. Thank you very much!');</script>");
-            }
-
-
-            var userId = 0;
-            User user = null;
-
-            if (User.Identity.Name != "")
-            {
-                user = db.Users.SingleOrDefault(u => u.Email == User.Identity.Name);
-                userId = db.Users.SingleOrDefault(u => u.Email == User.Identity.Name).UserId;
-                TempData["userId"] = userId;
-            }
-
-            var favouriteProducts = db.favourites
-              .Where(u => u.userId == UserId)
-                .ToList()
-               .ToLookup(u => u.ProductId);
-
-            var addedCartProducts = db.carts
-             .Where(u => u.userId == UserId)
-             .ToList()
-             .ToLookup(u => u.productId);
-
-            ViewBag.addedCartProducts = addedCartProducts;
-            ViewBag.Favourites = favouriteProducts;
-
-
-            //ViewBAG MESSAGE COUNT
-            var messageCount = db.SupportMessages.Count(x => x.To == UserId && x.Read == false);
-            ViewBag.MsgCount = messageCount;
-            //RETURN
-            TempData["productsInCart"] = db.carts.Where(u => u.userId == userId).Count();
-
-
-            if (User.IsInRole("Customer"))
-            {
-                viewModel = new ConnectionViewModel()
-                {
-                    IsActive = false,
-                    Connection = connection,
-                    User = db.Users.SingleOrDefault(u => u.UserId == userJoiningSupport.UserId),
-                    Products = db.products.ToList().Take(10),
-                    Favourites = favouriteProducts,
-                    SupportMessages = db.SupportMessages.ToList()
-      
-
-
-                };
-            }
-            if (connection != null && User.IsInRole("Admin"))
-            {
-                viewModel = new ConnectionViewModel()
-                {
-                    IsActive = true,
-                    Admin = db.Users.SingleOrDefault(u => u.UserId == AdminId),
-                    Connection = connection,
-                    User = db.Users.SingleOrDefault(u => u.UserId == userLoggedIn.UserId),
-                    Products = db.products.ToList().Take(10),
-                    Favourites = favouriteProducts,
-                    SupportMessages = db.SupportMessages.ToList()
-
-                };
-            }
-            if (ModelState.IsValid)
-            { return View("AdminSupport", viewModel); }
-
-            return View("AdminSupport");
+            return View();
         }
-        [HttpPost]
-       //id equals Email here
+
+      
+       [HttpPost]
        [ValidateAntiForgeryToken]
         public ActionResult Contactform(ConnectionViewModel conn) //REFACTOR HERE - TEMPDATA NOT SENDING DATA TO VIEW
         {
@@ -247,9 +94,6 @@ namespace Eshop.Controllers
             if (!ModelState.IsValid)
                 TempData["msg"] = "Something went wrong, please try again";
           
-
-
-
             MailMessage mail = new MailMessage();
             Dictionary<string, string>.ValueCollection EmailValues = emails.Values;
 
@@ -258,32 +102,24 @@ namespace Eshop.Controllers
                 mail.To.Add(address.ToString()); //new MailAddress
             }
 
-            if(conn != null)
-            {
-                if (User.Identity.Name.ToString() != conn.Email.ToString())
-                {
-                   
-                    TempData["msg"] = "Provide the email you are logged in with. Thank you!";
-                    return View("AdminSupport", conn);
-                }
-
+                        
                 userInDb = db.Users.FirstOrDefault(u => u.Email == conn.Email);
 
-                mail.From = new MailAddress("zeromixer2000@gmail.com");
+                mail.From = new MailAddress("finalproject20001@gmail.com");
                 //add user name to some one
-                mail.Subject = $"{conn.Email} contacted our support. Answer need to be made before the passage of 24 hours";
+                mail.Subject = $"{conn.Email} Thank you for contacting our support";
                 mail.Body = conn.Email +" "+ "Message: "+" " +conn.Inquiry;
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Credentials = new System.Net.NetworkCredential
-                         ("zeromixer2000@gmail.com", "xiezsjucrmgpoxug");
-                smtp.EnableSsl = true;
-                smtp.Port = 587;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Credentials = new System.Net.NetworkCredential
+                         ("finalproject20001@gmail.com", "lmnanzdhnmlnzzpl"),
+                    EnableSsl = true,
+                    Port = 587
+                };
 
                 smtp.Send(mail);
-                //TempData["msg"] = "Email Sent";
-
 
                 var contact = new Contactform()
                 {
@@ -292,225 +128,14 @@ namespace Eshop.Controllers
                     Email = conn.Email,
                     Enquiry = conn.Inquiry
                 };
-                string userFirstName = userInDb.FirstName;
-                string userLastName = userInDb.LastName;
-                   
-                if (string.IsNullOrEmpty(userFirstName))
-                {
-                    userInDb.FirstName = conn.FirstName;
-                }
-                if (string.IsNullOrEmpty(userLastName))
-                {
-                    userInDb.LastName = conn.LastName;
-                }
                 db.Contactforms.Add(contact);
                 db.SaveChanges();
-                TempData["emailSentNotification"] = "Message Sent! Thank you very much. Contact support service will answer you as soon as possible.";
-            }
-           
+                TempData["emailSentNotification"] = "Message Sent! We will contact you as soon as possible.";
+                      
 
-            return RedirectToAction("AdminSupport");
+            return RedirectToAction("Contact");
         }
-
-
-        [HttpPost]
-        [Route("Home/SendMessage?friend={friend}&{message}")] //id equals Email here
-        public ActionResult SendMessage(string friend, string message)
-        {
-            var LoggedUserEmail = User.Identity.Name;
-            var dbLoggedUser = db.Users.FirstOrDefault(u => u.Email == LoggedUserEmail);
-            //GETING FIRST USER
-
-            var userId = dbLoggedUser.UserId;
-            //GETING SECOND
-            var NextUser = db.Users.SingleOrDefault(u => u.Email == friend);
-
-
-            var userId2 = NextUser.UserId;
-            //SAVE MESSAGES
-
-            SupportMessage support = new SupportMessage();
-
-            support.From = userId;
-            support.To = userId2;
-            support.Message = message;
-            support.DateSent = DateTime.Now;
-            support.Read = false;
-            support.FirstName = dbLoggedUser.FirstName;
-            support.LastName = dbLoggedUser.LastName;
-            support.FromId = userId;
-            support.UserName = dbLoggedUser.Username;
-            support.UserId = dbLoggedUser.UserId;
-
-            db.SupportMessages.AddOrUpdate(support);
-            db.SaveChanges();
-            TempData["message"] = message;
-            ConnectionViewModel viewModel = new ConnectionViewModel()
-            {
-                From = userId,
-                To = userId2,
-                Message = message,
-                DateSent = DateTime.Now,
-                Read = false,
-                FirstName = dbLoggedUser.FirstName,
-                LastName = dbLoggedUser.LastName,
-                FromId = userId,
-                UserName = dbLoggedUser.Username,
-                UserId = dbLoggedUser.UserId
-            };
-
-            TempData["message"] = message;
-            if (message != null)
-                return PartialView("Message", viewModel);
-
-
-            return PartialView("Message");
-
-        }
-
-
-        [Route("/Home/SendEmailToAdmin")]
-        public JsonResult SendEmailToAdmin()
-        {
-            //GET THE CURREMT LOGED IN USER
-            string id = null; string receiver = null; string receiverName = null; string verifyUrl = null; string link = string.Empty;
-            User user = null; User admin = null; bool IsTheSameConnection = true; var adminId = 0;
-            //GETING SOME ADMIN
-            Random random = new Random();
-            if (!User.IsInRole("Admin"))
-            {
-                id = User.Identity.Name;
-                //receiver = emails.ElementAt(random.Next(0, emails.Count)).Value; // COMMENT OUT WHEN DONE CHANGED VALUE FOR TESTING
-                //receiverName = emails.FirstOrDefault(u => u.Value == receiver).Key; // COMMENT OUT WHEN DONE CHANGED VALUE FOR TESTING
-                receiver = "zeromixer2010@yahoo.com";
-                receiverName = "alex";
-                verifyUrl = "/Home/AdminSupport?receiver=" + receiver; //HERE TO SEND ADMIN 
-                link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-                user = db.Users.FirstOrDefault(u => u.Email == id);
-                TempData["receiver"] = receiver;
-            }
-            else
-            {
-                id = User.Identity.Name;
-                receiver = db.Users.SingleOrDefault(u => u.Email == id).Email.ToString();
-                adminId = db.Users.SingleOrDefault(u => u.Email == id).UserId;
-            }
-            admin = db.Users.FirstOrDefault(u => u.Email == receiver);
-            //CREATING CONNECTION FOR CHAT SUPPORT
-            var connection = new Connection();
-            var newConnection = new Connection();
-            connection.Active = false;
-            if (!string.IsNullOrEmpty(id) && db.Users.Any(u => u.Email.ToString() == receiver) && user != null && admin != null)
-            {
-                //GET ALL CONNECTIONS
-                var connections = db.Connections.ToList();
-                //CHECK IF A CONNECTION HAS THE ADMINID
-                if (connections.Count == 0)
-                {
-                    connection.UserId = user.UserId;
-                    connection.AdminId = admin.UserId;
-                    connection.Active = true;
-                    connection.Status = "Live";
-                    db.Connections.AddOrUpdate(connection);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    foreach (var con in connections)
-                    {
-                        //CREATE A NEW CONNECTION
-                        //if (con.AdminId == admin.UserId)
-                        //{
-                        //    connection = con;
-                        //}
-                        if (con.AdminId == admin.UserId && con.UserId != user.UserId)
-                        {
-                            IsTheSameConnection = false;
-                        }
-                        if (con.AdminId == admin.UserId && con.UserId == user.UserId)
-                        {
-                            IsTheSameConnection = true;
-                        }
-                        //if (con.AdminId == adminId && con.UserId == adminId)
-                        //{
-                        //    IsTheSameConnection = true;
-                        //}
-                    }
-                    if (!IsTheSameConnection)
-                    {
-                        //if (db.Connections.ToList().Contains(connection))
-                        //{
-                        newConnection.Status = "Pending";
-                        newConnection.Active = true;
-                        newConnection.AdminId = admin.UserId;
-                        newConnection.UserId = user.UserId;
-                        db.Connections.AddOrUpdate(newConnection);
-                        db.SaveChanges();
-                        //}
-                    }
-                    else
-                    {
-                        connection.UserId = user.UserId;
-                        connection.AdminId = admin.UserId;
-                        connection.Active = true;
-                        connection.Status = "Live";
-                        db.Connections.AddOrUpdate(connection);
-                        db.SaveChanges();
-                    }
-                }
-            }
-            //Sending the email to some admin
-            if (ModelState.IsValid && User.IsInRole("Customer"))
-            {
-                var senderEmail = new MailAddress("zeromixer2000@gmail.com", "CyberStore");
-                var receiverEmail = new MailAddress("zeromixer2010@yahoo.com", "Receiver");  //ADD receiver  HERE - FIRST VARIABLE!
-                var password = "xiezsjucrmgpoxug";
-                var subject = "Help is needed";
-                var body = $"Hey , {receiverName} please join the support chat {link}";
-                var smtp = new SmtpClient
-                {
-                    EnableSsl = true,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail.Address, password),
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                };
-                using (var mess = new MailMessage(senderEmail, receiverEmail)
-                {
-                    Subject = subject,
-                    Body = body
-                })
-                {
-                    smtp.Send(mess);
-                }
-                return Json(new { status = "Thank you very much admin for showing up. Don't forget to send us the email of your feedback on your way out" }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { status = "Something went wrong, please try again" }, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-        [HttpPost]
-        public JsonResult DisplayUnreadMessages()
-        {
-
-            // Get user id
-            User user = db.Users.Where(x => x.Email.Equals(User.Identity.Name)).FirstOrDefault();
-            int userId = user.UserId;
-
-            // Create a list of unread messages
-            List<SupportMessage> list = db.SupportMessages.Where(x => x.To == userId && x.Read == false).ToArray().Select(x => new SupportMessage(x.ToString())).ToList();
-
-            // Make unread read
-            db.SupportMessages.Where(x => x.To == userId && x.Read == false).ToList().ForEach(x => x.Read = true);
-            db.SaveChanges();
-
-            // Return json
-            return Json(list);
-        }
-
-
+        
         public ActionResult Products(int? page, string sortBy, string range, int? categoryId)
         {       
 
@@ -904,7 +529,7 @@ namespace Eshop.Controllers
             }
    
 
-            TempData["OrderComplete"] = "Your purchace was successful. Thank you!";
+            TempData["OrderComplete"] = "Your purchase was successful. Thank you!";
            
             return RedirectToAction("Checkout", "Home");
         }
@@ -1060,37 +685,7 @@ namespace Eshop.Controllers
             }
             return list;
         }
-
-        public ActionResult CompleteConnection()
-        {
-
-            var adminEmail = User.Identity.Name;
-
-
-
-            var adminId = db.Users.SingleOrDefault(u => u.Email == adminEmail).UserId;
-            var connection = db.Connections.ToList().Where(con => con.AdminId == adminId);
-            foreach (var con in connection)
-            {
-                db.Connections.Remove(con);
-            }
-
-            db.SaveChanges();
-            var viewModel = new FavouriteViewModel()
-            {
-                Admin = db.Users.SingleOrDefault(u => u.Email == adminEmail),
-                Products = db.products.ToList(),
-                Users = db.Users.ToList(),
-                IsActive = false
-            };
-
-
-
-            return RedirectToAction("Index", viewModel);
-
-
-
-        }
+             
 
         public User Me()
         {

@@ -24,11 +24,6 @@ namespace Eshop.ViewModels
         public IEnumerable<product> Products { get; set; }
         public ILookup<int, favourite> Favourites { get; set; }
 
-
-        //UNDER HERE ADDING THE SUPPORT VIEWMODELS PROPERTIES BECAUSE OF RESTRICTION WITH RENDER PARTIAL
-        //    NEED TO FIX IN REFACTORING
-
-
         public int Id { get; set; }
 
         public int From { get; set; }
@@ -66,11 +61,6 @@ namespace Eshop.ViewModels
 
         public IEnumerable<User> FromUsers { get; set; }
         public IEnumerable<User> FromAdmins { get; set; }
-        //public string FromUserName { get; set; }
-
-        //public string FromFirstName { get; set; }
-        //public string FromLastName { get; set; }
-
 
         public string UserName { get; set; }
 

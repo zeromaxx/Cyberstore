@@ -235,9 +235,11 @@ namespace Eshop.Controllers
                                                      DateTime.Now.AddMinutes(timeout),
                                                      reg.RememberMe, roles);
                                     string encrypted = FormsAuthentication.Encrypt(ticket);
-                                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-                                    //cookie.Expires = DateTime.Now.AddMinutes(timeout);
-                                    cookie.HttpOnly = true;
+                                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted)
+                                    {
+                                        //cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                                        HttpOnly = true
+                                    };
                                     Response.Cookies.Add(cookie);
 
                                     var details = (from userlist in db.Users
@@ -322,7 +324,7 @@ namespace Eshop.Controllers
         public bool DoesEmailExist(string Email)
         {
             var v = db.Users.Where(a => a.Email == Email).FirstOrDefault();
-            return v == null ? false : true;
+            return v != null;
         }
         [NonAction]
         public void SendVerificationLinkEmail(string email, string activationCode, string emailFor = "Verify") //CAN ALSO INPUT A 3rd VARIABLE FOR FORGOT PASSWORD VERIFICATION AND CHECK IF IS TRUE
@@ -400,7 +402,7 @@ namespace Eshop.Controllers
 
             //Verify Email
             TempData["ForgotPassword"] = "";
-            bool status = false;
+            //bool status = false;
 
 
             var account = db.Users.Where(a => a.Email == Email).FirstOrDefault();
@@ -436,8 +438,10 @@ namespace Eshop.Controllers
             var user = db.Users.Where(u => u.ResetPasswordCode == id).FirstOrDefault();
             if (user != null)
             {
-                ResetPasswordModel model = new ResetPasswordModel();
-                model.ResetCode = id;
+                ResetPasswordModel model = new ResetPasswordModel
+                {
+                    ResetCode = id
+                };
                 return View(model);
             }
             else

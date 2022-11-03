@@ -71,7 +71,7 @@
           
             <div class="col-4-checkout">
                 <button class="checkout-button" id="place-order" type="submit"><span id="paypal-btn"></span></button>
-                @* <input id="place-order" type="submit" value="Place Order">*@
+                 <input id="place-order" type="submit" value="Place Order">
             </div>
 
         </div>
@@ -179,37 +179,37 @@
         console.log(total)
         let _total = @Html.Raw(Model.TotalPrice) + total
 
-        paypal.Button.render({
-            env: "sandbox",
-            client: {
-                sandbox: 'ARBj7NBTRc6e-37YskyvarP4AJLgKYy46IIRFGVYYCrdDb3xAfVD0gJgsvmlqdt2RzV9jacoZcM1A8Yn'
-            }           
+        //paypal.Button.render({
+        //    env: "sandbox",
+        //    client: {
+        //        sandbox: 'ARBj7NBTRc6e-37YskyvarP4AJLgKYy46IIRFGVYYCrdDb3xAfVD0gJgsvmlqdt2RzV9jacoZcM1A8Yn'
+        //    },           
             
-            // Customize button
-            locale: "en_US",
-            commit: true,
-            // set up payment
-            payment: function (data, actions) {
-                return actions.payment.create({
-                    transactions: [{
-                        amount: {
-                            total: _total,
-                            currency: 'USD'
-                        }
-                    }]
+        //    // Customize button
+        //    locale: "en_US",
+        //    commit: true,
+        //    // set up payment
+        //    payment: function (data, actions) {
+        //        return actions.payment.create({
+        //            transactions: [{
+        //                amount: {
+        //                    total: _total,
+        //                    currency: 'USD'
+        //                }
+        //            }]
 
-                });
-            },
-            // Execute payment
-            onAuthorize: function (data, actions) {
-                return actions.payment.execute().then(function () {
-                    document.getElementById('place-order').click();
+        //        });
+        //    },
+        //    // Execute payment
+        //    onAuthorize: function (data, actions) {
+        //        return actions.payment.execute().then(function () {
+        //            document.getElementById('place-order').click();
 
-                });
-            }
+        //        });
+        //    }
             
-        }, "#paypal-btn");
-        console.log(paypal)
+        //}, "#paypal-btn");
+        //console.log(paypal)
         $(document).ready(function () {
             $('#shipping').change(function () {
                 var s = $('#shipping').val();
