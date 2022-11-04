@@ -2590,11 +2590,13 @@ textarea {
 /* Order Complete Modal */
 .order-complete-modal {
     width: 28rem;
-    height: 23rem;
+    height: 18rem;
     color: black;
     position: fixed;
     z-index: 200;
+    font-weight:600;
     bottom: calc(50% - 11.5rem);
+    word-break:break-word;
     background: white;
     transform: translateX(-100%);
     transition: transform linear 0.3s;
@@ -4234,13 +4236,13 @@ REGISTER*/
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20rem;
-    height:15rem;
+    width: 22rem;
+    height:18rem;
     background-color: white;
     z-index: 1000;
     justify-content:space-between;
     transition: all 0.5s;
-    padding:1rem;
+    padding:1.5rem;
     border-radius: 0.475rem;
     display: flex;
     flex-direction: column;
